@@ -18,8 +18,8 @@
         <v-window v-model="step">
           <v-window-item :value="1">
             <v-card-text>
-              <v-text-field v-model="form.id" :rules="id" label="Input NIK" required solo />
-              <v-text-field v-model="form.email" :rules="email" label="Input Email" required solo />
+              <v-text-field v-model="form.id" :rules="id" label="Input NIK" hint="Contoh: 3207012345678912" required solo counter/>
+              <v-text-field v-model="form.email" :rules="email" label="Input Email" hint="Contoh: example@gmail.com" required solo />
             </v-card-text>
           </v-window-item>
           <v-window-item :value="2">
@@ -39,8 +39,14 @@
               <v-combobox v-model="form.gender" rules:="gender" label="Input Jenis Kelamin" solo required
                 :items="items" />
               <v-text-field v-model="form.tempat_lahir" :rules="tempat_lahir" label="Input Tempat Lahir" required solo />
-              <v-text-field v-model="form.birthday" :rules="birthday" label="Input Tanggal Lahir" type="date" required
-                solo />
+                <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
+                  offset-y min-width="auto">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field v-model="form.birthday" :rules="birthday" label="Input Tanggal Lahir" append-icon="mdi-calendar" readonly
+                      v-bind="attrs" v-on="on" solo></v-text-field>
+                  </template>
+                  <v-date-picker v-model="form.birthday" @input="menu = false"></v-date-picker>
+                </v-menu>
               <v-text-field v-model="form.alamat" :rules="alamat" label="Input Alamat" required solo />
               <span class="text-caption grey--text text--darken-1">
                 Please enter a real personal profile for yout account
@@ -143,6 +149,8 @@ export default {
   data() {
     return {
       // dataExist:false,
+      menu: false,
+      modal: false,
       message: '',
       dialog: false,
       dialog2: false,
@@ -168,7 +176,7 @@ export default {
       ],
       id: [
         v => !!v || 'NIK tidak boleh kosong',
-        v => (v && v.length == 16) || 'NIK minimal berjumlah 15 karakter berupa angka',
+        v => (v && v.length >= 15) || 'NIK minimal berjumlah 15 karakter berupa angka',
       ],
       email: [
         v => !!v || 'E-mail tidak boleh kosong',

@@ -4,57 +4,29 @@
       <v-alert border="left" color="teal lighten-1" class="text-subtitle-3 font-weight-bold  white--text">
         My Profile
       </v-alert>
-
-      <v-card>
-        <div class="pa-2">
-          <v-alert color="grey lighten-4" class="text-subtitle-2 text-center font-weight-bold  black--text">
-            Edit My Email
-          </v-alert>
-        </div>
-
-        <v-form ref="form" v-model="valid" lazy-validation class="px-12 py-6 mx-12">
-          <v-container>
-            <v-row align="center" class="py-2">
-
-              <!-- Jika sudah masuk api sepertinya harus menggunakan v-model -->
-              <v-col cols="2">Old Email</v-col>
-              <v-col cols="1">:</v-col>
-              <v-col cols="9">
-                <v-text-field v-model="oldEmail" :counter="50" :rules="emailRules" label="Old Email" solo
-                  required></v-text-field>
-              </v-col>
-
-              <v-col cols="2">New Email</v-col>
-              <v-col cols="1">:</v-col>
-              <v-col cols="9">
-                <v-text-field v-model="newEmail" :counter="50" :rules="nemailRules" label="New Email" solo
-                  required></v-text-field>
-              </v-col>
-
-              <v-btn :disabled="invalid" color="success" @click="dialog = true" block>
-                Kirim
-              </v-btn>
-            </v-row>
-          </v-container>
-        </v-form>
-      </v-card>
-
       <div class="pt-3">
         <v-card>
           <div class="pa-2">
             <v-alert color="grey lighten-4" class="text-subtitle-2 text-center font-weight-bold  black--text">
-              Edit My Private Profile
+              Edit Profile
             </v-alert>
           </div>
           <v-form ref="form" v-model="valid" lazy-validation class="px-12 py-6 mx-12">
             <v-container>
               <v-row align="center" class="py-2">
 
+                <v-col cols="2">Email</v-col>
+                <v-col cols="1">:</v-col>
+                <v-col cols="9">
+                  <v-text-field v-model="newEmail" :rules="newemailRules" label="Email" solo
+                    required></v-text-field>
+                </v-col>
+
                 <!-- Jika sudah masuk api sepertinya harus menggunakan v-model -->
                 <v-col cols="2">Nomor Induk Kependudukan</v-col>
                 <v-col cols="1">:</v-col>
                 <v-col cols="9">
-                  <v-text-field :counter="16" :rules="nikRules" label="NIK" solo required></v-text-field>
+                  <v-text-field :counter="20" :rules="nikRules" label="NIK" solo required></v-text-field>
                 </v-col>
 
                 <v-col cols="2">Nama Lengkap</v-col>
@@ -66,14 +38,13 @@
 
                 <v-col cols="2">Jenis Kelamin</v-col>
                 <v-col cols="1">:</v-col>
-                <v-col cols="2">
+                <v-col cols="3">
                   <v-select :items="jenisKelamin" :rules="jkRules" label="Jenis Kelamin" solo required></v-select>
                 </v-col>
-                <v-col cols="7"></v-col>
 
                 <v-col cols="2">No HP</v-col>
                 <v-col cols="1">:</v-col>
-                <v-col cols="9">
+                <v-col cols="3">
                   <v-text-field :counter="20" :rules="noRules" label="No HP" solo required></v-text-field>
                 </v-col>
 
@@ -155,7 +126,7 @@
 </template>
 <script>
 export default {
-  middleware : ['auth'],
+  middleware: ['auth'],
   head() {
     return {
       title: 'My Profile'
@@ -166,6 +137,15 @@ export default {
     return {
       dialog: false,
       dialog2: false,
+      form : {
+        email :'',
+        nama: '',
+        no_hp: '',
+        gender: '',
+        tempat_lahir: '',
+        birthday: '',
+        alamat: ''
+      },
       nameRules: [
         v => !!v || 'Name masih kosong',
         v => (v && v.length <= 50) || 'Nama harus kurang dari 50 karakter',
@@ -187,10 +167,10 @@ export default {
         v => (v && v.length <= 20) || 'No HP melebihi 20 karakter',
       ],
       tmptRules: [
-
+      v => !!v || 'Tempat lahir masih kosong',
       ],
       tglRules: [
-
+      v => !!v || 'Tanggal lahir masih kosong',
       ],
       oldEmail: '',
       emailRules: [
@@ -198,7 +178,7 @@ export default {
         v => /.+@.+\..+/.test(v) || 'Masukkan email yang valid',
       ],
       newEmail: '',
-      nemailRules: [
+      newemailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'Masukkan email yang valid',
         // v => newEmail==oldEmail || 'Email tidak boleh sama',
