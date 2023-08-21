@@ -11,47 +11,47 @@
               Edit Profile
             </v-alert>
           </div>
-          <v-form ref="form" v-model="valid" lazy-validation class="px-12 py-6 mx-12">
+          <v-form ref="form" lazy-validation class="px-12 py-6 mx-12">
             <v-container>
               <v-row align="center" class="py-2">
 
                 <v-col cols="2">Email</v-col>
                 <v-col cols="1">:</v-col>
                 <v-col cols="9">
-                  <v-text-field v-model="newEmail" :rules="newemailRules" label="Email" solo
+                  <v-text-field v-model="form.email" :rules="emailRules" label="Email" solo
                     required></v-text-field>
                 </v-col>
 
                 <!-- Jika sudah masuk api sepertinya harus menggunakan v-model -->
                 <v-col cols="2">Nomor Induk Kependudukan</v-col>
-                <v-col cols="1">:</v-col>
+                <v-col cols="1">:{{ id }}</v-col>
                 <v-col cols="9">
-                  <v-text-field :counter="20" :rules="nikRules" label="NIK" solo required></v-text-field>
+                  <v-text-field v-model="form.nik" :counter="20" :rules="nikRules" label="NIK" solo required></v-text-field>
                 </v-col>
 
                 <v-col cols="2">Nama Lengkap</v-col>
                 <v-col cols="1">:</v-col>
                 <v-col cols="9">
-                  <v-text-field v-model="name" :counter="50" :rules="nameRules" label="Nama Lengkap" solo
+                  <v-text-field v-model="form.nama" :counter="50" :rules="nameRules" label="Nama Lengkap" solo
                     required></v-text-field>
                 </v-col>
 
                 <v-col cols="2">Jenis Kelamin</v-col>
                 <v-col cols="1">:</v-col>
                 <v-col cols="3">
-                  <v-select :items="jenisKelamin" :rules="jkRules" label="Jenis Kelamin" solo required></v-select>
+                  <v-select v-model="form.gender" :items="jenisKelamin" :rules="jkRules" label="Jenis Kelamin" solo required></v-select>
                 </v-col>
 
                 <v-col cols="2">No HP</v-col>
                 <v-col cols="1">:</v-col>
                 <v-col cols="3">
-                  <v-text-field :counter="20" :rules="noRules" label="No HP" solo required></v-text-field>
+                  <v-text-field v-model="form.no_hp" :counter="20" :rules="noRules" label="No HP" solo required></v-text-field>
                 </v-col>
 
                 <v-col cols="2">Tempat Lahir</v-col>
                 <v-col cols="1">:</v-col>
                 <v-col cols="3">
-                  <v-text-field v-model="temmpat" :counter="100" :rules="tmptRules" label="Tempat Lahir" solo
+                  <v-text-field v-model="form.tempat_lahir" :counter="100" :rules="tmptRules" label="Tempat Lahir" solo
                     append-icon="mdi-map-marker" required></v-text-field>
                 </v-col>
 
@@ -61,7 +61,7 @@
                   <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
                     offset-y min-width="auto">
                     <template v-slot:activator="{ on, attrs }">
-                      <v-text-field v-model="date" label="Picker without buttons" append-icon="mdi-calendar" readonly
+                      <v-text-field v-model="form.birthday" label="Picker without buttons" append-icon="mdi-calendar" readonly
                         v-bind="attrs" v-on="on" solo></v-text-field>
                     </template>
                     <v-date-picker v-model="date" @input="menu = false"></v-date-picker>
@@ -71,7 +71,7 @@
                 <v-col cols="2">Alamat Rumah</v-col>
                 <v-col cols="1">:</v-col>
                 <v-col cols="9">
-                  <v-text-field :counter="100" :rules="alamatRules" label="Alamat" solo append-icon="mdi-map-marker"
+                  <v-text-field v-model="form.alamat" :counter="100" :rules="alamatRules" label="Alamat" solo append-icon="mdi-map-marker"
                     required></v-text-field>
                 </v-col>
                 <v-btn color="success" @click="dialog2 = true" block>
@@ -125,8 +125,14 @@
   </v-row>
 </template>
 <script>
+
+import { mapState } from 'vuex'
 export default {
   middleware: ['auth'],
+
+  computed:{
+    ...mapState('auth',['id'])
+  },
   head() {
     return {
       title: 'My Profile'
@@ -138,6 +144,7 @@ export default {
       dialog: false,
       dialog2: false,
       form : {
+        nik:'',
         email :'',
         nama: '',
         no_hp: '',
@@ -147,7 +154,7 @@ export default {
         alamat: ''
       },
       nameRules: [
-        v => !!v || 'Name masih kosong',
+        v => !!v || 'Name masih k osong',
         v => (v && v.length <= 50) || 'Nama harus kurang dari 50 karakter',
       ],
       nikRules: [
@@ -172,12 +179,10 @@ export default {
       tglRules: [
       v => !!v || 'Tanggal lahir masih kosong',
       ],
-      oldEmail: '',
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'Masukkan email yang valid',
       ],
-      newEmail: '',
       newemailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'Masukkan email yang valid',
@@ -189,6 +194,16 @@ export default {
     }
   },
 
+  methods:{
+    initialize(){
+      this.$axios.get(`http://localhost:4000/profile/${this.form.nik}`, this.form.nik)
+      .then((response => {
+        console.log(response.data)
+      })).catch((error) => {
+        console.log(error)
+      })
+    }
+  },
   name: 'My Profile',
 }
 </script>

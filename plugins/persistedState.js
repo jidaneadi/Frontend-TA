@@ -5,7 +5,7 @@ import cookie from 'cookie';
 export default ({ store, req }) => {
     createPersistedState({
         key:'token',
-        paths: ['auth.nama', 'auth.acces_token', 'auth.refresh_token', 'auth.role'],
+        paths: ['auth.id','auth.nama', 'auth.acces_token', 'auth.refresh_token'],
         storage: {
             getItem: (key) => {//Untuk mengambil data cookies
                 // See https://nuxtjs.org/guide/plugins/#using-process-flags

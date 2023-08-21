@@ -39,7 +39,7 @@
             <v-list-item-icon>
               <v-icon color="white">mdi-folder-outline</v-icon>
             </v-list-item-icon>
-            <v-list-item-title class="white--text">File Dokumen</v-list-item-title>
+            <v-list-item-title class="white--text">Data Pengajuan</v-list-item-title>
           </template>
           <v-list-item color="white" v-for="(item, i) in dokumen" :key="i" :to="item.to" router exact>
             <v-list-item-action>
@@ -187,7 +187,7 @@
   </v-app>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState} from 'vuex'
 import * as Cookies from 'js-cookie'
 
 export default {
@@ -278,7 +278,7 @@ export default {
       //Cara 1
       // this.$store.commit('auth/logout')
       // this.$router.push('/')
-
+      console.log(this.user)
       //Cara 2
       Cookies.remove('token')
       window.location.href = '/'
@@ -286,7 +286,8 @@ export default {
   },
   computed:{
     ...mapState('auth', ['name']),
-    ...mapState('auth', ['role'])
+    ...mapState('auth', ['role']),
+
   }
 }
 </script>

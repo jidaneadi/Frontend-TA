@@ -151,7 +151,7 @@
 
 <script>
 
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 export default {
   middleware : ['auth'],
   head() {
@@ -209,6 +209,12 @@ export default {
   },
   computed :{
     ...mapState('auth', ['nama']),
+    ...mapGetters('auth',{
+      user:'user'
+    })
+  },
+  mounted(){
+    console.log(this.user.role)
   }
   // name: 'IndexPage',
 }

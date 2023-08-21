@@ -188,7 +188,8 @@ export default {
       ],
       konf_pass: [
         v => !!v || 'Konfirmasi password tidak boleh kosong',
-        v => (v && v.length >= 8) || 'Password berisi minimal 8 karakter',
+        v => (v && v.length >= 8) || 'Konfirmasi password berisi minimal 8 karakter',
+        v => v === this.form.password || 'Konfirmasi password tidak sama dengan password'
       ],
       nama: [
         v => !!v || 'nama tidak boleh kosong'
