@@ -22,7 +22,6 @@
             </v-alert>
             <v-alert v-if="isTrue" border="left" type="success" dense>
               Berhasil Login
-              <!-- <strong>Email</strong> or <strong>password</strong> failed -->
             </v-alert>
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-text-field v-model="form.email" :rules="emailRules" label="E-mail" hint="Contoh: example@gmail.com"
@@ -47,7 +46,8 @@
 </template>
 
 <script>
-
+import jwtDecode from 'jwt-decode'
+import { mapGetters } from 'vuex'
 export default {
   middleware:['unauth'],
   layout: 'auth',
@@ -92,17 +92,19 @@ export default {
     onSubmit() {
       this.$store.dispatch('auth/login', this.form)
         .then((data) => {
+          this.isErr = false
+          this.isTrue = true
+            console.log(data.role)
           if (data.role == "admin") {
-            this.$router.push('/homeadmin')
+            window.location.href = '/homeadmin'
           } else if (data.role == "masyarakat") {
-            this.$router.push('/homeuser')
+            window.location.href = '/homeuser'
           }
         }).catch((err) => {
           this.isErr = true
           if (err.response.data.msg == 'Email not found' || err.response.data.msg == 'Password Failed' ) { this.message = "E-mail tidak ditemukan atau password salah!"}
           if (err.response.data.msg == 'Email required') {this.message = "E-mail tidak boleh kosong"}
           if(err.response.data.msg == 'Password required') {this.message = "Password tidak boleh kosong"}
-          // console.log(err.response)
         });
     },
   },
@@ -113,7 +115,22 @@ export default {
         case 1: return 'Sign In!'
       }
     },
+    // ...mapGetters('auth', {
+    //   user : 'user'
+    // })
+
   },
+  // mounted (){
+  //   console.log()
+  //  if(this.user.role == "admin"){
+  //   window.location.href = '/homeadmin'
+  //           this.$router.push('/homeadmin')
+  //  }else if(this.user.role == "user"){
+
+  //   window.location.href = '/homeuser'
+  //           this.$router.push('/homeuser')
+  //  }
+  // },
   name: 'Login',
 }
 </script>

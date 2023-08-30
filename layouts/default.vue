@@ -1,13 +1,15 @@
 <template>
   <v-app dark>
-    <!-- Drawer -->
 
-    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" fixed app color="teal">
-        <v-list nav dense>
-        <div class="logo pa-3 d-flex ">
-          <v-img max-height="89" max-width="80" src="img/logo3.png"></v-img>
-          <p class="text-center text-start font-weight-black">DESA SUMBUNG, KEC. CEPOGO,<v-spacer></v-spacer>KAB. BOYOLALI</p>
+    <!-- Drawer -->
+    <v-navigation-drawer width="245" v-model="drawer" :mini-variant="miniVariant" fixed app dark color="#9A3B3B">
+      <v-list nav dense>
+        <div class="d-flex justify-center align-start pt-2 pb-2 px-6">
+          <v-img class="pa-1" height="80px" width="55px" src="img/logo3.png"></v-img>
+          <p class="align-start justify-start text-start white--text font-weight-black"><span
+              class="amber--text darken-1">Pengajuan Surat</span><v-spacer></v-spacer>Desa Sumbung</p>
         </div>
+        <v-divider color="#F5F5F5" class="mb-3"></v-divider>
         <v-list-item color="white" to="/homeUser">
           <v-list-item-icon>
             <v-icon color="white">mdi-home-outline</v-icon>
@@ -16,14 +18,14 @@
         </v-list-item>
 
         <!-- Grup 1 -->
-        <v-list-group color="white" :value="true">
+        <v-list-group color="white" :value="false">
           <template v-slot:activator>
             <v-list-item-icon>
               <v-icon color="white">mdi-clipboard-text-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-title class="white--text">Layanan</v-list-item-title>
           </template>
-          <v-list-item color="white" v-for="(item, i) in layanan" :key="i" :to="item.to" router exact>
+          <v-list-item color="white" v-for="(item, i) in layanan" :key="i" :to="item.to" exact>
             <v-list-item-action>
               <v-icon color="white">{{ item.icon }}</v-icon>
             </v-list-item-action>
@@ -34,10 +36,10 @@
         </v-list-group>
 
         <!-- Grup 2 -->
-        <v-list-group color="white" :value="true">
+        <v-list-group color="white" :value="false">
           <template v-slot:activator>
             <v-list-item-icon>
-              <v-icon color="white">mdi-folder-outline</v-icon>
+              <v-icon color="white">mdi-folder-open-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-title class="white--text">Data Pengajuan</v-list-item-title>
           </template>
@@ -62,11 +64,11 @@
       <div class="d-flex justify-center">
         <v-app-bar-nav-icon :clipped-left="clipped" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-spacer />
-        <p class="text-h6 fa font-bold">Pemerintah Kelurahahan Sumbung</p>
+        <!-- <p class="text-h6 white--text fa font-bold">Pemerintah Kelurahahan Sumbung</p> -->
         <v-spacer />
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="teal" icon dark v-bind="attrs" v-on="on">
+            <v-btn color="#C08261" icon dark v-bind="attrs" v-on="on">
               <v-icon>mdi-account-circle</v-icon>
             </v-btn>
           </template>
@@ -75,33 +77,37 @@
               <v-list-item-avatar>
                 <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
               </v-list-item-avatar>
-
               <v-list-item-content>
-                <v-list-item-title>{{ name }}</v-list-item-title>
-                <v-list-item-subtitle>Masyarakat Desa Sumbung</v-list-item-subtitle>
+                <v-list-item-title>
+                  {{ nama }}
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  <v-icon x-small>fa-solid fa-users-line</v-icon>
+                  Masyarakat
+                </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
 
             <v-divider></v-divider>
-            <v-list-item link text to="/profile" color="teal">
+            <v-list-item link text to="/profile">
               <v-list-item-icon>
-                <v-icon color="teal">mdi-account-card-outline</v-icon>
+                <v-icon small>fa-solid fa-user-pen</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Edit Profile</v-list-item-title>
+                <v-list-item-title class="grey--text lighten-2">Edit Profile</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item text @click="dialog = true" color="teal">
+            <v-list-item text @click="dialog = true">
               <v-list-item-icon>
-                <v-icon color="teal">mdi-lock-outline</v-icon>
+                <v-icon>mdi-lock-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Reset Password</v-list-item-title>
+                <v-list-item-title class="grey--text lighten-2">Reset Password</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
             <!-- ================Logout================= -->
             <div class="pa-2">
-              <v-btn color="red darken-1" text @click="dialog2=true" block>
+              <v-btn color="red darken-1" text @click="dialog2 = true" block>
                 <v-icon class="mx-2">mdi-export</v-icon>
                 Logout
               </v-btn>
@@ -109,6 +115,8 @@
           </v-list>
         </v-menu>
       </div>
+
+      <!-- Content -->
       <div class="px-8 pt-2">
         <Nuxt />
       </div>
@@ -187,7 +195,7 @@
   </v-app>
 </template>
 <script>
-import { mapState} from 'vuex'
+import { mapState } from 'vuex'
 import * as Cookies from 'js-cookie'
 
 export default {
@@ -247,8 +255,12 @@ export default {
       ],
       dokumen: [
         {
-          title: 'Diajukan',
+          title: 'Diproses',
           to: '/diajukan',
+        },
+        {
+          title: 'Ditolak',
+          to: '/tolak',
         },
         {
           title: 'Terverivikasi',
@@ -258,14 +270,6 @@ export default {
           title: 'Diterbitkan',
           to: '/terbit',
         },
-        {
-          title: 'Ditolak',
-          to: '/tolak',
-        },
-        {
-          title: 'Selesai',
-          to: '/selesai',
-        },
       ],
       miniVariant: false,
       right: true,
@@ -273,8 +277,8 @@ export default {
       title: 'Desa Sumbung',
     }
   },
-  methods:{
-    onLogout(){
+  methods: {
+    onLogout() {
       //Cara 1
       // this.$store.commit('auth/logout')
       // this.$router.push('/')
@@ -284,11 +288,10 @@ export default {
       window.location.href = '/'
     }
   },
-  computed:{
-    ...mapState('auth', ['name']),
+  computed: {
+    ...mapState('auth', ['nama']),
     ...mapState('auth', ['role']),
-
-  }
+  },
 }
 </script>
 

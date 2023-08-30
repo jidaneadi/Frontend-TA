@@ -27,6 +27,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~/plugins/persistedState.js', mode: 'client'},
+    {src: '~/plugins/fontawesome.js'}
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -53,12 +54,14 @@ export default {
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    threeShake :true,
     theme: {
       dark: false,
       themes: {
         dark: {
+          cream: "#F2ECBE",
           primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
+          accent: colors.grey.lighten3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
