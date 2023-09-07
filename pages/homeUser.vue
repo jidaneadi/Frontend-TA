@@ -10,43 +10,54 @@
         Masyarakat
       </v-chip>
 
-      <v-card class="d-flex justify-space-around flex-wrap my-2 py-4 mx-auto" max-width="1500" color="#E2C799">
-
-        <!-- ===============Batas Card===================== -->
-        <v-card class="mx-1 my-2 " width="230" height="110" three-line v-for="(item, i) in items" :key="i" :to="item.to">
-          <v-list-item three-line>
-            <v-list-item-content>
-              <div class="text-subtitle-1 font-weight-bold text-center">
-                {{ item.title }}
-              </div>
-              <v-divider></v-divider>
-              <v-list-item-title class="text-h4 font-weight-bold text-center mt-3 mb-1" text="center">
-                19
-              </v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-btn fab small :color="item.color">
-                <v-icon dark color="white">
-                  {{ item.icon }}
-                </v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
-        </v-card>
-      </v-card>
       <!-- ===============Batas Card===================== -->
-      <div class="pt-4 darken-1 text-center text-subtitle font-weight-black">
+      <div class="px-0 mx-0">
+        <v-row no-gutters>
+          <v-col class="d-flex justify-space-around flex-wrap mx-auto my-2" cols="12" xl="3" lg="3" md="3" sm="6"
+            v-for="(item, i) in items" :key="i">
+            <v-card class="mx-1" width="300px" height="100px" three-line :to="item.to">
+              <v-system-bar :color="item.color" height="20px">
+                <div class="text-subtitle-2 font-weight-bold white--text text-center">
+                  {{ item.title }}
+                </div>
+                <v-spacer />
+                <div>
+                  <v-icon dark small color="white">
+                    {{ item.icon }}
+                  </v-icon>
+                </div>
+              </v-system-bar>
+              <v-card-content class="text-subtitle-1 font-weight-bold text-center">
+                <v-row no-gutters>
+                  <v-col cols="7" class="d-flex justify-center align-center mx-auto">
+                    <v-card :color="item.bg" width="110px" height="60px">
+                      <v-card-title class="text-subtitle-2 justify-center">
+                        199
+                      </v-card-title>
+                    </v-card>
+                  </v-col>
+                  <v-col cols="5" class="justify-center">
+                    <v-img height="75px" class="" width="100px" :src="item.image"> </v-img>
+                  </v-col>
+                </v-row>
+              </v-card-content>
+            </v-card>
+          </v-col>
+        </v-row>
+      </div>
+      <!-- ===============Batas Card===================== -->
+
+      <!-- ===============Batas Card Jenis Layanan Surat===================== -->
+      <div class="pt-8 darken-1 text-center text-subtitle font-weight-black">
         Jenis Layanan Surat
       </div>
-      <v-divider max-width="30px"></v-divider>
       <div>
-        <v-sheet class="mx-auto" max-width="1500">
-          <v-slide-group v-model="model" class="pa-4" center-active show-arrows>
+        <v-sheet class="mx-auto" max-width="1500" color="#F7F7F7">
+          <v-slide-group v-model="model" class="py-4 px-0" center-active show-arrows>
             <v-slide-item v-for="n in layanan" :key="n" v-slot="{ active, toggle }">
               <v-card class="ma-4" width="250" height="150" hover @click="toggle">
-                <v-list-item class="justify-center align-center">
-                  <v-list-item-action>
-                    <!-- <v-btn x-large color="#C08261"> -->
+                <v-list-item>
+                  <v-list-item-action class="mx-auto">
                     <v-icon dark x-large color="#C08261">
                       {{ n.icon }}
                     </v-icon>
@@ -62,7 +73,7 @@
                 </v-list-item>
                 <v-fade-transition>
                   <v-overlay v-if="active" absolute color="#F2ECBE">
-                    <v-btn color="#C08261" :to="n.to" >Ajukan surat</v-btn>
+                    <v-btn color="#C08261" :to="n.to">Ajukan surat</v-btn>
                   </v-overlay>
                 </v-fade-transition>
               </v-card>
@@ -70,9 +81,51 @@
           </v-slide-group>
         </v-sheet>
       </div>
+      <!-- ===============Batas Card Jenis Layanan Surat===================== -->
 
-      <v-divider></v-divider>
-      <div class="pt-8">
+      <v-card class="my-2">
+        <v-row no-gutters>
+          <v-col class="d-flex flex-wrap mx-auto pl-3 py-2" cols="12" xl="3" lg="3" md="3" sm="12" xs="12">
+            <v-img src="img/icon/about.svg" height="auto" width="auto"></v-img>
+          </v-col>
+          <v-col class="d-flex flex-wrap" cols="12" xl="9" lg="9" md="9" sm="12" xs="12">
+            <v-card-title class="text-h4 grey--text lighten-1 pb-1"><strong>Sistem Informasi Pengajuan Surat Pengantar</strong></v-card-title>
+            <v-card-text class="text-caption grey--text darken-3 text-justify">
+              Pemerintah Desa Sumbung berkomitmen untuk memberikan pelayanan terbaik kepada Anda.Kami memahami
+                  betapaberharganya
+                  waktu Anda, oleh karena itu kami menyediakan platcard online yang memudahkan Anda mengajukan surat
+                  permohonan.
+                  Dengan layanan kami, Anda dapat mengurus surat permohonan dengan mudah, cepat, dan tanpa harus datang ke
+                  kantor
+                  kami. Tim kami yang ramah dan profesional akan dengan cepat memproses permohonan Anda, sehingga Anda
+                  tidak
+                  perlu
+                  khawatir tentang antrian panjang atau jam buka kantor. Dapatkan kemudahan dan kenyamanan dengan
+                  menggunakan teknologi
+                  terkini.Ayo, ajak sanak saudara dan teman-teman kalian untuk mengunjungi web Desa Sumbung sekarang dan
+                  rasakan perbedaannya.
+            </v-card-text>
+          </v-col>
+        </v-row>
+      </v-card>
+
+      <!-- <v-card class="my-2">
+        <v-row no-gutters>
+          <v-col class="d-flex justify-space-end flex-wrap mx-auto pl-3 py-2" cols="3" lg="3" md="3" sm="3" xs="3">
+            <v-img src="img/icon/about.svg" height="200px" width="225px"></v-img>
+          </v-col>
+          <v-col class="d-flex text-subtitle-2 text-justify" cols="8" lg="8" md="8" sm="8" xs="8">
+            <v-list-item-title class="text-h4 grey--text lighten-1 text-start">
+                <strong>Sistem Informasi Pengajuan Surat Pengantar</strong>
+            </v-list-item-title>
+          </v-col>
+        </v-row>
+      </v-card> -->
+
+
+
+      <!-- <v-divider></v-divider> -->
+      <!-- <div class="pt-8">
         <v-card>
           <v-card-text>
             <h2 class="py-2 font-weight-bold text-center black--text">Pesan Kepada Masyarakat Desa Tercinta!</h2>
@@ -100,7 +153,7 @@
             </v-row>
           </v-card-text>
         </v-card>
-      </div>
+      </div> -->
     </v-col>
   </v-row>
 </template>
@@ -121,25 +174,33 @@ export default {
         {
           title: 'Surat Diproses',
           icon: 'mdi-history',
+          bg: 'yellow lighten-5',
           color: 'yellow darken-2',
+          image: 'img/icon/diproses.svg',
           to: '/diajukan',
         },
         {
           title: 'Surat Ditolak',
+          bg: 'red lighten-5',
           color: 'red lighten-1',
           icon: 'mdi-cancel',
+          image: 'img/icon/ditolak.svg',
           to: '/tolak',
         },
         {
           title: 'Surat Terverifikasi',
           icon: 'mdi-checkbox-marked-circle-outline',
+          bg: 'green lighten-5',
           color: 'green lighten-1',
+          image: 'img/icon/terverifikasi.svg',
           to: '/terverivikasi',
         },
         {
           title: 'Surat Diterbitkan',
+          bg: 'indigo lighten-5',
           color: 'indigo lighten-1',
           icon: 'fa-solid fa-signature',
+          image: 'img/icon/diterbitkan.svg',
           to: '/terbit',
         },
       ],
@@ -155,18 +216,18 @@ export default {
           to: '/pengajuankk',
         },
         {
-          title: 'Pengantar Kematian',
+          title: 'Keterangan Kematian',
           icon: 'fa-solid fa-book-skull',
           to: '/pengajuankematian',
         },
         {
-          title: 'Pengantar Kelahiran',
+          title: 'Keterangan Kelahiran',
           icon: 'fa-solid fa-baby',
           to: '/pengajuankelahiran',
         },
         {
-          title: 'Pengantar Tidak Mampu',
-          icon: 'fa-solid fa-hands-holding-child',
+          title: 'Keterangan Tidak Mampu',
+          icon: 'fa-solid fa-hand-holding-dollar',
           to: '/pengajuantidakmampu',
         },
       ],

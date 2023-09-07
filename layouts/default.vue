@@ -1,6 +1,5 @@
 <template>
   <v-app dark>
-
     <!-- Drawer -->
     <v-navigation-drawer width="245" v-model="drawer" :mini-variant="miniVariant" fixed app dark color="#9A3B3B">
       <v-list nav dense>
@@ -58,17 +57,14 @@
 
 
     <!-- =================Navbar======================  -->
-
     <!-- Pages -->
-    <v-main>
+    <v-main class="pages">
       <div class="d-flex justify-center">
         <v-app-bar-nav-icon :clipped-left="clipped" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-spacer />
-        <!-- <p class="text-h6 white--text fa font-bold">Pemerintah Kelurahahan Sumbung</p> -->
-        <v-spacer />
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="#C08261" icon dark v-bind="attrs" v-on="on">
+            <v-btn color="#C08261" icon v-bind="attrs" v-on="on">
               <v-icon>mdi-account-circle</v-icon>
             </v-btn>
           </template>
@@ -117,16 +113,22 @@
       </div>
 
       <!-- Content -->
-      <div class="px-8 pt-2">
+      <div class="px-8 pt-2 pb-3 mb-2">
         <Nuxt />
       </div>
     </v-main>
     <!-- =================Pages================== -->
 
-    <!-- ===========footer============== -->
-    <v-footer dark padless color="grey lighten-1">
+    <!-- =================Footer================== -->
+    <v-footer dark color="#E2C799" padless>
       <v-col class="text-center" cols="12">
-        {{ new Date().getFullYear() }} — <strong>jidanear</strong>
+        <v-btn v-for="icon in social" :key="icon" :href="icon.to" class="mx-4" dark icon>
+          <v-icon size="24px">
+            {{ icon.icon }}
+          </v-icon>
+        </v-btn>
+        <v-divider></v-divider>
+        <div>{{ new Date().getFullYear() }} — <strong>jidanear</strong></div>
       </v-col>
     </v-footer>
 
@@ -194,6 +196,11 @@
     <!-- Batas Dialog 2 -->
   </v-app>
 </template>
+<style>
+.pages {
+  background-color: #F7F7F7;
+}
+</style>
 <script>
 import { mapState } from 'vuex'
 import * as Cookies from 'js-cookie'
@@ -224,11 +231,27 @@ export default {
         }
       },
 
-      icons: [
-        'mdi-facebook',
-        'mdi-twitter',
-        'mdi-linkedin',
-        'mdi-instagram',
+      social: [
+        {
+          icon: 'mdi-facebook',
+          to: 'https://www.facebook.com/jidaneadi.jidaneadi'
+        },
+        {
+          icon: 'mdi-twitter',
+          to: 'https://twitter.com/jidanear'
+        },
+        {
+          icon: 'mdi-instagram',
+          to: 'https://instagram.com/jidanear_'
+        },
+        {
+          icon: 'mdi-linkedin',
+          to: 'https://www.linkedin.com/in/jidane-adi-ramadhzan-130712216'
+        },
+        {
+          icon: 'mdi-github',
+          to: 'https://github.com/jidaneadi'
+        },
       ],
 
       layanan: [
@@ -290,7 +313,6 @@ export default {
   },
   computed: {
     ...mapState('auth', ['nama']),
-    ...mapState('auth', ['role']),
   },
 }
 </script>
