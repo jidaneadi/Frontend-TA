@@ -11,11 +11,11 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
         </v-card-title>
         <v-card-actions class="px-4">
-          <v-btn color="green darken-1" dark class="mb-2" @click="dialogAdd = true">
-            <v-icon>mdi-plus</v-icon> Add
+          <v-btn color="green darken-1" dark small rounded class="mb-2 pa-1" @click="dialogAdd = true">
+            <v-icon>fa-solid fa-user-plus</v-icon>
           </v-btn>
-          <v-btn color="yellow darken-1" dark class="mb-2" @click="printData">
-            <v-icon>mdi-clipboard-text</v-icon> Print
+          <v-btn color="yellow darken-1" dark small rounded class="mb-2 pa-1" @click="printData">
+            <v-icon>fa-solid fa-print</v-icon>
           </v-btn>
         </v-card-actions>
 
@@ -31,7 +31,7 @@
               <v-list nav dense>
                 <v-list-item @click="editItem(item)">
                   <v-icon color="yellow darken-1" small class="mr-2">
-                    mdi-pencil
+                    fa-regular fa-pen-to-square
                   </v-icon>
                   <v-list-item-content>
                     <v-list-item-title>Edit Item</v-list-item-title>
@@ -39,7 +39,7 @@
                 </v-list-item>
                 <v-list-item @click="deleteItem(item)">
                   <v-icon color="red darken-1" small>
-                    mdi-delete
+                    fa-regular fa-trash-can
                   </v-icon>
                   <v-list-item-content>
                     <v-list-item-title>Hapus Data</v-list-item-title>
@@ -125,6 +125,9 @@
                 <v-col cols="12" sm="3" md="4">
                   <v-text-field v-model="editedItem.nik" label="NIK"></v-text-field>
                 </v-col>
+                <v-col cols="12" sm="4" md="4">
+                  <v-text-field v-model="editedItem.email" :rules="rules.email" label="E-mail"></v-text-field>
+                </v-col>
                 <v-col cols="12" sm="3" md="4">
                   <v-text-field v-model="editedItem.nama" label="Nama Lengkap"></v-text-field>
                 </v-col>
@@ -135,7 +138,17 @@
                   <v-text-field v-model="editedItem.no_hp" label="No HP"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="3" md="6">
-                  <v-text-field v-model="editedItem.ttl" label="Tempat, Tanggal Lahir"></v-text-field>
+                  <v-text-field v-model="editedItem.tempat_lahir" label="Tempat Lahir"></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="4" md="6">
+                <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
+                  offset-y max-width="auto">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field v-model="editedItem.birthday" label="Tanggal Lahir" append-icon="mdi-calendar" readonly
+                      v-bind="attrs" v-on="on"></v-text-field>
+                  </template>
+                  <v-date-picker v-model="editedItem.birthday" @input="menu = false"></v-date-picker>
+                </v-menu>
                 </v-col>
                 <v-col cols="12" sm="3" md="12">
                   <v-text-field v-model="editedItem.alamat" label="Alamat"></v-text-field>
@@ -251,7 +264,7 @@ export default {
         { text: 'Nomor HP', value: 'no_hp' },
         { text: 'Jenis Kelamin', value: 'gender' },
         { text: 'Tempat Lahir', value: 'tempat_lahir'},
-        { text: 'Birthday', value: 'tanggal_lahir'},
+        { text: 'Birthday', value: 'birthday'},
         { text: 'Alamat', value: 'alamat' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
@@ -293,10 +306,12 @@ export default {
       editedIndex: -1,
       editedItem: {
         nik: '',
+        email: '',
         nama: '',
         no_hp: '',
         gender: '',
-        ttl: '',
+        tempat_lahir: '',
+        birthday:'',
         alamat: '',
       },
       tambahItem: {
@@ -368,7 +383,7 @@ export default {
     },
 
     editData() {
-      this.$axios.put(`http://127.0.0.1:3005/api/masyarakat/${this.editedItem.nik}`, this.editedItem)
+      this.$axios.put(`http://127.0.0.1:4000/profile/${this.editedItem.nik}`, this.editedItem)
         .then((response) => {
           console.log(response)
           this.$data.dialogEdit = false
@@ -387,7 +402,7 @@ export default {
     },
 
     deleteItemConfirm() {
-      this.$axios.delete(`http://127.0.0.1:3005/api/masyarakat/${this.editedItem.nik}`, this.editedItem)
+      this.$axios.delete(`http://127.0.0.1:4000/profile/${this.editedItem.nik}`, this.editedItem)
         .then((response) => {
           console.log(response)
           this.$data.dialogDelete = false
