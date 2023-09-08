@@ -1,7 +1,6 @@
 <template >
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6" class="py-12 my-12 ">
-
       <v-card class="mx-auto" max-width="500">
         <v-row>
           <v-col cols="6" justify="center">

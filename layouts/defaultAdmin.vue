@@ -1,12 +1,14 @@
 <template>
   <v-app dark>
     <!-- Drawer -->
-    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" fixed app color="teal">
+    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" fixed app dark color="#9A3B3B">
         <v-list nav dense>
-        <div class="logo pa-3 d-flex ">
-          <v-img max-height="89" max-width="80" src="img/logo3.png"></v-img>
-          <p class="text-center text-start font-weight-black">DESA SUMBUNG, KEC. CEPOGO,<v-spacer></v-spacer>KAB. BOYOLALI</p>
+          <div class="d-flex justify-center align-start pt-2 pb-2 px-6">
+          <v-img class="pa-1" height="80px" width="55px" src="img/logo3.png"></v-img>
+          <p class="align-start justify-start text-start white--text font-weight-black"><span
+              class="amber--text darken-1">Pengajuan Surat</span><v-spacer></v-spacer>Desa Sumbung</p>
         </div>
+        <v-divider color="#F5F5F5" class="mb-3"></v-divider>
         <v-list-item color="white" to="/homeAdmin">
           <v-list-item-icon>
             <v-icon color="white">mdi-home-outline</v-icon>
@@ -21,7 +23,7 @@
         </v-list-item>
 
         <!-- Grup 2 -->
-        <v-list-group color="white" :value="true">
+        <v-list-group color="white" :value="false">
           <template v-slot:activator>
             <v-list-item-icon>
               <v-icon color="white">mdi-folder-outline</v-icon>
@@ -46,11 +48,9 @@
       <div class="d-flex justify-center">
         <v-app-bar-nav-icon :clipped-left="clipped" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-spacer />
-        <p class="text-h6 fa font-bold">Pemerintah Kelurahahan Sumbung</p>
-        <v-spacer />
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="teal" icon dark v-bind="attrs" v-on="on">
+            <v-btn color="#C08261" icon v-bind="attrs" v-on="on">
               <v-icon>mdi-account-circle</v-icon>
             </v-btn>
           </template>
@@ -59,30 +59,27 @@
               <v-list-item-avatar>
                 <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
               </v-list-item-avatar>
-
               <v-list-item-content>
-                <v-list-item-title>John Leider</v-list-item-title>
-                <v-list-item-subtitle>Founder of Vuetify</v-list-item-subtitle>
+                <v-list-item-title>
+                Petugas Administrator
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  <v-icon x-small>fa-solid fa-user-tie</v-icon>
+                  Admin
+                </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
 
             <v-divider></v-divider>
-            <!-- <v-list-item link text to="/profile" color="teal">
+            <v-list-item text @click="dialog = true">
               <v-list-item-icon>
-                <v-icon color="teal">mdi-account-card-outline</v-icon>
+                <v-icon>mdi-lock-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Edit Profile</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item> -->
-            <v-list-item text @click="dialog = true" color="teal">
-              <v-list-item-icon>
-                <v-icon color="teal">mdi-lock-outline</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>Reset Password</v-list-item-title>
+                <v-list-item-title class="grey--text lighten-2">Reset Password</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
+            <!-- ================Logout================= -->
             <div class="pa-2">
               <v-btn color="red darken-1" text @click="dialog2 = true" block>
                 <v-icon class="mx-2">mdi-export</v-icon>
@@ -92,6 +89,7 @@
           </v-list>
         </v-menu>
       </div>
+
       <div class="px-8 pt-2">
         <Nuxt />
       </div>
@@ -107,9 +105,15 @@
     <!-- =================Pages================== -->
 
     <!-- ===========footer============== -->
-    <v-footer dark padless color="grey lighten-1">
+    <v-footer dark color="#E2C799" padless>
       <v-col class="text-center" cols="12">
-        {{ new Date().getFullYear() }} — <strong>jidanear</strong>
+        <v-btn v-for="(icon, i) in social" :key="i" :href="icon.to" class="mx-4" dark icon>
+          <v-icon size="24px">
+            {{ icon.logo }}
+          </v-icon>
+        </v-btn>
+        <v-divider></v-divider>
+        <div>{{ new Date().getFullYear() }} — <strong>jidanear</strong></div>
       </v-col>
     </v-footer>
 
@@ -124,11 +128,6 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <!-- <v-col cols="12">
-                <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" label="Old Password*"
-                  hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>
-              </v-col> -->
               <v-col cols="12">
                 <v-text-field :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]"
                   :type="show2 ? 'text' : 'password'" name="input-10-2" label="New Password*" hint="At least 8 characters"
@@ -187,7 +186,6 @@ export default {
     return {
       drawer: false,
       clipped: false,
-
       fixed: true,
       dialog: false,
       dialog2: false,
@@ -207,6 +205,29 @@ export default {
           return () => (this.password === this.rePassword) || 'Password must match'
         }
       },
+      social: [
+        {
+          logo: 'mdi-facebook',
+          to: 'https://www.facebook.com/jidaneadi.jidaneadi'
+        },
+        {
+          logo: 'mdi-twitter',
+          to: 'https://twitter.com/jidanear'
+        },
+        {
+          logo: 'mdi-instagram',
+          to: 'https://instagram.com/jidanear_'
+        },
+        {
+          logo: 'mdi-linkedin',
+          to: 'https://www.linkedin.com/in/jidane-adi-ramadhzan-130712216'
+        },
+        {
+          logo: 'mdi-github',
+          to: 'https://github.com/jidaneadi'
+        },
+      ],
+
       dokumen: [
         {
           title: 'Diajukan',

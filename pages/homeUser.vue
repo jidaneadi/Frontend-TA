@@ -27,7 +27,7 @@
                   </v-icon>
                 </div>
               </v-system-bar>
-              <v-card-content class="text-subtitle-1 font-weight-bold text-center">
+              <div class="text-subtitle-1 font-weight-bold text-center">
                 <v-row no-gutters>
                   <v-col cols="7" class="d-flex justify-center align-center mx-auto">
                     <v-card :color="item.bg" width="110px" height="60px">
@@ -40,7 +40,7 @@
                     <v-img height="75px" class="" width="100px" :src="item.image"> </v-img>
                   </v-col>
                 </v-row>
-              </v-card-content>
+              </div>
             </v-card>
           </v-col>
         </v-row>
@@ -54,14 +54,13 @@
       <div>
         <v-sheet class="mx-auto" max-width="1500" color="#F7F7F7">
           <v-slide-group v-model="model" class="py-4 px-0" center-active show-arrows>
-            <v-slide-item v-for="n in layanan" :key="n" v-slot="{ active, toggle }">
+            <v-slide-item v-for="(n,i) in layanan" :key="i" v-slot="{ active, toggle }">
               <v-card class="ma-4" width="250" height="150" hover @click="toggle">
                 <v-list-item>
                   <v-list-item-action class="mx-auto">
                     <v-icon dark x-large color="#C08261">
                       {{ n.icon }}
                     </v-icon>
-                    <!-- </v-btn> -->
                   </v-list-item-action>
                 </v-list-item>
                 <v-list-item>
@@ -108,52 +107,6 @@
           </v-col>
         </v-row>
       </v-card>
-
-      <!-- <v-card class="my-2">
-        <v-row no-gutters>
-          <v-col class="d-flex justify-space-end flex-wrap mx-auto pl-3 py-2" cols="3" lg="3" md="3" sm="3" xs="3">
-            <v-img src="img/icon/about.svg" height="200px" width="225px"></v-img>
-          </v-col>
-          <v-col class="d-flex text-subtitle-2 text-justify" cols="8" lg="8" md="8" sm="8" xs="8">
-            <v-list-item-title class="text-h4 grey--text lighten-1 text-start">
-                <strong>Sistem Informasi Pengajuan Surat Pengantar</strong>
-            </v-list-item-title>
-          </v-col>
-        </v-row>
-      </v-card> -->
-
-
-
-      <!-- <v-divider></v-divider> -->
-      <!-- <div class="pt-8">
-        <v-card>
-          <v-card-text>
-            <h2 class="py-2 font-weight-bold text-center black--text">Pesan Kepada Masyarakat Desa Tercinta!</h2>
-            <v-divider></v-divider>
-          </v-card-text>
-          <v-card-text>
-            <v-row align="center">
-              <v-col cols="6">
-                <v-img src="img/logo.png" height="180" width="700"></v-img>
-              </v-col>
-              <v-col class="text-subtitle-2 text-justify " cols="6">
-                Pemerintah Desa Sumbung berkomitmen untuk memberikan pelayanan terbaik kepada Anda.Kami memahami
-                betapaberharganya
-                waktu Anda, oleh karena itu kami menyediakan platcard online yang memudahkan Anda mengajukan surat
-                permohonan.
-                Dengan layanan kami, Anda dapat mengurus surat permohonan dengan mudah, cepat, dan tanpa harus datang ke
-                kantor
-                kami. Tim kami yang ramah dan profesional akan dengan cepat memproses permohonan Anda, sehingga Anda tidak
-                perlu
-                khawatir tentang antrian panjang atau jam buka kantor. Dapatkan kemudahan dan kenyamanan dengan
-                menggunakan teknologi
-                terkini.Ayo, ajak sanak saudara dan teman-teman kalian untuk mengunjungi web Desa Sumbung sekarang dan
-                rasakan perbedaannya.
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </div> -->
     </v-col>
   </v-row>
 </template>
@@ -170,6 +123,7 @@ export default {
   },
   data() {
     return {
+      model:'',
       items: [
         {
           title: 'Surat Diproses',

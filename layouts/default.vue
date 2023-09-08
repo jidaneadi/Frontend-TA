@@ -9,11 +9,11 @@
               class="amber--text darken-1">Pengajuan Surat</span><v-spacer></v-spacer>Desa Sumbung</p>
         </div>
         <v-divider color="#F5F5F5" class="mb-3"></v-divider>
-        <v-list-item color="white" to="/homeUser">
+        <v-list-item to="/homeUser">
           <v-list-item-icon>
-            <v-icon color="white">mdi-home-outline</v-icon>
+            <v-icon>mdi-home-outline</v-icon>
           </v-list-item-icon>
-          <v-list-item-title class="white--text">Home</v-list-item-title>
+          <v-list-item-title>Home</v-list-item-title>
         </v-list-item>
 
         <!-- Grup 1 -->
@@ -42,12 +42,12 @@
             </v-list-item-icon>
             <v-list-item-title class="white--text">Data Pengajuan</v-list-item-title>
           </template>
-          <v-list-item color="white" v-for="(item, i) in dokumen" :key="i" :to="item.to" router exact>
+          <v-list-item color="white" v-for="(list2, i) in dokumen" :key="i" :to="list2.to" router exact>
             <v-list-item-action>
-              <v-icon color="white">{{ item.icon }}</v-icon>
+              <v-icon color="white">{{ list2.icon }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title class="white--text">{{ item.title }}</v-list-item-title>
+              <v-list-item-title class="white--text">{{ list2.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
@@ -122,7 +122,7 @@
     <!-- =================Footer================== -->
     <v-footer dark color="#E2C799" padless>
       <v-col class="text-center" cols="12">
-        <v-btn v-for="icon in social" :key="icon" :href="icon.to" class="mx-4" dark icon>
+        <v-btn v-for="(icon, i) in social" :key="i" :href="icon.to" class="mx-4" dark icon>
           <v-icon size="24px">
             {{ icon.icon }}
           </v-icon>

@@ -10,6 +10,6 @@
 
 <style>
 .login {
-  background-color: teal;
+  background-color: #9A3B3B;
 }
 </style>

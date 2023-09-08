@@ -10,94 +10,49 @@
       </v-chip>
 
       <!-- ===============Batas Card===================== -->
-      <v-row class="d-flex justify-space-around mb-2 mt-2 pt-6">
-        <v-card color="yellow lighten-1" width="210" height="110" three-line to="/diajukan">
-          <v-list-item three-line>
-            <v-list-item-content>
-              <div class="text-subtitle-1 font-weight-bold mb-4 text-center">
-                Diproses
+      <div class="px-0 mx-0">
+        <v-row no-gutters>
+          <v-col class="d-flex justify-space-around flex-wrap mx-auto my-2" cols="12" xl="3" lg="3" md="3" sm="6"
+            v-for="(item, i) in items" :key="i">
+            <v-card class="mx-1" width="300px" height="100px" three-line :to="item.to">
+              <v-system-bar :color="item.color" height="20px">
+                <div class="text-subtitle-2 font-weight-bold white--text text-center">
+                  {{ item.title }}
+                </div>
+                <v-spacer />
+                <div>
+                  <v-icon dark small color="white">
+                    {{ item.icon }}
+                  </v-icon>
+                </div>
+              </v-system-bar>
+              <div class="text-subtitle-1 font-weight-bold text-center">
+                <v-row no-gutters>
+                  <v-col cols="7" class="d-flex justify-center align-center mx-auto">
+                    <v-card :color="item.bg" width="110px" height="60px">
+                      <v-card-title class="text-subtitle-2 justify-center">
+                        199
+                      </v-card-title>
+                    </v-card>
+                  </v-col>
+                  <v-col cols="5" class="justify-center">
+                    <v-img height="75px" class="" width="100px" :src="item.image"> </v-img>
+                  </v-col>
+                </v-row>
               </div>
-              <v-list-item-title class="text-h4 font-weight-bold text-center mb-1" text="center">
-                19
-              </v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-icon large dark>
-                mdi-history
-              </v-icon>
-            </v-list-item-action>
-          </v-list-item>
-        </v-card>
-        <v-card color="red lighten-1" width="210" height="110" three-line to="/tolak">
-          <v-list-item three-line>
-            <v-list-item-content>
-              <div class="text-subtitle-1 font-weight-bold mb-4 text-center">
-                Ditolak
-              </div>
-              <v-list-item-title class="text-h4 font-weight-bold text-center mb-1" text="center">
-                19
-              </v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-icon large dark>
-                mdi-cancel
-              </v-icon>
-            </v-list-item-action>
-          </v-list-item>
-        </v-card>
-        <v-card color="light-green lighten-1" width="210" height="110" three-line to="/terverivikasi">
-          <v-list-item three-line>
-            <v-list-item-content>
-              <div class="text-subtitle-1 font-weight-bold mb-4 text-center">
-                Terverifikasi
-              </div>
-              <v-list-item-title class="text-h4 font-weight-bold text-center mb-1" text="center">
-                19
-              </v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-icon large dark>
-                mdi-gesture-tap-button
-              </v-icon>
-            </v-list-item-action>
-          </v-list-item>
-        </v-card>
-        <v-card color="green lighten-1" width="210" height="110" three-line to="/terbit">
-          <v-list-item three-line>
-            <v-list-item-content>
-              <div class="text-subtitle-1 font-weight-bold mb-4 text-center">
-                Diterbitkan
-              </div>
-              <v-list-item-title class="text-h4 font-weight-bold text-center mb-1" text="center">
-                19
-              </v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-icon large dark>
-                mdi-arrow-up-bold-box-outline
-              </v-icon>
-            </v-list-item-action>
-          </v-list-item>
-        </v-card>
-        <v-card color="green darken-1" width="210" height="110" three-line to="/selesai">
-          <v-list-item three-line>
-            <v-list-item-content>
-              <div class="text-subtitle-1 font-weight-bold mb-4 text-center">
-                Diambil
-              </div>
-              <v-list-item-title class="text-h4 font-weight-bold text-center mb-1" text="center">
-                19
-              </v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-icon large dark>
-                mdi-checkbox-marked-circle-outline
-              </v-icon>
-            </v-list-item-action>
-          </v-list-item>
-        </v-card>
-      </v-row>
+            </v-card>
+          </v-col>
+        </v-row>
+      </div>
       <!-- ===============Batas Card===================== -->
+
+      <v-row no-gutters>
+        <v-col class="d-flex flex-wrap justify-space-between">
+          <v-card>
+
+          </v-card>
+        </v-col>
+      </v-row>
 
       <!-- ===============Batas Pilihan Layanan===================== -->
       <div class="d-flex justify-center mb-2 mt-2 pt-6">
@@ -107,7 +62,6 @@
           <v-icon icon color="teal">mdi-account-multiple-outline</v-icon>
         </v-btn>
       </div>
-
       <v-divider color="black"></v-divider>
     </v-col>
   </v-row>
@@ -126,46 +80,36 @@ export default {
     return {
       items: [
         {
-          title: 'Diajukan',
+          title: 'Surat Diproses',
+          icon: 'mdi-history',
+          bg: 'yellow lighten-5',
+          color: 'yellow darken-2',
+          image: 'img/icon/diproses.svg',
           to: '/diajukan',
         },
         {
-          title: 'Terverivikasi',
-          to: '/terverivikasi',
-        },
-        {
-          title: 'Diterbitkan',
-          to: '/terbit',
-        },
-        {
-          title: 'Ditolak',
+          title: 'Surat Ditolak',
+          bg: 'red lighten-5',
+          color: 'red lighten-1',
+          icon: 'mdi-cancel',
+          image: 'img/icon/ditolak.svg',
           to: '/tolak',
         },
         {
-          title: 'Selesai',
-          to: '/selesai',
-        },
-      ],
-      layanan: [
-        {
-          title: 'Pengantar KTP',
-          to: '/l_ktp',
+          title: 'Surat Terverifikasi',
+          icon: 'mdi-checkbox-marked-circle-outline',
+          bg: 'green lighten-5',
+          color: 'green lighten-1',
+          image: 'img/icon/terverifikasi.svg',
+          to: '/terverivikasi',
         },
         {
-          title: 'Pengantar KK',
-          to: '/l_kk',
-        },
-        {
-          title: 'Pengantar Kematian',
-          to: '/l_kematian',
-        },
-        {
-          title: 'Pengantar Kelahiran',
-          to: '/l_kelahiran',
-        },
-        {
-          title: 'Pengantar Tidak Mampu',
-          to: '/l_tidakmampu',
+          title: 'Surat Diterbitkan',
+          bg: 'indigo lighten-5',
+          color: 'indigo lighten-1',
+          icon: 'fa-solid fa-signature',
+          image: 'img/icon/diterbitkan.svg',
+          to: '/terbit',
         },
       ],
     }
