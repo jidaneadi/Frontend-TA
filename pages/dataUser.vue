@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center" align="center">
     <v-col class="py-4">
-      <v-alert border="left" color="teal lighten-1" class="text-subtitle-3 font-weight-bold  white--text">
+      <v-alert border="left" color="#C08261" class="text-subtitle-3 font-weight-bold  white--text">
         Data User
       </v-alert>
       <v-card>
@@ -11,7 +11,6 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
         </v-card-title>
         <v-card-actions class="px-4">
-          <!-- <v-spacer></v-spacer> -->
           <v-btn color="green darken-1" dark class="mb-2" @click="dialogAdd = true">
             <v-icon>mdi-plus</v-icon> Add
           </v-btn>
@@ -19,6 +18,8 @@
             <v-icon>mdi-clipboard-text</v-icon> Print
           </v-btn>
         </v-card-actions>
+
+        <!-- ===========================Table======================= -->
         <v-data-table ref="table" :headers="headers" :items="dataUser" :search="search">
           <template v-slot:item.actions="{ item }">
             <v-menu offset-y>
@@ -71,19 +72,29 @@
                   <v-text-field v-model="tambahItem.password" :rules="rules.password" label="Password"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="4" md="4">
-                  <v-text-field v-model="tambahItem.konfPass" :rules="rules.konfPass"
+                  <v-text-field v-model="tambahItem.konf_pass" :rules="rules.konfPass"
                     label="Confirm Password"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="3" md="4">
                   <v-combobox v-model="tambahItem.gender" label="Jenis Kelamin" :items="items"></v-combobox>
                 </v-col>
-                <v-col cols="12" sm="4" md="6">
+                <v-col cols="12" sm="4" md="12">
                   <v-text-field v-model="tambahItem.no_hp" :rules="rules.no_hp" label="No HP"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="4" md="6">
-                  <v-text-field v-model="tambahItem.ttl" :rules="rules.ttl" label="Tempat, Tanggal Lahir"></v-text-field>
+                  <v-text-field v-model="tambahItem.tempat_lahir" :rules="rules.ttl" label="Tempat, Tanggal Lahir"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="4" md="12">
+                <v-col cols="12" sm="4" md="6">
+                <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
+                  offset-y max-width="auto">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field v-model="tambahItem.birthday" label="Input Tanggal Lahir" append-icon="mdi-calendar" readonly
+                      v-bind="attrs" v-on="on"></v-text-field>
+                  </template>
+                  <v-date-picker v-model="tambahItem.birthday" @input="menu = false"></v-date-picker>
+                </v-menu>
+                </v-col>
+                <v-col cols="12" sm="12" md="12">
                   <v-text-field v-model="tambahItem.alamat" :rules="rules.alamat" label="Alamat"></v-text-field>
                 </v-col>
               </v-row>
@@ -219,6 +230,7 @@ export default {
   data() {
     return {
       show: false,
+      menu:'',
       // selectedItem:null,
       dialogAdd: false,
       dialogEdit: false,
@@ -235,9 +247,11 @@ export default {
           value: 'nik',
         },
         { text: 'Nama', value: 'nama' },
+        { text: 'Email', value: 'email' },
         { text: 'Nomor HP', value: 'no_hp' },
         { text: 'Jenis Kelamin', value: 'gender' },
-        { text: 'Tempat. Tanggal Lahir', value: 'ttl' },
+        { text: 'Tempat Lahir', value: 'tempat_lahir'},
+        { text: 'Birthday', value: 'tanggal_lahir'},
         { text: 'Alamat', value: 'alamat' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
@@ -257,6 +271,7 @@ export default {
         konfPass: [
           v => !!v || 'Konfirmasi password tidak boleh kosong',
           v => (v && v.length >= 8) || 'Password berisi minimal 8 karakter',
+        v => v === this.tambahItem.password || 'Konfirmasi password tidak sama dengan password'
         ],
         nama: [
           v => !!v || 'nama tidak boleh kosong'
@@ -288,11 +303,12 @@ export default {
         id: '',
         email: '',
         password: '',
-        konfPass: '',
+        konf_pass: '',
         nama: '',
         no_hp: '',
         gender: '',
-        ttl: '',
+        tempat_lahir: '',
+        birthday:'',
         alamat: '',
       },
       defaultItem: {
@@ -319,18 +335,18 @@ export default {
 
   methods: {
     initialize() {
-      this.$axios.get('http://127.0.0.1:3005/api/masyarakat/')
+      this.$axios.get('http://127.0.0.1:4000/profile/')
         .then((response => {
           console.log(response.data)
           this.dataUser = response.data
-          this.$data.dialogAdd = false
+          // this.$data.dialogAdd = false
         })).catch((error) => {
           console.log(error.response)
         })
     },
 
     addData() {
-      this.$axios.post('http://127.0.0.1:3005/api/auth/', this.tambahItem)
+      this.$axios.post('http://127.0.0.1:4000/auth/register/', this.tambahItem)
         .then((response) => {
           console.log(response)
           // this.dialogAdd = false
