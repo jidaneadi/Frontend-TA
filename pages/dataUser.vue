@@ -59,36 +59,36 @@
           <v-card-text>
             <v-container>
               <v-row>
-                <v-col cols="12" sm="4" md="4">
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="tambahItem.id" :rules="rules.id" label="NIK"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="4" md="4">
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="tambahItem.email" :rules="rules.email" label="E-mail"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="4" md="4">
+                <v-col cols="12">
                   <v-text-field v-model="tambahItem.nama" :rules="rules.nama" label="Nama Lengkap"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="4" md="4">
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="tambahItem.password" :rules="rules.password" label="Password"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="4" md="4">
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="tambahItem.konf_pass" :rules="rules.konfPass"
                     label="Confirm Password"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="3" md="4">
+                <v-col cols="12" sm="6" md="6">
                   <v-combobox v-model="tambahItem.gender" label="Jenis Kelamin" :items="items"></v-combobox>
                 </v-col>
-                <v-col cols="12" sm="4" md="12">
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="tambahItem.no_hp" :rules="rules.no_hp" label="No HP"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="4" md="6">
-                  <v-text-field v-model="tambahItem.tempat_lahir" :rules="rules.ttl" label="Tempat, Tanggal Lahir"></v-text-field>
+                  <v-text-field v-model="tambahItem.tempat_lahir" :rules="rules.ttl" label="Tempat Lahir"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="4" md="6">
                 <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
                   offset-y max-width="auto">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-text-field v-model="tambahItem.birthday" label="Input Tanggal Lahir" append-icon="mdi-calendar" readonly
+                    <v-text-field v-model="tambahItem.birthday" label="Tanggal Lahir" append-icon="mdi-calendar" readonly
                       v-bind="attrs" v-on="on"></v-text-field>
                   </template>
                   <v-date-picker v-model="tambahItem.birthday" @input="menu = false"></v-date-picker>
@@ -122,25 +122,25 @@
           <v-card-text>
             <v-container>
               <v-row>
-                <v-col cols="12" sm="3" md="4">
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="editedItem.nik" label="NIK"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="4" md="4">
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="editedItem.email" :rules="rules.email" label="E-mail"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="3" md="4">
+                <v-col cols="12" sm="12" md="12">
                   <v-text-field v-model="editedItem.nama" label="Nama Lengkap"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="3" md="4">
+                <v-col cols="12" sm="6" md="6">
                   <v-combobox v-model="editedItem.gender" label="Jenis Kelamin" :items="items"></v-combobox>
                 </v-col>
-                <v-col cols="12" sm="3" md="6">
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="editedItem.no_hp" label="No HP"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="3" md="6">
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="editedItem.tempat_lahir" label="Tempat Lahir"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="4" md="6">
+                <v-col cols="12" sm="6" md="6">
                 <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
                   offset-y max-width="auto">
                   <template v-slot:activator="{ on, attrs }">
@@ -150,7 +150,7 @@
                   <v-date-picker v-model="editedItem.birthday" @input="menu = false"></v-date-picker>
                 </v-menu>
                 </v-col>
-                <v-col cols="12" sm="3" md="12">
+                <v-col cols="12">
                   <v-text-field v-model="editedItem.alamat" label="Alamat"></v-text-field>
                 </v-col>
               </v-row>
@@ -271,7 +271,7 @@ export default {
       rules: {
         id: [
           v => !!v || 'NIK tidak boleh kosong',
-          v => (v && v.length == 16) || 'NIK harus berjumlah 16 karakter berupa angka',
+          v => (v && v.length >= 15) || 'NIK harus berjumlah 16 karakter berupa angka',
         ],
         email: [
           v => !!v || 'E-mail tidak boleh kosong',
