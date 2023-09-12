@@ -266,6 +266,10 @@ export default {
       //Cara 2
       Cookies.remove('token')
       window.location.href = '/'
+    },
+
+    updatePassword(){
+      // this.$axios.$put('http://127.0.0.1:4000/password/:nik', this.form)
     }
   },
 }

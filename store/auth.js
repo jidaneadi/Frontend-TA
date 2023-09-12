@@ -51,17 +51,18 @@ export const mutations = {
 }
 export const actions = {
   async login({ commit }, payload) {
-    const response = await this.$axios.post(
-      'http://127.0.0.1:4000/auth/login',
+    const response = await this.$axios.$post(
+      '/auth/login',
       payload
     )
+    console.log(response)
     if (!response) {
       return false
     }
-    commit('setAccesToken', response.data.acces_token)
-    commit('setRefreshToken', response.data.refresh_token)
-    commit('setNama', response.data.nama)
+    commit('setAccesToken', response.acces_token)
+    commit('setRefreshToken', response.refresh_token)
+    commit('setNama', response.nama)
 
-    return response.data
+    return response
   },
 }

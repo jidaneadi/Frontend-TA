@@ -350,10 +350,10 @@ export default {
 
   methods: {
     initialize() {
-      this.$axios.get('http://127.0.0.1:4000/profile/')
+      this.$axios.$get('/profile/')
         .then((response => {
-          console.log(response.data)
-          this.dataUser = response.data
+          console.log(response)
+          this.dataUser = response
           // this.$data.dialogAdd = false
         })).catch((error) => {
           console.log(error.response)
@@ -361,15 +361,15 @@ export default {
     },
 
     addData() {
-      this.$axios.post('http://127.0.0.1:4000/auth/register/', this.tambahItem)
+      this.$axios.$post('/auth/register/', this.tambahItem)
         .then((response) => {
           console.log(response)
           // this.dialogAdd = false
           this.$data.dialogAdd = false
           this.$data.dialogBerhasil = true
         }).catch((error) => {
-          console.log(error.response.data.msg)
-          if (error.response.data.msg == 'DATA_FAILED') {
+          console.log(error.response.msg)
+          if (error.response.msg == 'DATA_FAILED') {
             this.$data.dialogAdd = false
             this.$data.dialogErr = true
           }
@@ -383,7 +383,7 @@ export default {
     },
 
     editData() {
-      this.$axios.put(`http://127.0.0.1:4000/profile/${this.editedItem.nik}`, this.editedItem)
+      this.$axios.$put(`/profile/${this.editedItem.nik}`, this.editedItem)
         .then((response) => {
           console.log(response)
           this.$data.dialogEdit = false
@@ -402,7 +402,7 @@ export default {
     },
 
     deleteItemConfirm() {
-      this.$axios.delete(`http://127.0.0.1:4000/profile/${this.editedItem.nik}`, this.editedItem)
+      this.$axios.$delete(`/profile/${this.editedItem.nik}`, this.editedItem)
         .then((response) => {
           console.log(response)
           this.$data.dialogDelete = false
