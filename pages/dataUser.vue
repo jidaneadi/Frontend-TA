@@ -229,8 +229,6 @@
   </v-row>
 </template>
 <script>
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 
 export default {
   head() {
@@ -361,10 +359,9 @@ export default {
     },
 
     addData() {
-      this.$axios.$post('/auth/register/', this.tambahItem)
+      this.$axios.$post('/profile/', this.tambahItem)
         .then((response) => {
           console.log(response)
-          // this.dialogAdd = false
           this.$data.dialogAdd = false
           this.$data.dialogBerhasil = true
         }).catch((error) => {

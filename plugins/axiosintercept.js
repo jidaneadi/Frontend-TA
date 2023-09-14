@@ -27,7 +27,7 @@ export default function ({ $axios, redirect, store }) {
         let refresh_token = store.state.auth.refresh_token
         console.log(refresh_token)
         const response = await $axios.$post('/auth/refresh', {
-          refresh_token: refresh_token,
+          "refresh_token": refresh_token,
         })
         //Menyimpan token baru ke store
         console.log(error.response.data.msg)
