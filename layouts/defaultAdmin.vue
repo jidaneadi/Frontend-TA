@@ -322,31 +322,6 @@ export default {
           }
         });
     }
-
-    // async updatePassword(){
-    //   try {
-    //     const response = await this.$axios.$put(`http://127.0.0.1:4000/profile/password/${this.user.id}`, this.form)
-
-    //   console.log(response)
-
-    //     this.$data.icon = 'mdi-checkbox-marked-circle'
-    //     this.$data.judul = 'Update Password Berhasil'
-    //     this.$data.color = 'green darken-1'
-    //     this.$data.message = response.msg
-    //     this.$data.dialog = false
-    //     this.$data.dialog3 = true
-    // } catch (error) {
-    //   console.log(error)
-    //   if(error.data.msg==='Old password tidak boleh kosong'){
-    //   this.$data.icon = 'mdi-cancel'
-    //     this.$data.judul = 'Update Password Gagal!!!'
-    //     this.$data.color = 'red darken-1'
-    //     // this.$data.message = error.data.msg
-    //     this.$data.dialog = false
-    //     this.$data.dialog3 = true
-    //   }
-    // }
-    // }
   },
 
   computed: {

@@ -11,12 +11,12 @@
               Edit Profile
             </v-alert>
           </div>
-          <v-form ref="form" lazy-validation class="px-1 py-3 mx-auto">
+          <v-form ref="dataUser" lazy-validation class="px-1 py-3 mx-auto">
             <v-container >
               <v-row no-gutters align="center" class="py-2">
                 <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3" >Email <strong class="red--text">*</strong> </v-col>
                 <v-col cols="12" xl="9" lg="9" md="9">
-                  <v-text-field v-model="form.email" :rules="emailRules" label="Input email" solo
+                  <v-text-field v-model="form.email" :value="form.emai" :rules="emailRules" label="Input email" solo
                     required></v-text-field>
                 </v-col>
 
@@ -117,7 +117,7 @@
 </template>
 <script>
 
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   middleware: ['auth'],
 
@@ -134,6 +134,7 @@ export default {
     return {
       dialog: false,
       dialog2: false,
+      dataUser:[],
       form : {
         nik:'',
         email :'',
@@ -184,16 +185,30 @@ export default {
       modal: false,
     }
   },
+  created() {
+    this.initialize()
 
+  },
   methods:{
     initialize(){
-      this.$axios.get(`http://localhost:4000/profile/${this.form.nik}`, this.form.nik)
+      this.$axios.$get(`http://localhost:4000/profile/${this.user.id}`)
       .then((response => {
-        console.log(response.data)
+        this.$data.form = response
+        console.log(response)
       })).catch((error) => {
         console.log(error)
       })
+    },
+
+    updateProfile() {
+      this.$axios.$put(`http://localhost:4000/profile/${this.form.nik}`, this.form)
     }
+  },
+
+  computed:{
+    ...mapGetters('auth', {
+      user : 'user'
+    })
   },
   name: 'My Profile',
 }

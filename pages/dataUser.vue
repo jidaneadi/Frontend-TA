@@ -325,14 +325,6 @@ export default {
         birthday:'',
         alamat: '',
       },
-      defaultItem: {
-        nik: '',
-        nama: '',
-        no_hp: '',
-        gender: '',
-        ttl: '',
-        alamat: '',
-      },
     }
   },
 
@@ -436,7 +428,9 @@ export default {
         }
         }).catch((error) => {
           this.$data.dialogDelete = false
+          if(error){
           alert('Terjadi kesalahan saat menghapus data')
+          }
         })
     },
 
