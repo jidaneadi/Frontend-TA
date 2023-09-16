@@ -2,8 +2,8 @@
   <v-app dark>
     <!-- Drawer -->
     <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" fixed app dark color="#9A3B3B">
-        <v-list nav dense>
-          <div class="d-flex justify-center align-start pt-2 pb-2 px-6">
+      <v-list nav dense>
+        <div class="d-flex justify-center align-start pt-2 pb-2 px-6">
           <v-img class="pa-1" height="80px" width="55px" src="img/logo3.png"></v-img>
           <p class="align-start justify-start text-start white--text font-weight-black"><span
               class="amber--text darken-1">Pengajuan Surat</span><v-spacer></v-spacer>Desa Sumbung</p>
@@ -61,7 +61,7 @@
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title>
-                Petugas Administrator
+                  Petugas Administrator
                 </v-list-item-title>
                 <v-list-item-subtitle>
                   <v-icon x-small>fa-solid fa-user-tie</v-icon>
@@ -81,7 +81,7 @@
             </v-list-item>
             <!-- ================Logout================= -->
             <div class="pa-2">
-              <v-btn color="red darken-1" text @click="dialog = true" block>
+              <v-btn color="red darken-1" text @click="dialog2 = true" block>
                 <v-icon class="mx-2">mdi-export</v-icon>
                 Logout
               </v-btn>
@@ -91,7 +91,7 @@
       </div>
 
 
-    <!-- =================Pages================== -->
+      <!-- =================Pages================== -->
       <div class="px-8 pt-2">
         <Nuxt />
       </div>
@@ -123,18 +123,18 @@
           <v-container>
             <v-row no-gutters>
               <v-col cols="12">
-              <v-text-field v-model="form.old_pass" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="rules.old_pass"
-                :type="show1 ? 'text' : 'password'" name="input-10-1" counter @click:append="show1 = !show1"
-                hint="Minimal 8 karakter" label="Old password*" required />
+                <v-text-field v-model="form.old_pass" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :rules="rules.old_pass" :type="show1 ? 'text' : 'password'" name="input-10-1" counter
+                  @click:append="show1 = !show1" hint="Minimal 8 karakter" label="Old password*" required />
               </v-col>
               <v-col cols="12">
-              <v-text-field v-model="form.new_pass" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :rules="rules.new_pass"
-                :type="show2 ? 'text' : 'password'" name="input-10-1" counter @click:append="show2 = !show2"
-                hint="Minimal 8 karakter" label="New password*" required />
+                <v-text-field v-model="form.new_pass" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :rules="rules.new_pass" :type="show2 ? 'text' : 'password'" name="input-10-1" counter
+                  @click:append="show2 = !show2" hint="Minimal 8 karakter" label="New password*" required />
               </v-col>
-              <v-col cols="12"><v-text-field v-model="form.konf_pass" :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'" :rules="rules.konf_pass"
-                :type="show3 ? 'text' : 'password'" name="input-10-1" counter @click:append="show3 = !show3"
-                hint="Minimal 8 karakter" label="Confirm password*" required />
+              <v-col cols="12"><v-text-field v-model="form.konf_pass" :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :rules="rules.konf_pass" :type="show3 ? 'text' : 'password'" name="input-10-1" counter
+                  @click:append="show3 = !show3" hint="Minimal 8 karakter" label="Confirm password*" required />
               </v-col>
             </v-row>
           </v-container>
@@ -173,26 +173,26 @@
     <!-- Batas Dialog 2 -->
 
     <v-dialog v-model="dialog3" persistent max-width="315">
-        <v-card>
-          <v-card-text align="center">
-            <h2 class="pt-4 pb-2 black--text font-weight-bold">{{ judul }}</h2>
-          </v-card-text>
-          <v-card-text align="center"><v-btn class="mx-2" fab dark large :color="color">
-              <v-icon x-large dark>
-               {{ icon }}
-              </v-icon>
-            </v-btn>
-          </v-card-text>
-          <v-card-text class="text-center">{{ message }}</v-card-text>
-          <v-card-actions>
-            <v-btn block :color="color" class="white--text" @click="dialog3 = false">
-              Mengerti
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+      <v-card>
+        <v-card-text align="center">
+          <h2 class="pt-4 pb-2 black--text font-weight-bold">{{ judul }}</h2>
+        </v-card-text>
+        <v-card-text align="center"><v-btn class="mx-2" fab dark large :color="color">
+            <v-icon x-large dark>
+              {{ icon }}
+            </v-icon>
+          </v-btn>
+        </v-card-text>
+        <v-card-text class="text-center">{{ message }}</v-card-text>
+        <v-card-actions>
+          <v-btn block :color="color" class="white--text" @click="dialog3 = false">
+            Mengerti
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
-      <!-- <v-dialog v-model="dialog3" persistent max-width="290">
+    <!-- <v-dialog v-model="dialog3" persistent max-width="290">
         <v-card>
           <v-card-text align="center">
             <h2 class="pt-4 pb-2 black--text font-weight-bold">Registrasi Berhasil</h2>
@@ -227,31 +227,31 @@ export default {
       dialog: false,
       dialog2: false,
       dialog3: false,
-      message:'',
+      message: '',
       icon: '',
       judul: '',
-      color:'',
+      color: '',
       show1: false,
       show2: false,
       show3: false,
-      form:{
-        new_pass:'',
-        old_pass:'',
-        konf_pass:'',
+      form: {
+        new_pass: '',
+        old_pass: '',
+        konf_pass: '',
       },
       rules: {
-        old_pass:[
-        v => !!v || 'Password tidak boleh kosong',
-        v => (v && v.length >= 8) || 'Password berisi minimal 8 karakter',
+        old_pass: [
+          v => !!v || 'Password tidak boleh kosong',
+          v => (v && v.length >= 8) || 'Password berisi minimal 8 karakter',
         ],
-        new_pass:[
-        v => !!v || 'Password tidak boleh kosong',
-        v => (v && v.length >= 8) || 'Password berisi minimal 8 karakter',
+        new_pass: [
+          v => !!v || 'Password tidak boleh kosong',
+          v => (v && v.length >= 8) || 'Password berisi minimal 8 karakter',
         ],
-        konf_pass:[
-        v => !!v || 'Konfirmasi password tidak boleh kosong',
-        v => (v && v.length >= 8) || 'Konfirmasi password berisi minimal 8 karakter',
-        v => v === this.form.new_pass || 'Konfirmasi password tidak sama dengan password'
+        konf_pass: [
+          v => !!v || 'Konfirmasi password tidak boleh kosong',
+          v => (v && v.length >= 8) || 'Konfirmasi password berisi minimal 8 karakter',
+          v => v === this.form.new_pass || 'Konfirmasi password tidak sama dengan password'
         ],
       },
       social: [
@@ -306,8 +306,8 @@ export default {
       title: 'Desa Sumbung',
     }
   },
-  methods:{
-    onLogout(){
+  methods: {
+    onLogout() {
       //Cara 1
       // this.$store.commit('auth/logout')
       // this.$router.push('/')
@@ -317,28 +317,29 @@ export default {
       window.location.href = '/'
     },
 
-    updatePassword(){
+    updatePassword() {
       this.$axios.$put(`http://127.0.0.1:4000/profile/password/${this.user.id}`, this.form)
-      .then((response) => {
-        console.log(response)
-        this.$data.icon = 'mdi-checkbox-marked-circle'
-        this.$data.judul = 'Update Password Berhasil'
-        this.$data.color = 'green darken-1'
-        this.$data.message = response.msg
-        this.$data.dialog = false
-        this.$data.dialog3 = true
-      }).catch((error) => {
-        console.log(error.data)
-        // if(error.data.msg){
-
-        //   this.$data.icon = 'mdi-cancel'
-        // this.$data.judul = 'Update Password Gagal!!!'
-        // this.$data.color = 'red darken-1'
-        // // this.$data.message = err.data.msg
-        // this.$data.dialog = false
-        // this.$data.dialog3 = true
-        // }
-      });
+        .then((response) => {
+          console.log(response)
+          if (response.msg === 'Password berhasil diubah') {
+            this.$data.icon = 'mdi-checkbox-marked-circle'
+            this.$data.judul = 'Update Password Berhasil'
+            this.$data.color = 'green darken-1'
+            this.$data.message = response.msg
+            this.$data.dialog = false
+            this.$data.dialog3 = true
+          }
+        }).catch((error) => {
+          // console.log(error.response.data)
+          if (error.response.data.msg) {
+            this.$data.icon = 'mdi-cancel'
+            this.$data.judul = 'Update password gagal!!!'
+            this.$data.color = 'red darken-1'
+            this.$data.message = error.response.data.msg
+            this.$data.dialog = false
+            this.$data.dialog3 = true
+          }
+        });
     }
 
     // async updatePassword(){
@@ -367,12 +368,12 @@ export default {
     // }
   },
 
-  computed:{
-    ...mapGetters('auth',{
-      user:'user'
+  computed: {
+    ...mapGetters('auth', {
+      user: 'user'
     }),
   },
-  mounted(){
+  mounted() {
     // console.log(this.user.id)
   }
 }

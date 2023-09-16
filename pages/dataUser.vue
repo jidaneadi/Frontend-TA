@@ -195,8 +195,8 @@
               </v-icon>
             </v-btn>
           </v-card-text>
-          <v-card-text>Cek kembali data anda!. Pastikan NIK dan E-mail yang anda inputkan
-            benar</v-card-text>
+          <v-card-text>{{ message }}. Cek kembali data yang anda inputkan dan pastikan data yang anda inputkan
+            benar!!!</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn text color="green darken-1" @click="dialogErr = false">
@@ -248,6 +248,7 @@ export default {
       dialogDelete: false,
       dialogErr: false,
       dialogBerhasil: false,
+      message:'',
       items: ['laki-laki', 'perempuan'],
       search: '',
       headers: [
@@ -362,14 +363,26 @@ export default {
       this.$axios.$post('/profile/', this.tambahItem)
         .then((response) => {
           console.log(response)
+          if(response.msg === 'Registrasi Berhasil'){
           this.$data.dialogAdd = false
           this.$data.dialogBerhasil = true
-        }).catch((error) => {
-          console.log(error.response.msg)
-          if (error.response.msg == 'DATA_FAILED') {
-            this.$data.dialogAdd = false
-            this.$data.dialogErr = true
           }
+        }).catch((error) => {
+          if (error.response.data.msg == "Nik sudah digunakan" || error.response.data.msg == "Email sudah digunakan") { this.message = "NIK atau E-mail sudah digunakan!" }
+          if (error.response.data.msg == "Key: 'Masyarakat.No_hp' Error:Field validation for 'No_hp' failed on the 'numeric' tag") { this.message = "Nomor hp harus berupa angka" }
+          if (error.response.data.msg == "Nik kosong" || error.response.data.msg == "E-mail kosong" || error.response.data.msg == "Password kosong" || error.response.data.msg == "Konfirmasi password kosong"
+          || error.response.data.msg == "Nama kosong" || error.response.data.msg == "Nomor hp kosong" || error.response.data.msg == "Tempat lahir kosong" || error.response.data.msg == "Tanggal lahir kosong"
+          || error.response.data.msg == "Alamat kosong" || error.response.data.msg == "Password dan konfirmasi password tidak sama" || error.response.data.msg == "NIK atau E-mail sudah digunakan"
+          ) { this.message = error.response.data.msg }
+          if (error.response.data.msg_required == "Error 1406 (22001): Data too long for column 'nama' at row 1") { this.message = "nama data terlalu panjang" }
+          if (error.response.data.msg_required == "Error 1406 (22001): Data too long for column 'tempat_lahir' at row 1") { this.message = "tempat lahir data terlalu panjang" }
+          if (error.response.data.msg_required == "Error 1292 (22007): Incorrect date value: '' for column 'birthday' at row 1") { this.message = "tanggal lahir terdapat kesalahan" }
+          if (error.response.data.msg_validate == "Key: 'User.Email' Error:Field validation for 'Email' failed on the 'email' tag") { this.message = "email salah, contoh email yang benar example@gmail.com" }
+          if (error.response.data.msg_validate == "Key: 'User.ID' Error:Field validation for 'ID' failed on the 'min' tag") { this.message = "nik harus memiliki minimal 15 karakter" }
+          if (error.response.data.msg_validate == "Key: 'User.ID' Error:Field validation for 'ID' failed on the 'numeric' tag") { this.message = "NIK harus berupa angka" }
+          if (error.response.data.msg_validate == "Key: 'User.Password' Error:Field validation for 'Password' failed on the 'min' tag") { this.message = "password minimal berjumlah 8 karakter" }
+          if (error.response.data.msg_validate == "Key: 'User.Konf_pass' Error:Field validation for 'Konf_pass' failed on the 'min' tag") { this.message = "konfirmasi password minimal berjumlah 8 karakter" }
+          this.$data.dialogErr = true
         })
     },
 
@@ -383,10 +396,25 @@ export default {
       this.$axios.$put(`/profile/${this.editedItem.nik}`, this.editedItem)
         .then((response) => {
           console.log(response)
+          if(response.msg === 'Profile berhasil di update'){
           this.$data.dialogEdit = false
           this.$data.dialogBerhasil = true
+          }
         }).catch((error) => {
-          console.log(error)
+          if (error.response.data.msg == "Nik sudah digunakan" || error.response.data.msg == "Email sudah digunakan") { this.message = "NIK atau E-mail sudah digunakan!" }
+          if (error.response.data.msg == "Key: 'Masyarakat.No_hp' Error:Field validation for 'No_hp' failed on the 'numeric' tag") { this.message = "Nomor hp harus berupa angka" }
+          if (error.response.data.msg == "Nik kosong" || error.response.data.msg == "E-mail kosong" || error.response.data.msg == "Password kosong" || error.response.data.msg == "Konfirmasi password kosong"
+          || error.response.data.msg == "Nama kosong" || error.response.data.msg == "Nomor hp kosong" || error.response.data.msg == "Tempat lahir kosong" || error.response.data.msg == "Tanggal lahir kosong"
+          || error.response.data.msg == "Alamat kosong" || error.response.data.msg == "Password dan konfirmasi password tidak sama" || error.response.data.msg == "NIK atau E-mail sudah digunakan"
+          ) { this.message = error.response.data.msg }
+          if (error.response.data.msg_required == "Error 1406 (22001): Data too long for column 'nama' at row 1") { this.message = "nama data terlalu panjang" }
+          if (error.response.data.msg_required == "Error 1406 (22001): Data too long for column 'tempat_lahir' at row 1") { this.message = "tempat lahir data terlalu panjang" }
+          if (error.response.data.msg_required == "Error 1292 (22007): Incorrect date value: '' for column 'birthday' at row 1") { this.message = "tanggal lahir terdapat kesalahan" }
+          if (error.response.data.msg_validate == "Key: 'User.Email' Error:Field validation for 'Email' failed on the 'email' tag") { this.message = "email salah, contoh email yang benar example@gmail.com" }
+          if (error.response.data.msg_validate == "Key: 'User.ID' Error:Field validation for 'ID' failed on the 'min' tag") { this.message = "nik harus memiliki minimal 15 karakter" }
+          if (error.response.data.msg_validate == "Key: 'User.ID' Error:Field validation for 'ID' failed on the 'numeric' tag") { this.message = "NIK harus berupa angka" }
+          if (error.response.data.msg_validate == "Key: 'User.Password' Error:Field validation for 'Password' failed on the 'min' tag") { this.message = "password minimal berjumlah 8 karakter" }
+          if (error.response.data.msg_validate == "Key: 'User.Konf_pass' Error:Field validation for 'Konf_pass' failed on the 'min' tag") { this.message = "konfirmasi password minimal berjumlah 8 karakter" }
           this.$data.dialogEdit = false
           this.dialogErr = true
         })
@@ -402,10 +430,13 @@ export default {
       this.$axios.$delete(`/profile/${this.editedItem.nik}`, this.editedItem)
         .then((response) => {
           console.log(response)
+          if(response.msg === 'User berhasil dihapus!'){
           this.$data.dialogDelete = false
           this.$data.dialogBerhasil = true
+        }
         }).catch((error) => {
-          console.log(error)
+          this.$data.dialogDelete = false
+          alert('Terjadi kesalahan saat menghapus data')
         })
     },
 

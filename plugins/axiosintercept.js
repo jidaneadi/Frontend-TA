@@ -11,40 +11,31 @@ export default function ({ $axios, redirect, store }) {
     }
   })
 
-  //Generate ulang acces_token & refresh_token saat kadaluwarsa
-  $axios.onResponseError(async (error) => {
-    try {
-      //Pengecekan refresh token, jika expired token dihapus
-      if (error.response.data.msg === 'Invalid refresh token') {
-        throw new Error('Logout')
-      }
-
-      //Pengcekan acces token, jika invalid akan merequest token baru
-      if (
-        error.response.status === 401 &&
-        error.response.data.msg === 'Invalid acces token'
-      ) {
+  $axios.onResponseError((error) => {
+    console.log(error.response.data)
+    if (
+      error.response.status === 401 &&
+      error.response.data.msg === 'Invalid acces token'
+    ) {
+      if (store.state.auth.refresh_token) {
         let refresh_token = store.state.auth.refresh_token
-        console.log(refresh_token)
-        const response = await $axios.$post('/auth/refresh', {
-          "refresh_token": refresh_token,
-        })
-        //Menyimpan token baru ke store
-        console.log(error.response.data.msg)
-        store.commit(`auth/setAccesToken`, response.acces_token)
-        store.commit(`auth/setRefreshToken`, response.refresh_token)
-
-        let originalRequest = error.config
-        originalRequest.headers[
-          'Authorization'
-        ] = `Bearer ${response.acces_token}`
-        return $axios(originalRequest)
-      }
-    } catch (error) {
-      console.log(error.message)
-      if(error.message === 'Logout'){
-        Cookies.remove('token')
-        return (window.location.href = '/')
+        return $axios
+          .$post('/auth/refresh', { 'refresh_token': refresh_token })
+          .then((response) => {
+            const originalRequest = error.config;
+            store.commit(`auth/setAccesToken`, response.acces_token)
+            store.commit(`auth/setRefreshToken`, response.refresh_token)
+            originalRequest.headers[
+              'Authorization'
+            ] = `Bearer ${response.acces_token}`
+            return $axios(originalRequest)
+          })
+          .catch((error) => {
+            if (error.response.data.msg === 'Invalid refresh token') {
+              Cookies.remove('token')
+              return (window.location.href = '/')
+            }
+          })
       }
     }
   })

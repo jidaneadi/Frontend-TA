@@ -219,21 +219,24 @@ export default {
           console.log(response)
           this.$data.dialog3 = true
         }).catch((err) => {
-          console.log(err.response)
-          if (err.response.msg == "Nik sudah digunakan" || err.response.msg == "Email sudah digunakan") { this.message = "NIK atau E-mail sudah digunakan!" }
+          console.log(err.response.data.msg)
+          if (err.response.data.msg == "Nik sudah digunakan" || err.response.data.msg == "Email sudah digunakan") { this.message = "NIK atau E-mail sudah digunakan!" }
           this.$data.dialog = true
-          if (err.response.msg == "Key: 'Masyarakat.No_hp' Error:Field validation for 'No_hp' failed on the 'numeric' tag") { this.message = "Nomor hp harus berupa angka" }
-          if (err.response.msg == "Nik kosong" || err.response.msg == "E-mail kosong" || err.response.msg == "Password kosong" || err.response.msg == "Konfirmasi password kosong" || err.response.msg == "Nama kosong" || err.response.msg == "Nomor hp kosong" || err.response.msg == "Tempat lahir kosong" || err.response.msg == "Tanggal lahir kosong" || err.response.msg == "Alamat kosong" || err.response.msg == "Password dan konfirmasi password tidak sama" || err.response.msg == "NIK atau E-mail sudah digunakan") { this.message = err.response.msg }
+          if (err.response.data.msg == "Key: 'Masyarakat.No_hp' Error:Field validation for 'No_hp' failed on the 'numeric' tag") { this.message = "Nomor hp harus berupa angka" }
+          if (err.response.data.msg == "Nik kosong" || err.response.data.msg == "E-mail kosong" || err.response.data.msg == "Password kosong" || err.response.data.msg == "Konfirmasi password kosong"
+          || err.response.data.msg == "Nama kosong" || err.response.data.msg == "Nomor hp kosong" || err.response.data.msg == "Tempat lahir kosong" || err.response.data.msg == "Tanggal lahir kosong"
+          || err.response.data.msg == "Alamat kosong" || err.response.data.msg == "Password dan konfirmasi password tidak sama" || err.response.data.msg == "NIK atau E-mail sudah digunakan"
+          ) { this.message = err.response.data.msg }
 
-          if (err.response.msg_required == "Error 1406 (22001): Data too long for column 'nama' at row 1") { this.message = "nama data terlalu panjang" }
-          if (err.response.msg_required == "Error 1406 (22001): Data too long for column 'tempat_lahir' at row 1") { this.message = "tempat lahir data terlalu panjang" }
-          if (err.response.msg_required == "Error 1292 (22007): Incorrect date value: '' for column 'birthday' at row 1") { this.message = "tanggal lahir terdapat kesalahan" }
+          if (err.response.data.msg_required == "Error 1406 (22001): Data too long for column 'nama' at row 1") { this.message = "nama data terlalu panjang" }
+          if (err.response.data.msg_required == "Error 1406 (22001): Data too long for column 'tempat_lahir' at row 1") { this.message = "tempat lahir data terlalu panjang" }
+          if (err.response.data.msg_required == "Error 1292 (22007): Incorrect date value: '' for column 'birthday' at row 1") { this.message = "tanggal lahir terdapat kesalahan" }
 
-          if (err.response.msg_validate == "Key: 'User.Email' Error:Field validation for 'Email' failed on the 'email' tag") { this.message = "email salah, contoh email yang benar example@gmail.com" }
-          if (err.response.msg_validate == "Key: 'User.ID' Error:Field validation for 'ID' failed on the 'min' tag") { this.message = "nik harus memiliki minimal 15 karakter" }
-          if (err.response.msg_validate == "Key: 'User.ID' Error:Field validation for 'ID' failed on the 'numeric' tag") { this.message = "NIK harus berupa angka" }
-          if (err.response.msg_validate == "Key: 'User.Password' Error:Field validation for 'Password' failed on the 'min' tag") { this.message = "password minimal berjumlah 8 karakter" }
-          if (err.response.msg_validate == "Key: 'User.Konf_pass' Error:Field validation for 'Konf_pass' failed on the 'min' tag") { this.message = "konfirmasi password minimal berjumlah 8 karakter" }
+          if (err.response.data.msg_validate == "Key: 'User.Email' Error:Field validation for 'Email' failed on the 'email' tag") { this.message = "email salah, contoh email yang benar example@gmail.com" }
+          if (err.response.data.msg_validate == "Key: 'User.ID' Error:Field validation for 'ID' failed on the 'min' tag") { this.message = "nik harus memiliki minimal 15 karakter" }
+          if (err.response.data.msg_validate == "Key: 'User.ID' Error:Field validation for 'ID' failed on the 'numeric' tag") { this.message = "NIK harus berupa angka" }
+          if (err.response.data.msg_validate == "Key: 'User.Password' Error:Field validation for 'Password' failed on the 'min' tag") { this.message = "password minimal berjumlah 8 karakter" }
+          if (err.response.data.msg_validate == "Key: 'User.Konf_pass' Error:Field validation for 'Konf_pass' failed on the 'min' tag") { this.message = "konfirmasi password minimal berjumlah 8 karakter" }
         })
     },
   },
