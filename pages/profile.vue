@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center" align="center">
     <v-col class="py-4">
-      <v-alert border="left" color="teal lighten-1" class="text-subtitle-3 font-weight-bold  white--text">
+      <v-alert border="left" color="#C08261" class="text-subtitle-3 font-weight-bold  white--text">
         My Profile
       </v-alert>
       <div class="pt-3">
@@ -11,67 +11,58 @@
               Edit Profile
             </v-alert>
           </div>
-          <v-form ref="form" lazy-validation class="px-12 py-6 mx-12">
-            <v-container>
-              <v-row align="center" class="py-2">
-
-                <v-col cols="2">Email</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="9">
-                  <v-text-field v-model="form.email" :rules="emailRules" label="Email" solo
+          <v-form ref="form" lazy-validation class="px-1 py-3 mx-auto">
+            <v-container >
+              <v-row no-gutters align="center" class="py-2">
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3" >Email <strong class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="9" lg="9" md="9">
+                  <v-text-field v-model="form.email" :rules="emailRules" label="Input email" solo
                     required></v-text-field>
                 </v-col>
 
                 <!-- Jika sudah masuk api sepertinya harus menggunakan v-model -->
-                <v-col cols="2">Nomor Induk Kependudukan</v-col>
-                <v-col cols="1">:{{ id }}</v-col>
-                <v-col cols="9">
-                  <v-text-field v-model="form.nik" :counter="20" :rules="nikRules" label="NIK" solo required></v-text-field>
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3" >Nomor Induk Kependudukan <strong class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="9" lg="9" md="9">
+                  <v-text-field v-model="form.nik" :counter="20" :rules="nikRules" label="Input nomor induk kependudukan" solo required></v-text-field>
                 </v-col>
 
-                <v-col cols="2">Nama Lengkap</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="9">
-                  <v-text-field v-model="form.nama" :counter="50" :rules="nameRules" label="Nama Lengkap" solo
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3" >Nama Lengkap <strong class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="9" lg="9" md="9">
+                  <v-text-field v-model="form.nama" :counter="50" :rules="nameRules" label="Input nama lengkap" solo
                     required></v-text-field>
                 </v-col>
 
-                <v-col cols="2">Jenis Kelamin</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="3">
-                  <v-select v-model="form.gender" :items="jenisKelamin" :rules="jkRules" label="Jenis Kelamin" solo required></v-select>
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3" >Jenis Kelamin <strong class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="3" lg="3" md="3">
+                  <v-select v-model="form.gender" :items="jenisKelamin" :rules="jkRules" label="Input jenis kelamin" solo required></v-select>
                 </v-col>
 
-                <v-col cols="2">No HP</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="3">
-                  <v-text-field v-model="form.no_hp" :counter="20" :rules="noRules" label="No HP" solo required></v-text-field>
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="2" lg="2" md="2" >No HP <strong class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="4" lg="4" md="4">
+                  <v-text-field v-model="form.no_hp" :counter="20" :rules="noRules" label="Input nomor handphone" solo required></v-text-field>
                 </v-col>
 
-                <v-col cols="2">Tempat Lahir</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="3">
-                  <v-text-field v-model="form.tempat_lahir" :counter="100" :rules="tmptRules" label="Tempat Lahir" solo
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3" >Tempat Lahir <strong class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="3" lg="3" md="3">
+                  <v-text-field v-model="form.tempat_lahir" :counter="100" :rules="tmptRules" label="Input tempat lahir" solo
                     append-icon="mdi-map-marker" required></v-text-field>
                 </v-col>
 
-                <v-col cols="2">Tanggal Lahir</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="3">
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="2" lg="2" md="2">Tanggal Lahir <strong class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="4" lg="4" md="4">
                   <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
                     offset-y min-width="auto">
                     <template v-slot:activator="{ on, attrs }">
-                      <v-text-field v-model="form.birthday" label="Picker without buttons" append-icon="mdi-calendar" readonly
+                      <v-text-field v-model="form.birthday" label="Input tanggal lahir" append-icon="mdi-calendar" readonly
                         v-bind="attrs" v-on="on" solo></v-text-field>
                     </template>
                     <v-date-picker v-model="date" @input="menu = false"></v-date-picker>
                   </v-menu>
                 </v-col>
 
-                <v-col cols="2">Alamat Rumah</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="9">
-                  <v-text-field v-model="form.alamat" :counter="100" :rules="alamatRules" label="Alamat" solo append-icon="mdi-map-marker"
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3" >Alamat Rumah <strong class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="9" lg="9" md="9">
+                  <v-text-field v-model="form.alamat" :counter="100" :rules="alamatRules" label="Input alamat" solo append-icon="mdi-map-marker"
                     required></v-text-field>
                 </v-col>
                 <v-btn color="success" @click="dialog2 = true" block>

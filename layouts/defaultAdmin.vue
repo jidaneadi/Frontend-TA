@@ -191,25 +191,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-    <!-- <v-dialog v-model="dialog3" persistent max-width="290">
-        <v-card>
-          <v-card-text align="center">
-            <h2 class="pt-4 pb-2 black--text font-weight-bold">Registrasi Berhasil</h2>
-          </v-card-text>
-          <v-card-text align="center"><v-btn class="mx-2" fab dark large color="green">
-              <v-icon x-large dark>
-                mdi-checkbox-marked-circle
-              </v-icon>
-            </v-btn>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn block color="green darken-1" class="white--text" to="/" @click="dialog3 = false">
-              OK
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>-->
   </v-app>
 </template>
 
