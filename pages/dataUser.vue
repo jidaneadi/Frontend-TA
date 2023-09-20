@@ -219,7 +219,7 @@
             </v-btn>
           </v-card-text>
           <v-card-actions>
-            <v-btn block color="green darken-1" class="white--text" @click="dialogBerhasil = false">
+            <v-btn block color="green darken-1" class="white--text" @click="reload">
               OK
             </v-btn>
           </v-card-actions>
@@ -434,6 +434,9 @@ export default {
         })
     },
 
+    reload(){
+      window.location.href = '/datauser';
+    },
     printData() {
       window.print();
     },

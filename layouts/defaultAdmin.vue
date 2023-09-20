@@ -121,6 +121,7 @@
         </v-card-title>
         <v-card-text>
           <v-container>
+            <v-form ref="form">
             <v-row no-gutters>
               <v-col cols="12">
                 <v-text-field v-model="form.old_pass" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -137,6 +138,7 @@
                   @click:append="show3 = !show3" hint="Minimal 8 karakter" label="Confirm password*" required />
               </v-col>
             </v-row>
+            </v-form>
           </v-container>
           <small>*indicates required field</small>
         </v-card-text>
@@ -145,7 +147,7 @@
           <v-btn color=" green darken-1" text @click="updatePassword">
             Save
           </v-btn>
-          <v-btn color="red darken-1" text @click="dialog = false">
+          <v-btn color="red darken-1" text @click="clear">
             Clear
           </v-btn>
         </v-card-actions>
@@ -289,11 +291,6 @@ export default {
   },
   methods: {
     onLogout() {
-      //Cara 1
-      // this.$store.commit('auth/logout')
-      // this.$router.push('/')
-
-      //Cara 2
       Cookies.remove('token')
       window.location.href = '/'
     },
@@ -301,27 +298,31 @@ export default {
     updatePassword() {
       this.$axios.$put(`http://127.0.0.1:4000/profile/password/${this.user.id}`, this.form)
         .then((response) => {
-          console.log(response)
           if (response.msg === 'Password berhasil diubah') {
             this.$data.icon = 'mdi-checkbox-marked-circle'
-            this.$data.judul = 'Update Password Berhasil'
+            this.$data.judul = 'Update password berhasil'
             this.$data.color = 'green darken-1'
             this.$data.message = response.msg
             this.$data.dialog = false
             this.$data.dialog3 = true
+            this.$refs.form.reset()
           }
         }).catch((error) => {
-          // console.log(error.response.data)
-          if (error.response.data.msg) {
+          console.log(error.response)
+          console.log(error.response)
+          if (error.response.data.msg === 'Old password tidak boleh kosong' || error.response.data.msg === 'New password tidak boleh kosong' || error.response.data.msg === 'Konfirmasi password tidak boleh kosong' || error.response.data.msg == 'Password harus berjumlah minimal 8 karakter' || error.response.data.msg === 'Password tidak sesuai' || error.response.msg === 'Password lama tidak sesuai') {
             this.$data.icon = 'mdi-cancel'
             this.$data.judul = 'Update password gagal!!!'
             this.$data.color = 'red darken-1'
             this.$data.message = error.response.data.msg
-            this.$data.dialog = false
             this.$data.dialog3 = true
           }
         });
-    }
+    },
+
+    clear(){
+        this.$refs.form.reset()
+      }
   },
 
   computed: {

@@ -142,22 +142,24 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-row no-gutters>
-              <v-col cols="12">
-                <v-text-field v-model="form.old_pass" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :rules="rules.old_pass" :type="show1 ? 'text' : 'password'" name="input-10-1" counter
-                  @click:append="show1 = !show1" hint="Minimal 8 karakter" label="Old password*" required />
-              </v-col>
-              <v-col cols="12">
-                <v-text-field v-model="form.new_pass" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :rules="rules.new_pass" :type="show2 ? 'text' : 'password'" name="input-10-1" counter
-                  @click:append="show2 = !show2" hint="Minimal 8 karakter" label="New password*" required />
-              </v-col>
-              <v-col cols="12"><v-text-field v-model="form.konf_pass" :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :rules="rules.konf_pass" :type="show3 ? 'text' : 'password'" name="input-10-1" counter
-                  @click:append="show3 = !show3" hint="Minimal 8 karakter" label="Confirm password*" required />
-              </v-col>
-            </v-row>
+            <v-form ref="form">
+              <v-row no-gutters>
+                <v-col cols="12">
+                  <v-text-field v-model="form.old_pass" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :rules="rules.old_pass" :type="show1 ? 'text' : 'password'" name="input-10-1" counter
+                    @click:append="show1 = !show1" hint="Minimal 8 karakter" label="Old password*" required />
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field v-model="form.new_pass" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :rules="rules.new_pass" :type="show2 ? 'text' : 'password'" name="input-10-1" counter
+                    @click:append="show2 = !show2" hint="Minimal 8 karakter" label="New password*" required />
+                </v-col>
+                <v-col cols="12"><v-text-field v-model="form.konf_pass" :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :rules="rules.konf_pass" :type="show3 ? 'text' : 'password'" name="input-10-1" counter
+                    @click:append="show3 = !show3" hint="Minimal 8 karakter" label="Confirm password*" required />
+                </v-col>
+              </v-row>
+            </v-form>
           </v-container>
           <small>*indicates required field</small>
         </v-card-text>
@@ -166,7 +168,7 @@
           <v-btn color=" green darken-1" text @click="updatePassword">
             Save
           </v-btn>
-          <v-btn color="red darken-1" text @click="dialog = false">
+          <v-btn color="red darken-1" text @click="clear">
             Clear
           </v-btn>
         </v-card-actions>
@@ -233,10 +235,10 @@ export default {
       clipped: false,
       dialog: false,
       dialog2: false,
-      dialog3:false,
+      dialog3: false,
       show1: false,
       show2: false,
-      show3: true,
+      show3: false,
       message: '',
       icon: '',
       judul: '',
@@ -333,7 +335,6 @@ export default {
   },
   methods: {
     onLogout() {
-      console.log(this.user)
       //Cara 2
       Cookies.remove('token')
       window.location.href = '/'
@@ -345,24 +346,29 @@ export default {
           console.log(response)
           if (response.msg === 'Password berhasil diubah') {
             this.$data.icon = 'mdi-checkbox-marked-circle'
-            this.$data.judul = 'Update Password Berhasil'
+            this.$data.judul = 'Update password berhasil'
             this.$data.color = 'green darken-1'
             this.$data.message = response.msg
             this.$data.dialog = false
             this.$data.dialog3 = true
+            this.$refs.form.reset()
           }
         }).catch((error) => {
-          // console.log(error.response.data)
-          if (error.response.data.msg) {
+          console.log(error.response)
+          console.log(error.response)
+          if (error.response.data.msg === 'Old password tidak boleh kosong' || error.response.data.msg === 'New password tidak boleh kosong' || error.response.data.msg === 'Konfirmasi password tidak boleh kosong' || error.response.data.msg == 'Password harus berjumlah minimal 8 karakter' || error.response.data.msg === 'Password tidak sesuai' || error.response.msg === 'Password lama tidak sesuai') {
             this.$data.icon = 'mdi-cancel'
             this.$data.judul = 'Update password gagal!!!'
             this.$data.color = 'red darken-1'
             this.$data.message = error.response.data.msg
-            this.$data.dialog = false
             this.$data.dialog3 = true
           }
         });
-      }
+    },
+
+    clear() {
+      this.$refs.form.reset()
+    }
   },
   computed: {
     ...mapState('auth', ['nama']),

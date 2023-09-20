@@ -11,59 +11,78 @@
               Edit Profile
             </v-alert>
           </div>
-          <v-form ref="dataUser" lazy-validation class="px-1 py-3 mx-auto">
-            <v-container >
+          <v-form ref="form" lazy-validation class="px-1 pb-3 pt-0 mx-auto">
+            <v-container class="">
               <v-row no-gutters align="center" class="py-2">
-                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3" >Email <strong class="red--text">*</strong> </v-col>
-                <v-col cols="12" xl="9" lg="9" md="9">
-                  <v-text-field v-model="form.email" :value="form.emai" :rules="emailRules" label="Input email" solo
-                    required></v-text-field>
-                </v-col>
-
                 <!-- Jika sudah masuk api sepertinya harus menggunakan v-model -->
-                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3" >Nomor Induk Kependudukan <strong class="red--text">*</strong> </v-col>
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3">Nomor Induk
+                  Kependudukan <strong class="red--text">*</strong> </v-col>
                 <v-col cols="12" xl="9" lg="9" md="9">
-                  <v-text-field v-model="form.nik" :counter="20" :rules="nikRules" label="Input nomor induk kependudukan" solo required></v-text-field>
+                  <v-text-field v-model="form.nik" :counter="20" :rules="nikRules" label="Input nomor induk kependudukan"
+                    required solo readonly>
+                  </v-text-field>
                 </v-col>
 
-                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3" >Nama Lengkap <strong class="red--text">*</strong> </v-col>
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3">Email <strong
+                    class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="9" lg="9" md="9">
+                  <v-text-field v-model="form.email" :rules="emailRules" label="Input email" solo required
+                    clear-icon="mdi-close-circle" clearable>
+                  </v-text-field>
+                </v-col>
+
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3">Nama Lengkap <strong
+                    class="red--text">*</strong> </v-col>
                 <v-col cols="12" xl="9" lg="9" md="9">
                   <v-text-field v-model="form.nama" :counter="50" :rules="nameRules" label="Input nama lengkap" solo
-                    required></v-text-field>
+                    required clear-icon="mdi-close-circle" clearable>
+                  </v-text-field>
                 </v-col>
 
-                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3" >Jenis Kelamin <strong class="red--text">*</strong> </v-col>
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3">Jenis Kelamin <strong
+                    class="red--text">*</strong> </v-col>
                 <v-col cols="12" xl="3" lg="3" md="3">
-                  <v-select v-model="form.gender" :items="jenisKelamin" :rules="jkRules" label="Input jenis kelamin" solo required></v-select>
+                  <v-select v-model="form.gender" :items="jenisKelamin" :rules="jkRules" label="Input jenis kelamin" solo
+                    required>
+                  </v-select>
                 </v-col>
 
-                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="2" lg="2" md="2" >No HP <strong class="red--text">*</strong> </v-col>
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="2" lg="2" md="2">No HP <strong
+                    class="red--text">*</strong> </v-col>
                 <v-col cols="12" xl="4" lg="4" md="4">
-                  <v-text-field v-model="form.no_hp" :counter="20" :rules="noRules" label="Input nomor handphone" solo required></v-text-field>
+                  <v-text-field v-model="form.no_hp" :counter="20" :rules="noRules" label="Input nomor handphone" solo
+                    required clear-icon="mdi-close-circle" clearable>
+                  </v-text-field>
                 </v-col>
 
-                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3" >Tempat Lahir <strong class="red--text">*</strong> </v-col>
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3">Tempat Lahir <strong
+                    class="red--text">*</strong> </v-col>
                 <v-col cols="12" xl="3" lg="3" md="3">
-                  <v-text-field v-model="form.tempat_lahir" :counter="100" :rules="tmptRules" label="Input tempat lahir" solo
-                    append-icon="mdi-map-marker" required></v-text-field>
+                  <v-text-field v-model="form.tempat_lahir" :counter="100" :rules="tmptRules" label="Input tempat lahir"
+                    solo append-icon="mdi-map-marker" required clear-icon="mdi-close-circle" clearable>
+                  </v-text-field>
                 </v-col>
 
-                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="2" lg="2" md="2">Tanggal Lahir <strong class="red--text">*</strong> </v-col>
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="2" lg="2" md="2">Tanggal Lahir <strong
+                    class="red--text">*</strong> </v-col>
                 <v-col cols="12" xl="4" lg="4" md="4">
                   <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
                     offset-y min-width="auto">
                     <template v-slot:activator="{ on, attrs }">
-                      <v-text-field v-model="form.birthday" label="Input tanggal lahir" append-icon="mdi-calendar" readonly
-                        v-bind="attrs" v-on="on" solo></v-text-field>
+                      <v-text-field v-model="form.birthday" label="Input tanggal lahir" append-icon="mdi-calendar"
+                        v-bind="attrs" v-on="on" solo required>
+                      </v-text-field>
                     </template>
                     <v-date-picker v-model="date" @input="menu = false"></v-date-picker>
                   </v-menu>
                 </v-col>
 
-                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3" >Alamat Rumah <strong class="red--text">*</strong> </v-col>
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3">Alamat Rumah <strong
+                    class="red--text">*</strong> </v-col>
                 <v-col cols="12" xl="9" lg="9" md="9">
-                  <v-text-field v-model="form.alamat" :counter="100" :rules="alamatRules" label="Input alamat" solo append-icon="mdi-map-marker"
-                    required></v-text-field>
+                  <v-text-field v-model="form.alamat" :counter="100" :rules="alamatRules" label="Input alamat" solo
+                    append-icon="mdi-map-marker" required clear-icon="mdi-close-circle" clearable>
+                  </v-text-field>
                 </v-col>
                 <v-btn color="success" @click="dialog2 = true" block>
                   Kirim
@@ -75,18 +94,22 @@
       </div>
 
       <!-- =========Dialog============ -->
-      <v-dialog v-model="dialog" persistent max-width="290">
+      <v-dialog v-model="dialog" persistent max-width="315">
         <v-card>
-          <v-card-title class="text-h5">
-            Apakah alamat email anda sudah benar?
-          </v-card-title>
+          <v-card-text align="center">
+            <h2 class="pt-4 pb-2 black--text font-weight-bold">{{ judul }}</h2>
+          </v-card-text>
+          <v-card-text align="center"><v-btn class="mx-2" fab dark large :color="color">
+              <v-icon x-large dark>
+                {{ icon }}
+              </v-icon>
+            </v-btn>
+          </v-card-text>
+          <v-card-text class="text-center">{{ message }}</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="green darken-1" text @click="dialog = false">
-              Ya
-            </v-btn>
-            <v-btn color="red darken-1" text @click="dialog = false">
-              Tidak
+            <v-btn text color="green darken-1" @click="dialog=false">
+              Mengerti
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -101,7 +124,7 @@
           </v-card-title>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="green darken-1" text @click="dialog2 = false">
+            <v-btn color="green darken-1" text @click="updateProfile">
               Ya
             </v-btn>
             <v-btn color="red darken-1" text @click="dialog2 = false">
@@ -121,8 +144,8 @@ import { mapGetters, mapState } from 'vuex'
 export default {
   middleware: ['auth'],
 
-  computed:{
-    ...mapState('auth',['id'])
+  computed: {
+    ...mapState('auth', ['id'])
   },
   head() {
     return {
@@ -134,10 +157,25 @@ export default {
     return {
       dialog: false,
       dialog2: false,
-      dataUser:[],
-      form : {
-        nik:'',
-        email :'',
+      disabled: true,
+      isEditing: false,
+      isEditing2: false,
+      isEditing3: false,
+      isEditing4: false,
+      isEditing5: false,
+      isEditing6: false,
+      isEditing7: false,
+      isEditing8: false,
+      error: false,
+      icon:'',
+      judul:'',
+      color:'',
+      action:'',
+      message: '',
+
+      form: {
+        nik: '',
+        email: '',
         nama: '',
         no_hp: '',
         gender: '',
@@ -160,16 +198,16 @@ export default {
         v => !!v || 'Alamat masih kosong',
         v => (v && v.length <= 100) || 'Alamat harus kurang dari 100 karakter',
       ],
-      jenisKelamin: ['Laki-laki', 'Perempuan'],
+      jenisKelamin: ['laki-laki', 'perempuan'],
       noRules: [
         v => !!v || 'No HP masih kosong',
         v => (v && v.length <= 20) || 'No HP melebihi 20 karakter',
       ],
       tmptRules: [
-      v => !!v || 'Tempat lahir masih kosong',
+        v => !!v || 'Tempat lahir masih kosong',
       ],
       tglRules: [
-      v => !!v || 'Tanggal lahir masih kosong',
+        v => !!v || 'Tanggal lahir masih kosong',
       ],
       emailRules: [
         v => !!v || 'E-mail is required',
@@ -189,25 +227,58 @@ export default {
     this.initialize()
 
   },
-  methods:{
-    initialize(){
+  methods: {
+    initialize() {
       this.$axios.$get(`http://localhost:4000/profile/${this.user.id}`)
-      .then((response => {
-        this.$data.form = response
-        console.log(response)
-      })).catch((error) => {
-        console.log(error)
-      })
+        .then((response => {
+          this.$data.form = response
+          console.log(response)
+        })).catch((error) => {
+          console.log(error)
+        })
     },
 
     updateProfile() {
       this.$axios.$put(`http://localhost:4000/profile/${this.form.nik}`, this.form)
+        .then((response => {
+          // this.$data.form = response
+          console.log(response)
+          if (response.msg === 'Profile berhasil di update') {
+            this.$data.dialog2 = false
+            this.$data.dialog = true
+            this.$data.color = 'green darken-1'
+            this.$data.message = response.msg
+            this.$data.icon = 'mdi-checkbox-marked-circle'
+            this.$data.judul = 'Update profile Berhasil'
+          }
+        })).catch((error) => {
+          this.$data.dialog2 = false
+          this.$data.dialog = true
+            this.$data.color = 'red darken-1'
+            this.$data.icon = 'mdi-cancel'
+          this.$data.judul = 'Gagal update profile!!!'
+          // this.$data.type === 'error'
+          if (error.response.data.msg == "Nik sudah digunakan" || error.response.data.msg == "Email sudah digunakan") { this.message = "NIK atau E-mail sudah digunakan!" }
+          if (error.response.data.msg == "Key: 'Masyarakat.No_hp' Error:Field validation for 'No_hp' failed on the 'numeric' tag") { this.message = "Nomor hp harus berupa angka" }
+          if (error.response.data.msg == "Nik kosong" || error.response.data.msg == "E-mail kosong" || error.response.data.msg == "Password kosong" || error.response.data.msg == "Konfirmasi password kosong"
+            || error.response.data.msg == "Nama kosong" || error.response.data.msg == "Nomor hp kosong" || error.response.data.msg == "Tempat lahir kosong" || error.response.data.msg == "Tanggal lahir kosong"
+            || error.response.data.msg == "Alamat kosong" || error.response.data.msg == "Password dan konfirmasi password tidak sama" || error.response.data.msg == "NIK atau E-mail sudah digunakan"
+          ) { this.message = error.response.data.msg }
+          if (error.response.data.msg_required == "Error 1406 (22001): Data too long for column 'nama' at row 1") { this.message = "nama data terlalu panjang" }
+          if (error.response.data.msg_required == "Error 1406 (22001): Data too long for column 'tempat_lahir' at row 1") { this.message = "tempat lahir data terlalu panjang" }
+          if (error.response.data.msg_required == "Error 1292 (22007): Incorrect date value: '' for column 'birthday' at row 1") { this.message = "tanggal lahir terdapat kesalahan" }
+          if (error.response.data.msg_validate == "Key: 'User.Email' Error:Field validation for 'Email' failed on the 'email' tag") { this.message = "email salah, contoh email yang benar example@gmail.com" }
+          if (error.response.data.msg_validate == "Key: 'User.ID' Error:Field validation for 'ID' failed on the 'min' tag") { this.message = "nik harus memiliki minimal 15 karakter" }
+          if (error.response.data.msg_validate == "Key: 'User.ID' Error:Field validation for 'ID' failed on the 'numeric' tag") { this.message = "NIK harus berupa angka" }
+          if (error.response.data.msg_validate == "Key: 'User.Password' Error:Field validation for 'Password' failed on the 'min' tag") { this.message = "password minimal berjumlah 8 karakter" }
+          if (error.response.data.msg_validate == "Key: 'User.Konf_pass' Error:Field validation for 'Konf_pass' failed on the 'min' tag") { this.message = "konfirmasi password minimal berjumlah 8 karakter" }
+        })
     }
   },
 
-  computed:{
+  computed: {
     ...mapGetters('auth', {
-      user : 'user'
+      user: 'user'
     })
   },
   name: 'My Profile',
