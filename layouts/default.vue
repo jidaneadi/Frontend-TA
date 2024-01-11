@@ -341,7 +341,7 @@ export default {
     },
 
     updatePassword() {
-      this.$axios.$put(`http://127.0.0.1:4000/profile/password/${this.user.id}`, this.form)
+      this.$axios.$put(`/profile/password/${this.user.id}`, this.form)
         .then((response) => {
           console.log(response)
           if (response.msg === 'Password berhasil diubah') {

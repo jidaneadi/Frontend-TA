@@ -17,42 +17,6 @@
           <v-form ref="form" v-model="valid" lazy-validation class="px-12 py-6 mx-12">
             <v-container>
               <v-row align="center" class="py-2">
-
-                <!-- Jika sudah masuk api sepertinya harus menggunakan v-model -->
-                <v-col cols="2">Nomor Induk Kependudukan</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="9">
-                  <v-text-field :counter="16" :rules="nikRules" label="NIK" solo required></v-text-field>
-                </v-col>
-
-                <v-col cols="2">Nama Lengkap</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="9">
-                  <v-text-field v-model="name" :counter="50" :rules="nameRules" label="Nama Lengkap" solo
-                    required></v-text-field>
-                </v-col>
-
-                <v-col cols="2">Jenis Kelamin</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="2">
-                  <v-select :items="jenisKelamin" values="-" :rules="jkRules" label="Jenis Kelamin" solo
-                    required></v-select>
-                </v-col>
-
-                <v-col cols="2">Tempat, Tanggal Lahir Lahir</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="4">
-                  <v-text-field :counter="100" :rules="tmptRules" label="Tempat, Tanggal Lahir" solo append-icon="mdi-map-marker"
-                    required></v-text-field>
-                </v-col>
-
-                <v-col cols="2">Alamat Rumah</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="9">
-                  <v-text-field :counter="100" :rules="alamatRules" label="Alamat" solo append-icon="mdi-map-marker"
-                    required></v-text-field>
-                </v-col>
-
                 <v-col cols="2">Jenis Surat</v-col>
                 <v-col cols="1">:</v-col>
                 <v-col cols="3">

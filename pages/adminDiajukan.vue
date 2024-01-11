@@ -169,7 +169,7 @@
             </v-btn>
           </v-card-text>
           <v-card-actions>
-            <v-btn block color="green darken-1" class="white--text" @click="dialogBerhasil = false">
+            <v-btn block color="green darken-1" class="white--text" @click="reload">
               OK
             </v-btn>
           </v-card-actions>
@@ -203,13 +203,10 @@ export default {
           text: 'ID Surat',
           align: 'start',
           sortable: false,
-          value: 'id',
+          value: 'id_surat',
         },
         { text: 'NIK', value: 'nik' },
         { text: 'Nama Pemohon', value: 'nama' },
-        { text: 'Tempat Tanggal Lahir', value: 'ttl' },
-        { text: 'Nomor HP', value: 'no_hp' },
-        { text: 'Alamat', value: 'alamat' },
         { text: 'Jenis Surat', value: 'jns_surat' },
         { text: 'Tanggal Pengajuan', value: 'created_at' },
         { text: 'Status', value: 'status' },
@@ -219,36 +216,24 @@ export default {
       dataSurat: [],
       editedIndex: -1,
       editedItem: {
-        id: '',
+        id_surat: '',
         nik: '',
         nama: '',
-        ttl: '',
-        gender: '',
-        no_hp: '',
-        alamat: '',
+        syarat:'',
         jns_surat: '',
         status: '',
         keterangan: '',
-        created_at: '',
-        updated_at: '',
       },
       defaultItem: {
-        id: '',
+        id_surat: '',
         nik: '',
         nama: '',
-        ttl: '',
-        gender: '',
-        no_hp: '',
-        alamat: '',
+        syarat:'',
         jns_surat: '',
         status: '',
         keterangan: '',
-        created_at: '',
         updated_at: '',
       },
-
-
-
     }
   },
 
@@ -263,12 +248,20 @@ export default {
   },
 
   methods: {
+
+    reload(){
+      dialogBerhasil = false
+      window.location.href = '/admindiajukan';
+    },
+
     initialize() {
-      this.$axios.get('http://127.0.0.1:3005/api/data/')
+      this.$axios.get('/surat/')
         .then((response => {
-          const filteredData = response.data.filter(item => item.status === 'diproses');
-          const sortedData = filteredData.sort((a, b) => a.created_at.localeCompare(b.created_at));
+          console.log(response.data)
+          const filteredData = response.data.filter(item => item.status === "diproses");
+          const sortedData = filteredData.sort((a, b) => a.updated_at.localeCompare(b.updated_at));
           this.dataSurat = sortedData;
+          console.log(filteredData)
         })).catch((error) => {
           console.log(error.response)
         })
@@ -281,7 +274,7 @@ export default {
     },
 
     ketItemConfirm() {
-      this.$axios.put(`http://127.0.0.1:3005/api/surat/${this.editedItem.id}`, this.editedItem)
+      this.$axios.$put(`/surat/${this.editedItem.id_surat}`, this.editedItem)
         .then((response) => {
           console.log(response)
           this.$data.dialogKet = false
@@ -301,7 +294,7 @@ export default {
 
     tolakItemConfirm() {
       this.editedItem.status = "ditolak"
-      this.$axios.put(`http://127.0.0.1:3005/api/surat/${this.editedItem.id}`, this.editedItem)
+      this.$axios.$put(`surat/${this.editedItem.id_surat}`, this.editedItem)
         .then((response) => {
           console.log(response)
           this.$data.dialogTolak = false
@@ -321,7 +314,7 @@ export default {
 
     verifItemConfirm() {
       this.editedItem.status = "terverifikasi"
-      this.$axios.put(`http://127.0.0.1:3005/api/surat/${this.editedItem.id}`, this.editedItem)
+      this.$axios.$put(`/surat/${this.editedItem.id_surat}`, this.editedItem)
         .then((response) => {
           console.log(response)
           this.$data.dialogVerif = false
@@ -340,7 +333,7 @@ export default {
     },
 
     deleteItemConfirm() {
-      this.$axios.delete(`http://127.0.0.1:3005/api/surat/${this.editedItem.id}`, this.editedItem)
+      this.$axios.delete(`/surat/${this.editedItem.id_surat}`, this.editedItem)
         .then((response) => {
           console.log(response)
           this.$data.dialogDelete = false

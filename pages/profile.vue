@@ -189,7 +189,7 @@ export default {
       ],
       nikRules: [
         v => !!v || 'NIK masih kosong',
-        v => (v && v.length == 16) || 'NIK harus berjumlah 16 karakter berupa angka',
+        v => (v && v.length >= 15) || 'NIK minimal berjumlah 15 karakter berupa angka',
       ],
       jkRules: [
         v => !!v || 'Jenis kelamin masih kosong',
@@ -229,7 +229,7 @@ export default {
   },
   methods: {
     initialize() {
-      this.$axios.$get(`http://localhost:4000/profile/${this.user.id}`)
+      this.$axios.$get(`/profile/${this.user.id}`)
         .then((response => {
           this.$data.form = response
           console.log(response)
@@ -239,7 +239,7 @@ export default {
     },
 
     updateProfile() {
-      this.$axios.$put(`http://localhost:4000/profile/${this.form.nik}`, this.form)
+      this.$axios.$put(`/profile/${this.form.nik}`, this.form)
         .then((response => {
           // this.$data.form = response
           console.log(response)

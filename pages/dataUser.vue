@@ -81,10 +81,10 @@
                 <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="tambahItem.no_hp" :rules="rules.no_hp" label="No HP"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="4" md="6">
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="tambahItem.tempat_lahir" :rules="rules.ttl" label="Tempat Lahir"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="4" md="6">
+                <v-col cols="12" sm="6" md="6">
                 <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
                   offset-y max-width="auto">
                   <template v-slot:activator="{ on, attrs }">
@@ -141,7 +141,7 @@
                   <v-text-field v-model="editedItem.tempat_lahir" label="Tempat Lahir"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
-                <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
+                  <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
                   offset-y max-width="auto">
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field v-model="editedItem.birthday" label="Tanggal Lahir" append-icon="mdi-calendar" readonly
@@ -362,7 +362,7 @@ export default {
         }).catch((error) => {
           if (error.response.data.msg == "Nik sudah digunakan" || error.response.data.msg == "Email sudah digunakan") { this.message = "NIK atau E-mail sudah digunakan!" }
           if (error.response.data.msg == "Key: 'Masyarakat.No_hp' Error:Field validation for 'No_hp' failed on the 'numeric' tag") { this.message = "Nomor hp harus berupa angka" }
-          if (error.response.data.msg == "Nik kosong" || error.response.data.msg == "E-mail kosong" || error.response.data.msg == "Password kosong" || error.response.data.msg == "Konfirmasi password kosong"
+          if (error.response.data.msg == "Nik kosong" || error.response.data.msg == "E-mail kosong" || error.response.data.msg == "Password kosong" || error.response.data.msg == "Konfirmasi password kosong" || error.response.data.msg == "Password harus berjumlah minimal 8 karakter"
           || error.response.data.msg == "Nama kosong" || error.response.data.msg == "Nomor hp kosong" || error.response.data.msg == "Tempat lahir kosong" || error.response.data.msg == "Tanggal lahir kosong"
           || error.response.data.msg == "Alamat kosong" || error.response.data.msg == "Password dan konfirmasi password tidak sama" || error.response.data.msg == "NIK atau E-mail sudah digunakan"
           ) { this.message = error.response.data.msg }
@@ -372,7 +372,7 @@ export default {
           if (error.response.data.msg_validate == "Key: 'User.Email' Error:Field validation for 'Email' failed on the 'email' tag") { this.message = "email salah, contoh email yang benar example@gmail.com" }
           if (error.response.data.msg_validate == "Key: 'User.ID' Error:Field validation for 'ID' failed on the 'min' tag") { this.message = "nik harus memiliki minimal 15 karakter" }
           if (error.response.data.msg_validate == "Key: 'User.ID' Error:Field validation for 'ID' failed on the 'numeric' tag") { this.message = "NIK harus berupa angka" }
-          if (error.response.data.msg_validate == "Key: 'User.Password' Error:Field validation for 'Password' failed on the 'min' tag") { this.message = "password minimal berjumlah 8 karakter" }
+          // if (error.response.data.msg_validate == "Password harus berjumlah minimal 8 karakter") { this.message = "password minimal berjumlah 8 karakter" }
           if (error.response.data.msg_validate == "Key: 'User.Konf_pass' Error:Field validation for 'Konf_pass' failed on the 'min' tag") { this.message = "konfirmasi password minimal berjumlah 8 karakter" }
           this.$data.dialogErr = true
         })

@@ -28,14 +28,6 @@
                 </v-btn>
               </template>
               <v-list nav dense>
-                <!-- <v-list-item @click="cetakItem(item)">
-                  <v-icon color="green" icon>
-                    mdi-clipboard-text
-                  </v-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Cetak</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item> -->
                 <v-list-item @click="editItem(item)">
                   <v-icon color="yellow" icon>
                     mdi-pencil
@@ -211,15 +203,13 @@ export default {
           text: 'ID Surat',
           align: 'start',
           sortable: false,
-          value: 'id',
+          value: 'id_surat',
         },
         { text: 'NIK', value: 'nik' },
         { text: 'Nama Pemohon', value: 'nama' },
-        { text: 'Tempat Tanggal Lahir', value: 'ttl' },
-        { text: 'Nomor HP', value: 'no_hp' },
-        { text: 'Alamat', value: 'alamat' },
         { text: 'Jenis Surat', value: 'jns_surat' },
         { text: 'Tanggal Pengajuan', value: 'updated_at' },
+        { text: 'Dokumen Syarat', value: 'syarat' },
         { text: 'Status', value: 'status' },
         { text: 'Keterangan', value: 'keterangan' },
         { text: 'Actions', value: 'actions', sortable: false },
@@ -227,36 +217,25 @@ export default {
       dataSurat: [],
       editedIndex: -1,
       editedItem: {
-        id: '',
+        id_surat: '',
         nik: '',
         nama: '',
-        ttl: '',
-        gender: '',
-        no_hp: '',
-        alamat: '',
+        syarat:'',
         jns_surat: '',
         status: '',
         keterangan: '',
-        created_at: '',
         updated_at: '',
       },
       defaultItem: {
-        id: '',
+        id_surat: '',
         nik: '',
         nama: '',
-        ttl: '',
-        gender: '',
-        no_hp: '',
-        alamat: '',
+        syarat:'',
         jns_surat: '',
         status: '',
         keterangan: '',
-        created_at: '',
         updated_at: '',
       },
-
-
-
     }
   },
 
@@ -265,8 +244,13 @@ export default {
   },
 
   methods: {
+    reload(){
+      dialogBerhasil = false
+      window.location.href = '/adminselesai';
+    },
+
     initialize() {
-      this.$axios.get('http://127.0.0.1:3005/api/data/')
+      this.$axios.get('/ktp/')
         .then((response => {
           const filteredData = response.data.filter(item => item.status === 'diambil');
           const sortedData = filteredData.sort((a, b) => a.created_at.localeCompare(b.created_at));
@@ -283,7 +267,7 @@ export default {
     },
 
     editItemConfirm() {
-      this.$axios.put(`http://127.0.0.1:3005/api/surat/${this.editedItem.id}`, this.editedItem)
+      this.$axios.put(`/surat/${this.editedItem.id}`, this.editedItem)
         .then((response) => {
           console.log(response)
           this.$data.dialogEdit = false
@@ -303,7 +287,7 @@ export default {
 
     cetakItemConfirm() {
       this.editedItem.status = "ditolak"
-      this.$axios.put(`http://127.0.0.1:3005/api/surat/${this.editedItem.id}`, this.editedItem)
+      this.$axios.put(`/surat/${this.editedItem.id}`, this.editedItem)
         .then((response) => {
           console.log(response)
           this.$data.dialogCetak = false
@@ -323,7 +307,7 @@ export default {
 
     verifItemConfirm() {
       this.editedItem.status = "terverifikasi"
-      this.$axios.put(`http://127.0.0.1:3005/api/surat/${this.editedItem.id}`, this.editedItem)
+      this.$axios.put(`/surat/${this.editedItem.id}`, this.editedItem)
         .then((response) => {
           console.log(response)
           this.$data.dialogVerif = false
