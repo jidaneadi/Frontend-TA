@@ -52,12 +52,12 @@
                     <v-list-item-title>Hapus Data</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item @click="ketItem(item)">
+                <v-list-item @click="lihatDokumenItem(item)">
                   <v-icon color="yellow" icon>
-                    mdi-pencil
+                    mdi-eye
                   </v-icon>
                   <v-list-item-content>
-                    <v-list-item-title>Berikan Keterangan</v-list-item-title>
+                    <v-list-item-title> Lihat Dokumen Syarat</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -66,8 +66,8 @@
         </v-data-table>
       </v-card>
 
-      <!-- ============Dialog Edit Data================= -->
-      <v-dialog v-model="dialogKet" max-width="500px">
+      <!-- ============Dialog Surat Ditolak================= -->
+      <v-dialog v-model="dialogTolak" max-width="500px">
         <v-card>
           <v-card-title>
             <span class="text-h5">Berikan Keterangan</span>
@@ -76,33 +76,19 @@
             <v-container>
               <v-row>
                 <v-col cols="12" sm="12" md="12">
-                  <!-- <v-textarea filled name="input-7-4" label="Keterangan"/> -->
-                    <v-textarea v-model="editedItem.keterangan" label="Keterangan"/>
+                  <v-textarea v-model="editedItem.keterangan" label="Keterangan" />
                 </v-col>
               </v-row>
             </v-container>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialogKet = false">
+            <v-btn color="blue darken-1" text @click="dialogTolak = false">
               Cancel
             </v-btn>
-            <v-btn color="blue darken-1" text @click="ketItemConfirm">
+            <v-btn color="blue darken-1" text @click="tolakItemConfirm">
               Save
             </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
-      <!-- ============Dialog Verifikasi================= -->
-      <v-dialog v-model="dialogTolak" max-width="500px">
-        <v-card>
-          <v-card-title class="text-h6" justify="center">Apakah anda yakin menolak pengajuan ini?</v-card-title>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="red darken-1" text @click="dialogTolak = false">Cancel</v-btn>
-            <v-btn color="green darken-1" text @click="tolakItemConfirm">Ya</v-btn>
-            <v-spacer></v-spacer>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -181,7 +167,7 @@
 </template>
 <script>
 export default {
-  middleware : ['authAdmin'],
+  middleware: ['authAdmin'],
   head() {
     return {
       title: 'Data Surat Diajukan'
@@ -191,7 +177,6 @@ export default {
   layout: 'defaultAdmin',
   data() {
     return {
-      dialogKet: false,
       dialogTolak: false,
       dialogDelete: false,
       dialogVerif: false,
@@ -208,27 +193,30 @@ export default {
         { text: 'NIK', value: 'nik' },
         { text: 'Nama Pemohon', value: 'nama' },
         { text: 'Jenis Surat', value: 'jns_surat' },
-        { text: 'Tanggal Pengajuan', value: 'created_at' },
+        { text: 'Tanggal Pengajuan', value: 'updated_at' },
         { text: 'Status', value: 'status' },
-        { text: 'Keterangan', value: 'keterangan' },
+        // { text: 'Keterangan', value: 'keterangan' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       dataSurat: [],
+      dataEditSurat:[],
       editedIndex: -1,
       editedItem: {
         id_surat: '',
+        idm: '',
         nik: '',
         nama: '',
-        syarat:'',
+        syarat: '',
         jns_surat: '',
         status: '',
+        updated_at:'',
         keterangan: '',
       },
       defaultItem: {
         id_surat: '',
         nik: '',
         nama: '',
-        syarat:'',
+        syarat: '',
         jns_surat: '',
         status: '',
         keterangan: '',
@@ -249,8 +237,7 @@ export default {
 
   methods: {
 
-    reload(){
-      dialogBerhasil = false
+    reload() {
       window.location.href = '/admindiajukan';
     },
 
@@ -259,31 +246,20 @@ export default {
         .then((response => {
           console.log(response.data)
           const filteredData = response.data.filter(item => item.status === "diproses");
+          //Sorting data dr waktu paling awal
           const sortedData = filteredData.sort((a, b) => a.updated_at.localeCompare(b.updated_at));
           this.dataSurat = sortedData;
-          console.log(filteredData)
+          // this.editedItem=sortedData;
+          console.log(filteredData.updated_at)
         })).catch((error) => {
           console.log(error.response)
         })
     },
 
-    ketItem(item) {
+    lihatDokumenItem(item) {
       this.editedIndex = this.dataSurat.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      this.dialogKet = true
-    },
-
-    ketItemConfirm() {
-      this.$axios.$put(`/surat/${this.editedItem.id_surat}`, this.editedItem)
-        .then((response) => {
-          console.log(response)
-          this.$data.dialogKet = false
-          this.$data.dialogBerhasil = true
-        }).catch((error) => {
-          console.log(error)
-          this.$data.dialogKet = false
-          this.dialogErr = true
-        })
+      // this.dialogTolak = true
     },
 
     tolakItem(item) {
@@ -294,6 +270,7 @@ export default {
 
     tolakItemConfirm() {
       this.editedItem.status = "ditolak"
+      this.editedItem.updated_at = "2024-02-04T01:04:21Z"
       this.$axios.$put(`surat/${this.editedItem.id_surat}`, this.editedItem)
         .then((response) => {
           console.log(response)
@@ -314,6 +291,7 @@ export default {
 
     verifItemConfirm() {
       this.editedItem.status = "terverifikasi"
+      this.editedItem.updated_at = "2024-02-04T01:04:21Z"
       this.$axios.$put(`/surat/${this.editedItem.id_surat}`, this.editedItem)
         .then((response) => {
           console.log(response)

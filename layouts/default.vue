@@ -174,7 +174,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
     <!-- Dialog 2 -->
     <v-dialog v-model="dialog2" persistent max-width="290">
       <v-card>

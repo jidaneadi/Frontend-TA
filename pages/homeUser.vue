@@ -3,7 +3,7 @@
     <v-col class="py-1">
       <!-- <p>NIK: {{ $route.query.nik }}</p> -->
       <div class="pt-4 pb-2">
-        <h3 class="text-subtitle font-weight-regular-blod">Welcome Back, {{ nama }}</h3>
+        <h3 class="text-subtitle font-weight-regular-bold">Welcome Back, {{ nama }}</h3>
       </div>
       <v-chip outlined color="grey">
         <v-icon color="grey">mdi-account</v-icon>
@@ -54,7 +54,7 @@
       <div>
         <v-sheet class="mx-auto" max-width="1500" color="#F7F7F7">
           <v-slide-group v-model="model" class="py-4 px-0" center-active show-arrows>
-            <v-slide-item v-for="(n,i) in layanan" :key="i" v-slot="{ active, toggle }">
+            <v-slide-item v-for="(n, i) in layanan" :key="i" v-slot="{ active, toggle }">
               <v-card class="ma-4" width="250" height="150" hover @click="toggle">
                 <v-list-item>
                   <v-list-item-action class="mx-auto">
@@ -88,21 +88,18 @@
             <v-img src="img/icon/about.svg" height="auto" width="auto"></v-img>
           </v-col>
           <v-col class="d-flex flex-wrap" cols="12" xl="9" lg="9" md="9">
-            <v-card-title class="text-h4 grey--text lighten-1 pb-1"><strong>Sistem Informasi Pengajuan Surat Pengantar</strong></v-card-title>
+            <v-card-title class="text-h4 grey--text lighten-1 pb-1"><strong>Sistem Informasi Pengajuan Surat
+                Pengantar</strong></v-card-title>
             <v-card-text class="text-caption grey--text darken-3 text-justify">
-              Pemerintah Desa Sumbung berkomitmen untuk memberikan pelayanan terbaik kepada Anda.Kami memahami
-                  betapaberharganya
-                  waktu Anda, oleh karena itu kami menyediakan platcard online yang memudahkan Anda mengajukan surat
-                  permohonan.
-                  Dengan layanan kami, Anda dapat mengurus surat permohonan dengan mudah, cepat, dan tanpa harus datang ke
-                  kantor
-                  kami. Tim kami yang ramah dan profesional akan dengan cepat memproses permohonan Anda, sehingga Anda
-                  tidak
-                  perlu
-                  khawatir tentang antrian panjang atau jam buka kantor. Dapatkan kemudahan dan kenyamanan dengan
-                  menggunakan teknologi
-                  terkini.Ayo, ajak sanak saudara dan teman-teman kalian untuk mengunjungi web Desa Sumbung sekarang dan
-                  rasakan perbedaannya.
+              Selamat datang di platform pengajuan surat pengantar Kalurahan Sumbung, tempat di mana kami menyediakan layanan
+              penerbitan surat pengantar dengan
+              cepat dan mudah. Kami berkomitmen untuk memberikan pengalaman layanan terbaik kepada Anda, dan dengan
+              kerjasama dalam menyediakan dokumen yang dibutuhkan,
+              kami dapat memastikan bahwa permohonan anda akan segera diurus. Kami berkomitmen bahwa keamanan data Anda
+              adalah prioritas utama bagi kami. Setiap informasi
+              yang Anda berikan akan dijaga dengan ketat dan dirahasiakan sesuai dengan standar yang ada. Terima kasih
+              atas kepercayaan Anda, dan jangan ragu untuk
+              menghubungi kami jika Anda memiliki pertanyaan lebih lanjut.
             </v-card-text>
           </v-col>
         </v-row>
@@ -123,7 +120,7 @@ export default {
   },
   data() {
     return {
-      model:'',
+      model: '',
       items: [
         {
           title: 'Surat Diproses',

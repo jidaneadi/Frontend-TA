@@ -1,73 +1,50 @@
 <template>
   <v-row justify="center" align="center">
     <v-col class="py-4">
-      <!-- <v-card>
-        <v-tabs background-color="grey lighten-4" center-active dark>
-          <v-tab class="text-center black--text">Pengajuan Surat Pengantar KTP</v-tab>
-        </v-tabs>
-      </v-card> -->
-      <v-alert border="left" color="teal lighten-1" class="text-subtitle-3 font-weight-bold  white--text">
+      <v-alert border="left" color="#C08261" class="text-subtitle-3 font-weight-bold  white--text">
         Pengajuan Surat Pengantar KTP
       </v-alert>
 
       <div class="">
         <v-card>
-          <v-card-text class="py-2 text-subtitle-1 font-weight-bold text-center black--text">Form Pengajuan Surat
+          <v-card-text class="pt-8 text-subtitle-1 font-weight-bold text-center black--text">Form Pengajuan Surat
             Pengantar Penerbitan KTP</v-card-text>
-          <v-form ref="form" v-model="valid" lazy-validation class="px-12 py-6 mx-12">
+          <v-form ref="form" lazy-validation class="px-10 pb-5 mx-10">
             <v-container>
-              <v-row align="center" class="py-2">
-                <v-col cols="2">Jenis Surat</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="3">
-                  <v-text-field value="Surat Pengantar KTP" :rules="alamatRules" label="Jenis Surat" solo required
-                    readonly></v-text-field>
+              <v-row align="center">
+                <v-col cols="12" class="text-subtitle text-justify"> Untuk memulai pengajuan Anda, pastikan untuk
+                  mempersiapkan dokumen persyaratan yang
+                  diperlukan, yaitu Kartu Keluarga (KK), Akte Kelahiran, dan Surat Pengantar RT. Jika Anda tidak memiliki
+                  Surat Pengantar RT, Anda dapat menggantinya dengan menyertakan Surat Pernyataan yang relevan. Mohon
+                  unggah salinan-salinan tersebut dengan jelas dan akurat untuk memastikan bahwa pengajuan Anda dapat
+                  segera diproses. </v-col>
+                <v-col cols="12" xl="8" lg="8" md="8">Inputkan dokumen Kartu Keluarga/Akte Kelahiran dalam format
+                  PDF</v-col>
+                <v-col cols="12" xl="4" lg="4" md="4">
+                  <v-file-input v-model="form.dokumen_pribadi" show-size counter multiple label="Input KK"
+                    prepend-icon="mdi-cloud-upload" solo></v-file-input>
                 </v-col>
-                <v-col cols="2">File Dokumen KK</v-col>
-                <v-col cols="1">:</v-col>
-                <v-col cols="3">
-                  <v-file-input show-size counter multiple label="Input KK" prepend-icon="mdi-cloud-upload"
-                    solo></v-file-input>
+                <v-col cols="12" xl="8" lg="8" md="8">Inputkan dokumen Surat Pengantar RT atau dokumen Surat
+                  Pernyataan</v-col>
+                <v-col cols="12" xl="4" lg="4" md="4">
+                  <v-file-input v-model="form.keterangan_rt" show-size counter multiple label="Input Surat Pengantar"
+                    prepend-icon="mdi-cloud-upload" solo></v-file-input>
                 </v-col>
-                <v-btn :disabled="!valid" color="success" @click="dialog2 = true" block>
-                  Kirim
-                </v-btn>
+                <v-col class="pt-2 pb-2" cols="12" xl="6" lg="6" md="6">
+                  <v-btn :disabled="!valid" color="success" @click="dialog2 = true" block>
+                    Ajukan
+                  </v-btn>
+                </v-col>
+                <v-col class="pt-2 pb-2" cols="12" xl="6" lg="6" md="6">
+                  <v-btn :disabled="!valid" color="#E40017" class="white--text" @click="clear" block>
+                    Clear
+                  </v-btn>
+                </v-col>
               </v-row>
-
             </v-container>
-            <!-- <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required col="6"></v-text-field>
-
-            <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-
-            <v-select v-model="select" :items="items" :rules="[v => !!v || 'Item is required']" label="Item"
-              required></v-select>
-
-            <v-checkbox v-model="checkbox" :rules="[v => !!v || 'You must agree to continue!']" label="Do you agree?"
-              required></v-checkbox> -->
-
-            <!-- <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
-              Validate
-            </v-btn>
-
-            <v-btn color="error" class="mr-4" @click="reset">
-              Reset Form
-            </v-btn> -->
-
-            <!-- <v-btn color="warning" @click="resetValidation">
-              Reset Validation
-            </v-btn> -->
           </v-form>
         </v-card>
       </div>
-
-
-      <!-- <div class="pt-2">
-        <v-alert border="bottom" color="grey lighten-3" class="text-subtitle-3 font-weight-bold  white--text">
-        <v-icon  color="white">mdi-help-box-outline</v-icon>
-          About
-      </v-alert>
-      </div> -->
-
       <div class="pt-4">
         <v-card>
           <v-tabs background-color="grey lighten-4" center-active dark>
@@ -122,13 +99,12 @@
           <v-card-title class="text-h5">
             Apakah data sudah sesuai?
           </v-card-title>
-          <v-card-text class="text-justify">Apabila data yang anda isikan tidak sesuai dengan persyaratan yang dibutuhkan atau tidak sesuai
+          <v-card-text class="text-justify">Apabila data yang anda isikan tidak sesuai dengan persyaratan yang dibutuhkan
+            atau tidak sesuai
             dengan data diri anda maka anda setuju apabila pengajuan surat anda dibatalkan atau digagalkan </v-card-text>
           <v-card-actions>
-            <!-- <v-checkbox v-model="checkbox" :rules="[v => !!v || 'You must agree to continue!']" label="Do you agree?"
-              required>Setuju</v-checkbox> -->
             <v-spacer></v-spacer>
-            <v-btn color="green darken-1" text @click="dialog2=false">
+            <v-btn color="green darken-1" text @click="createSurat">
               Setuju
             </v-btn>
           </v-card-actions>
@@ -140,8 +116,10 @@
   </v-row>
 </template>
 <script>
+import { mapGetters, mapState } from 'vuex'
+
 export default {
-  middleware : ['auth'],
+  middleware: ['auth'],
   head() {
     return {
       title: 'KTP'
@@ -152,32 +130,14 @@ export default {
       dialog: true,
       dialog2: false,
       valid: true,
-      name: '',
-      nameRules: [
-        v => !!v || 'Name masih kosong',
-        v => (v && v.length <= 50) || 'Nama harus kurang dari 50 karakter',
-      ],
-      nikRules: [
-        v => !!v || 'NIK masih kosong',
-        v => (v && v.length == 16) || 'NIK harus berjumlah 16 karakter berupa angka',
-      ],
-      jkRules: [
-        v => !!v || 'Jenis kelamin masih kosong',
-      ],
-      alamatRules: [
-        v => !!v || 'Alamat masih kosong',
-        v => (v && v.length <= 100) || 'Alamat harus kurang dari 100 karakter',
-      ],
-      jenisKelamin: ['Laki-laki', 'Perempuan'],
-      select: null,
-      items: [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
-      ],
-      checkbox: false,
 
+      form: {
+        // id_masyarakat:'',
+        jns_surat: '',
+        status: '',
+        dokumen_pribadi: [],
+        keterangan_rt: [],
+      },
       abaout: [
         {
           color: 'teal lighten-2',
@@ -198,16 +158,49 @@ export default {
     }
   },
   methods: {
-    validate() {
-      this.$refs.form.validate()
-    },
-    reset() {
+    clear() {
       this.$refs.form.reset()
     },
-    resetValidation() {
-      this.$refs.form.resetValidation()
+    initialize() {
+      this.$axios.$get(`/profile/${this.user.id}`)
+        .then((response => {
+          this.$data.dataUser = response
+          console.log(response)
+        })).catch((error) => {
+          console.log(error)
+        })
     },
+    createSurat() {
+      this.$data.dialog2 = false;
+
+      const formData = new FormData();
+      this.form.dokumen_pribadi.forEach((file, index) => {
+        formData.append(`dokumen_pribadi${index + 1}`, file);
+      console.log(this.$data.form.dokumen_pribadi)
+      });
+
+      this.form.keterangan_rt.forEach((file, index) => {
+        formData.append(`keterangan_rt${index + 1}`, file);
+      console.log(this.$data.form.keterangan_rt)
+      });
+      // formData.append("dokumen_pribadi", this.form.dokumen_pribadi.values, this.form.dokumen_pribadi.values.name)
+      // formData.append("keterangan_rt", this.form.keterangan_rt.values, this.form.keterangan_rt.values.name)
+      formData.append("jns_surat", this.form.jns_surat);
+      formData.append("status", this.form.status);
+      this.$axios.$post(`/ktpbaru/${this.user.id}`, formData)
+        .then((response) => {
+          console.log(response)
+        }).catch((error) => {
+          console.log(error)
+        })
+    }
   },
+
+  computed: {
+    ...mapGetters('auth', {
+      user: 'user'
+    })
+  }
 
 }
 </script>
