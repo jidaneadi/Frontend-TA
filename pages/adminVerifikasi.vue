@@ -199,7 +199,7 @@ export default {
 
   methods: {
     reload() {
-      window.location.href = '/admindiajukan';
+      window.location.href = '/adminVerifikasi';
     },
 
     initialize() {

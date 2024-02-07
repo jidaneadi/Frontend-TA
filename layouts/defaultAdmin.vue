@@ -265,6 +265,11 @@ export default {
           title: 'Diajukan',
           to: '/adminDiajukan',
         },
+
+        {
+          title: 'Ditolak',
+          to: '/adminTolak',
+        },
         {
           title: 'Terverifikasi',
           to: '/adminVerifikasi',
@@ -272,14 +277,6 @@ export default {
         {
           title: 'Diterbitkan',
           to: '/adminTerbit',
-        },
-        {
-          title: 'Ditolak',
-          to: '/adminTolak',
-        },
-        {
-          title: 'Selesai',
-          to: '/adminSelesai',
         },
       ],
 

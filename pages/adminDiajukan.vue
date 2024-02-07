@@ -44,14 +44,6 @@
                     <v-list-item-title>Verifikasi</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item @click="deleteItem(item)">
-                  <v-icon color="red" icon>
-                    mdi-delete
-                  </v-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Hapus Data</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
                 <v-list-item @click="lihatDokumenItem(item)">
                   <v-icon color="yellow" icon>
                     mdi-eye
@@ -94,7 +86,7 @@
       </v-dialog>
 
       <!-- ============Dialog Verifikasi================= -->
-      <v-dialog v-model="dialogVerif" max-width="500px">
+      <!-- <v-dialog v-model="dialogVerif" max-width="500px">
         <v-card>
           <v-card-title class="text-h6" justify="center">Apakah anda yakin mengverifikasi pengajuan ini?</v-card-title>
           <v-card-actions>
@@ -104,21 +96,33 @@
             <v-spacer></v-spacer>
           </v-card-actions>
         </v-card>
-      </v-dialog>
+      </v-dialog> -->
 
-      <!-- ============Dialog Delete================= -->
-      <v-dialog v-model="dialogDelete" max-width="550px">
+      <v-dialog v-model="dialogVerif" max-width="500px">
         <v-card>
-          <v-card-title class="text-h6">Apakah anda yakin menghapus data pengajuan ini?</v-card-title>
+          <v-card-title>
+            <span class="text-h5">Berikan Keterangan</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="12" sm="12" md="12">
+                  <v-textarea v-model="editedItem.keterangan" label="Keterangan" />
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="red darken-1" text @click="dialogDelete = false">Cancel</v-btn>
-            <v-btn color="green darken-1" text @click="deleteItemConfirm">Ya</v-btn>
-            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="dialogVerif = false">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text @click="verifItemConfirm">
+              Save
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-
       <!-- ============Dialog ERROR================= -->
       <v-dialog v-model="dialogErr" persistent max-width="315">
         <v-card>

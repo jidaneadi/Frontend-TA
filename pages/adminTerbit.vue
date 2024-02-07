@@ -36,7 +36,7 @@
                     <v-list-item-title>Pengambilan</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item @click="editItem(item)">
+                <!-- <v-list-item @click="editItem(item)">
                   <v-icon color="yellow" icon>
                     mdi-pencil
                   </v-icon>
@@ -51,93 +51,36 @@
                   <v-list-item-content>
                     <v-list-item-title>Hapus Data</v-list-item-title>
                   </v-list-item-content>
-                </v-list-item>
+                </v-list-item> -->
               </v-list>
             </v-menu>
           </template>
         </v-data-table>
       </v-card>
 
-      <!-- ============Dialog Edit Data================= -->
-      <v-dialog v-model="dialogEdit" max-width="700px">
+       <!-- ============Dialog Surat Diambil================= -->
+       <v-dialog v-model="dialogDiambil" max-width="500px">
         <v-card>
           <v-card-title>
-            <span class="text-h5">Edit Data Masyarakat</span>
+            <span class="text-h5">Berikan Keterangan</span>
           </v-card-title>
           <v-card-text>
             <v-container>
               <v-row>
-                <v-col cols="12" sm="3" md="4">
-                  <v-text-field v-model="editedItem.id" label="ID Surat"></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="3" md="4">
-                  <v-text-field v-model="editedItem.nik" label="NIK"></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="3" md="4">
-                  <v-text-field v-model="editedItem.nama" label="Nama Lengkap"></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="3" md="4">
-                  <v-combobox v-model="editedItem.gender" label="Jenis Kelamin" :items="items"></v-combobox>
-                </v-col>
-                <v-col cols="12" sm="3" md="6">
-                  <v-text-field v-model="editedItem.no_hp" label="No HP"></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="3" md="6">
-                  <v-text-field v-model="editedItem.ttl" label="Tempat, Tanggal Lahir"></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="3" md="12">
-                  <v-text-field v-model="editedItem.alamat" label="Alamat"></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="3" md="12">
-                  <v-text-field v-model="editedItem.jns_surat" label="Jenis Surat"></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="3" md="12">
-                  <v-text-field v-model="editedItem.status" label="Status"></v-text-field>
-                </v-col>
                 <v-col cols="12" sm="12" md="12">
-                  <!-- <v-textarea filled name="input-7-4" label="Keterangan"/> -->
-                    <v-textarea v-model="editedItem.keterangan" label="Keterangan"/>
-                </v-col>
-                <v-col cols="12" sm="3" md="12">
-                  <v-text-field v-model="editedItem.updated_at" label="Tanggal Pengambilan"></v-text-field>
+                  <v-textarea v-model="editedItem.keterangan" label="Keterangan" />
                 </v-col>
               </v-row>
             </v-container>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialogEdit = false">
+            <v-btn color="blue darken-1" text @click="dialogDiambil = false">
               Cancel
             </v-btn>
-            <v-btn color="blue darken-1" text @click="editItemConfirm">
+            <v-btn color="blue darken-1" text @click="selesaiItemConfirm">
               Save
             </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
-      <!-- ============Dialog Cetak================= -->
-      <v-dialog v-model="dialogCetak" max-width="500px">
-        <v-card>
-          <v-card-title class="text-h6" justify="center">Apakah anda yakin mencetak pengajuan ini?</v-card-title>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="red darken-1" text @click="dialogCetak = false">Cancel</v-btn>
-            <v-btn color="green darken-1" text @click="selesaiItemConfirm">Ya</v-btn>
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
-      <!-- ============Dialog Delete================= -->
-      <v-dialog v-model="dialogDelete" max-width="550px">
-        <v-card>
-          <v-card-title class="text-h6">Apakah anda yakin menghapus data pengajuan ini?</v-card-title>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="red darken-1" text @click="dialogDelete = false">Cancel</v-btn>
-            <v-btn color="green darken-1" text @click="deleteItemConfirm">Ya</v-btn>
-            <v-spacer></v-spacer>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -178,7 +121,7 @@
             </v-btn>
           </v-card-text>
           <v-card-actions>
-            <v-btn block color="green darken-1" class="white--text" @click="dialogBerhasil = false">
+            <v-btn block color="green darken-1" class="white--text" @click="reload">
               OK
             </v-btn>
           </v-card-actions>
@@ -199,10 +142,8 @@ export default {
   layout: 'defaultAdmin',
   data() {
     return {
-      dialogEdit: false,
-      dialogCetak: false,
-      dialogDelete: false,
-      dialogVerif: false,
+
+      dialogDiambil:false,
       dialogBerhasil: false,
       dialogErr: false,
       search: '',
@@ -217,7 +158,6 @@ export default {
         { text: 'Nama Pemohon', value: 'nama' },
         { text: 'Jenis Surat', value: 'jns_surat' },
         { text: 'Tanggal Pengajuan', value: 'updated_at' },
-        { text: 'Dokumen Syarat', value: 'syarat' },
         { text: 'Status', value: 'status' },
         { text: 'Keterangan', value: 'keterangan' },
         { text: 'Actions', value: 'actions', sortable: false },
@@ -226,19 +166,20 @@ export default {
       editedIndex: -1,
       editedItem: {
         id_surat: '',
+        idm: '',
         nik: '',
         nama: '',
-        syarat:'',
+        syarat: '',
         jns_surat: '',
         status: '',
+        updated_at:'',
         keterangan: '',
-        updated_at: '',
       },
       defaultItem: {
         id_surat: '',
         nik: '',
         nama: '',
-        syarat:'',
+        syarat: '',
         jns_surat: '',
         status: '',
         keterangan: '',
@@ -252,52 +193,42 @@ export default {
   },
 
   methods: {
+    reload() {
+      window.location.href = '/adminTerbit';
+    },
+
     initialize() {
-      this.$axios.get('/ktp/')
+      this.$axios.get('/surat/')
         .then((response => {
-          const filteredData = response.data.filter(item => item.status === 'diterbitkan');
-          const sortedData = filteredData.sort((a, b) => a.created_at.localeCompare(b.created_at));
+          console.log(response.data)
+          const filteredData = response.data.filter(item => item.status === "diterbitkan" || item.status === "diambil");
+          //Sorting data dr waktu paling awal
+          const sortedData = filteredData.sort((a, b) => a.updated_at.localeCompare(b.updated_at));
           this.dataSurat = sortedData;
+          // this.editedItem=sortedData;
+          console.log(filteredData.updated_at)
         })).catch((error) => {
           console.log(error.response)
-        })
-    },
-
-    editItem(item) {
-      this.editedIndex = this.dataSurat.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialogEdit = true
-    },
-
-    editItemConfirm() {
-      this.$axios.put(`/surat/${this.editedItem.id}`, this.editedItem)
-        .then((response) => {
-          console.log(response)
-          this.$data.dialogEdit = false
-          this.$data.dialogBerhasil = true
-        }).catch((error) => {
-          console.log(error)
-          this.$data.dialogEdit = false
-          this.dialogErr = true
         })
     },
 
     selesaiItem(item) {
       this.editedIndex = this.dataSurat.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      this.dialogCetak = true
+      this.dialogDiambil = true
     },
 
     selesaiItemConfirm() {
       this.editedItem.status = "diambil"
-      this.$axios.put(`/surat/${this.editedItem.id}`, this.editedItem)
+      this.editedItem.updated_at = "2024-02-04T01:04:21Z"
+      this.$axios.$put(`surat/${this.editedItem.id_surat}`, this.editedItem)
         .then((response) => {
           console.log(response)
-          this.$data.dialogCetak = false
+          this.$data.dialogDiambil = false
           this.$data.dialogBerhasil = true
         }).catch((error) => {
           console.log(error)
-          this.$data.dialogCetak = false
+          this.$data.dialogDiambil = false
           this.dialogErr = true
         })
     },
@@ -378,6 +309,6 @@ export default {
     },
   },
 
-  middleware : ['authAdmin'],
+  middleware: ['authAdmin'],
 }
 </script>
