@@ -1,13 +1,7 @@
 <template>
   <v-row justify="center" align="center">
     <v-col class="py-4">
-      <div class="pb-4">
-        <v-card>
-          <v-tabs background-color="grey lighten-4" center-active dark>
-            <v-tab class="text-center black--text">Data Surat Yang Terverifikasi</v-tab>
-          </v-tabs>
-        </v-card>
-      </div>
+      <CardTitleSuratTerverifikasiComponents />
 
       <!-- ===========Table==========  -->
       <v-card>
@@ -137,6 +131,7 @@
   </v-row>
 </template>
 <script>
+import CardTitleSuratTerverifikasiComponents from '~/components/GlobalComponents/Card/CardTitleSuratTerverifikasiComponents.vue'
 export default {
   head() {
     return {
@@ -255,6 +250,7 @@ export default {
       this.close()
     },
   },
+  components: { CardTitleSuratTerverifikasiComponents },
 
   middleware: ['authAdmin'],
 }

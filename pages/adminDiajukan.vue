@@ -1,14 +1,7 @@
 <template>
   <v-row justify="center" align="center">
     <v-col class="py-4">
-      <div class="pb-4">
-        <v-card>
-          <v-tabs background-color="grey lighten-4" center-active dark>
-            <v-tab class="text-center black--text">Data Surat Yang Diajukan</v-tab>
-          </v-tabs>
-        </v-card>
-      </div>
-
+      <CardTitleSuratDiajukanComponents/>
       <!-- ===========Table==========  -->
       <v-card>
         <v-card-title class="grey--text text-h6 font-weight-bold">
@@ -86,18 +79,6 @@
       </v-dialog>
 
       <!-- ============Dialog Verifikasi================= -->
-      <!-- <v-dialog v-model="dialogVerif" max-width="500px">
-        <v-card>
-          <v-card-title class="text-h6" justify="center">Apakah anda yakin mengverifikasi pengajuan ini?</v-card-title>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="red darken-1" text @click="dialogVerif = false">Cancel</v-btn>
-            <v-btn color="green darken-1" text @click="verifItemConfirm">Ya</v-btn>
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-card>
-      </v-dialog> -->
-
       <v-dialog v-model="dialogVerif" max-width="500px">
         <v-card>
           <v-card-title>
@@ -165,11 +146,12 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-
     </v-col>
   </v-row>
 </template>
 <script>
+import CardTitleSuratDiajukanComponents from '~/components/GlobalComponents/Card/CardTitleSuratDiajukanComponents.vue';
+
 export default {
   middleware: ['authAdmin'],
   head() {
@@ -330,5 +312,7 @@ export default {
       // this.closeDelete()
     },
   },
+
+  components: { CardTitleSuratDiajukanComponents }
 }
 </script>

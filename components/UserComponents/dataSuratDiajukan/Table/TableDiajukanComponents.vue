@@ -1,12 +1,9 @@
 <template>
   <v-row justify="center" align="center">
     <v-col class="py-4">
-      <CardTitleSuratDitolakComponents />
-
-      <!-- ===========Table==========  -->
       <v-card>
         <v-card-title class="grey--text text-h6 font-weight-bold">
-          <v-icon color="grey lighten-1" large>mdi-account-multiple-outline</v-icon>Surat Yang Ditolak
+          <v-icon color="grey lighten-1" large>mdi-account-multiple-outline</v-icon>Surat Yang Diajukan
           <v-spacer></v-spacer>
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
         </v-card-title>
@@ -17,15 +14,8 @@
   </v-row>
 </template>
 <script>
-import CardTitleSuratDitolakComponents from '~/components/GlobalComponents/Card/CardTitleSuratDitolakComponents.vue'
+import { mapGetters, mapState } from 'vuex'
 export default {
-  head() {
-    return {
-      title: 'Data Surat Diajukan'
-    }
-  },
-
-  layout: 'defaultAdmin',
   data() {
     return {
       search: '',
@@ -44,7 +34,19 @@ export default {
         { text: 'Keterangan', value: 'keterangan' },
       ],
       dataSurat: [],
+      dataEditSurat: [],
       editedIndex: -1,
+      editedItem: {
+        id_surat: '',
+        idm: '',
+        nik: '',
+        nama: '',
+        syarat: '',
+        jns_surat: '',
+        status: '',
+        updated_at: '',
+        keterangan: '',
+      },
       defaultItem: {
         id_surat: '',
         nik: '',
@@ -64,10 +66,10 @@ export default {
 
   methods: {
     initialize() {
-      this.$axios.get('/surat/')
+      this.$axios.get(`/surat/${this.user.id}`)
         .then((response => {
           console.log(response.data)
-          const filteredData = response.data.filter(item => item.status === "ditolak");
+          const filteredData = response.data.filter(item => item.status === "diproses");
           //Sorting data dr waktu paling awal
           const sortedData = filteredData.sort((a, b) => a.updated_at.localeCompare(b.updated_at));
           this.dataSurat = sortedData;
@@ -78,8 +80,10 @@ export default {
         })
     },
   },
-  components: { CardTitleSuratDitolakComponents },
-
-  middleware: ['authAdmin'],
+  computed: {
+    ...mapGetters('auth', {
+      user: 'user'
+    })
+  },
 }
 </script>

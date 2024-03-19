@@ -143,10 +143,6 @@
 import { mapGetters, mapState } from 'vuex'
 export default {
   middleware: ['auth'],
-
-  computed: {
-    ...mapState('auth', ['id'])
-  },
   head() {
     return {
       title: 'My Profile'
@@ -281,6 +277,5 @@ export default {
       user: 'user'
     })
   },
-  name: 'My Profile',
 }
 </script>

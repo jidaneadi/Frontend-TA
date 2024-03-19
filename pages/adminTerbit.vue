@@ -1,13 +1,7 @@
 <template>
   <v-row justify="center" align="center">
     <v-col class="py-4">
-      <div class="pb-4">
-        <v-card>
-          <v-tabs background-color="grey lighten-4" center-active dark>
-            <v-tab class="text-center black--text">Data Surat Yang Diterbitkan</v-tab>
-          </v-tabs>
-        </v-card>
-      </div>
+      <CardTitleSuratDiterbitkanComponents />
 
       <!-- ===========Table==========  -->
       <v-card>
@@ -58,8 +52,8 @@
         </v-data-table>
       </v-card>
 
-       <!-- ============Dialog Surat Diambil================= -->
-       <v-dialog v-model="dialogDiambil" max-width="500px">
+      <!-- ============Dialog Surat Diambil================= -->
+      <v-dialog v-model="dialogDiambil" max-width="500px">
         <v-card>
           <v-card-title>
             <span class="text-h5">Berikan Keterangan</span>
@@ -132,6 +126,7 @@
   </v-row>
 </template>
 <script>
+import CardTitleSuratDiterbitkanComponents from '~/components/GlobalComponents/Card/CardTitleSuratDiterbitkanComponents.vue'
 export default {
   head() {
     return {
@@ -143,7 +138,7 @@ export default {
   data() {
     return {
 
-      dialogDiambil:false,
+      dialogDiambil: false,
       dialogBerhasil: false,
       dialogErr: false,
       search: '',
@@ -172,7 +167,7 @@ export default {
         syarat: '',
         jns_surat: '',
         status: '',
-        updated_at:'',
+        updated_at: '',
         keterangan: '',
       },
       defaultItem: {
@@ -309,6 +304,7 @@ export default {
     },
   },
 
+  components: { CardTitleSuratDiterbitkanComponents },
   middleware: ['authAdmin'],
 }
 </script>

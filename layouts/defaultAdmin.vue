@@ -122,22 +122,22 @@
         <v-card-text>
           <v-container>
             <v-form ref="form">
-            <v-row no-gutters>
-              <v-col cols="12">
-                <v-text-field v-model="form.old_pass" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :rules="rules.old_pass" :type="show1 ? 'text' : 'password'" name="input-10-1" counter
-                  @click:append="show1 = !show1" hint="Minimal 8 karakter" label="Old password*" required />
-              </v-col>
-              <v-col cols="12">
-                <v-text-field v-model="form.new_pass" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :rules="rules.new_pass" :type="show2 ? 'text' : 'password'" name="input-10-1" counter
-                  @click:append="show2 = !show2" hint="Minimal 8 karakter" label="New password*" required />
-              </v-col>
-              <v-col cols="12"><v-text-field v-model="form.konf_pass" :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :rules="rules.konf_pass" :type="show3 ? 'text' : 'password'" name="input-10-1" counter
-                  @click:append="show3 = !show3" hint="Minimal 8 karakter" label="Confirm password*" required />
-              </v-col>
-            </v-row>
+              <v-row no-gutters>
+                <v-col cols="12">
+                  <v-text-field v-model="form.old_pass" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :rules="rules.old_pass" :type="show1 ? 'text' : 'password'" name="input-10-1" counter
+                    @click:append="show1 = !show1" hint="Minimal 8 karakter" label="Old password*" required />
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field v-model="form.new_pass" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :rules="rules.new_pass" :type="show2 ? 'text' : 'password'" name="input-10-1" counter
+                    @click:append="show2 = !show2" hint="Minimal 8 karakter" label="New password*" required />
+                </v-col>
+                <v-col cols="12"><v-text-field v-model="form.konf_pass" :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :rules="rules.konf_pass" :type="show3 ? 'text' : 'password'" name="input-10-1" counter
+                    @click:append="show3 = !show3" hint="Minimal 8 karakter" label="Confirm password*" required />
+                </v-col>
+              </v-row>
             </v-form>
           </v-container>
           <small>*indicates required field</small>
@@ -199,9 +199,8 @@
 <script>
 import * as Cookies from 'js-cookie'
 import { mapGetters, mapState } from 'vuex'
-
 export default {
-  name: 'DefaultLayout',
+  name: "DefaultLayout",
   data() {
     return {
       drawer: false,
@@ -210,126 +209,119 @@ export default {
       dialog: false,
       dialog2: false,
       dialog3: false,
-      message: '',
-      icon: '',
-      judul: '',
-      color: '',
+      message: "",
+      icon: "",
+      judul: "",
+      color: "",
       show1: false,
       show2: false,
       show3: false,
       form: {
-        new_pass: '',
-        old_pass: '',
-        konf_pass: '',
+        new_pass: "",
+        old_pass: "",
+        konf_pass: "",
       },
       rules: {
         old_pass: [
-          v => !!v || 'Password tidak boleh kosong',
-          v => (v && v.length >= 8) || 'Password berisi minimal 8 karakter',
+          v => !!v || "Password tidak boleh kosong",
+          v => (v && v.length >= 8) || "Password berisi minimal 8 karakter",
         ],
         new_pass: [
-          v => !!v || 'Password tidak boleh kosong',
-          v => (v && v.length >= 8) || 'Password berisi minimal 8 karakter',
+          v => !!v || "Password tidak boleh kosong",
+          v => (v && v.length >= 8) || "Password berisi minimal 8 karakter",
         ],
         konf_pass: [
-          v => !!v || 'Konfirmasi password tidak boleh kosong',
-          v => (v && v.length >= 8) || 'Konfirmasi password berisi minimal 8 karakter',
-          v => v === this.form.new_pass || 'Konfirmasi password tidak sama dengan password'
+          v => !!v || "Konfirmasi password tidak boleh kosong",
+          v => (v && v.length >= 8) || "Konfirmasi password berisi minimal 8 karakter",
+          v => v === this.form.new_pass || "Konfirmasi password tidak sama dengan password"
         ],
       },
       social: [
         {
-          logo: 'mdi-facebook',
-          to: 'https://www.facebook.com/jidaneadi.jidaneadi'
+          logo: "mdi-facebook",
+          to: "https://www.facebook.com/jidaneadi.jidaneadi"
         },
         {
-          logo: 'mdi-twitter',
-          to: 'https://twitter.com/jidanear'
+          logo: "mdi-twitter",
+          to: "https://twitter.com/jidanear"
         },
         {
-          logo: 'mdi-instagram',
-          to: 'https://instagram.com/jidanear_'
+          logo: "mdi-instagram",
+          to: "https://instagram.com/jidanear_"
         },
         {
-          logo: 'mdi-linkedin',
-          to: 'https://www.linkedin.com/in/jidane-adi-ramadhzan-130712216'
+          logo: "mdi-linkedin",
+          to: "https://www.linkedin.com/in/jidane-adi-ramadhzan-130712216"
         },
         {
-          logo: 'mdi-github',
-          to: 'https://github.com/jidaneadi'
+          logo: "mdi-github",
+          to: "https://github.com/jidaneadi"
         },
       ],
-
       dokumen: [
         {
-          title: 'Diajukan',
-          to: '/adminDiajukan',
-        },
-
-        {
-          title: 'Ditolak',
-          to: '/adminTolak',
+          title: "Diajukan",
+          to: "/adminDiajukan",
         },
         {
-          title: 'Terverifikasi',
-          to: '/adminVerifikasi',
+          title: "Ditolak",
+          to: "/adminTolak",
         },
         {
-          title: 'Diterbitkan',
-          to: '/adminTerbit',
+          title: "Terverifikasi",
+          to: "/adminVerifikasi",
+        },
+        {
+          title: "Diterbitkan",
+          to: "/adminTerbit",
         },
       ],
-
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Desa Sumbung',
-    }
+      title: "Desa Sumbung",
+    };
   },
   methods: {
     onLogout() {
-      Cookies.remove('token')
-      window.location.href = '/'
+      Cookies.remove("token");
+      window.location.href = "/";
     },
-
     updatePassword() {
-      this.$axios.$put
-      (`profile/password/${this.user.id}`, this.form)
+      this.$axios.$put(`profile/password/${this.user.id}`, this.form)
         .then((response) => {
-          if (response.msg === 'Password berhasil diubah') {
-            this.$data.icon = 'mdi-checkbox-marked-circle'
-            this.$data.judul = 'Update password berhasil'
-            this.$data.color = 'green darken-1'
-            this.$data.message = response.msg
-            this.$data.dialog = false
-            this.$data.dialog3 = true
-            this.$refs.form.reset()
+          if (response.msg === "Password berhasil diubah") {
+            this.$data.icon = "mdi-checkbox-marked-circle";
+            this.$data.judul = "Update password berhasil";
+            this.$data.color = "green darken-1";
+            this.$data.message = response.msg;
+            this.$data.dialog = false;
+            this.$data.dialog3 = true;
+            this.$refs.form.reset();
           }
         }).catch((error) => {
-          console.log(error.response)
-          console.log(error.response)
-          if (error.response.data.msg === 'Old password tidak boleh kosong' || error.response.data.msg === 'New password tidak boleh kosong' || error.response.data.msg === 'Konfirmasi password tidak boleh kosong' || error.response.data.msg == 'Password harus berjumlah minimal 8 karakter' || error.response.data.msg === 'Password tidak sesuai' || error.response.msg === 'Password lama tidak sesuai') {
-            this.$data.icon = 'mdi-cancel'
-            this.$data.judul = 'Update password gagal!!!'
-            this.$data.color = 'red darken-1'
-            this.$data.message = error.response.data.msg
-            this.$data.dialog3 = true
+          console.log(error.response);
+          console.log(error.response);
+          if (error.response.data.msg === "Old password tidak boleh kosong" || error.response.data.msg === "New password tidak boleh kosong" || error.response.data.msg === "Konfirmasi password tidak boleh kosong" || error.response.data.msg == "Password harus berjumlah minimal 8 karakter" || error.response.data.msg === "Password tidak sesuai" || error.response.msg === "Password lama tidak sesuai") {
+            this.$data.icon = "mdi-cancel";
+            this.$data.judul = "Update password gagal!!!";
+            this.$data.color = "red darken-1";
+            this.$data.message = error.response.data.msg;
+            this.$data.dialog3 = true;
           }
         });
     },
-
-    clear(){
-        this.$refs.form.reset()
-      }
+    clear() {
+      this.$refs.form.reset();
+    }
   },
-
   computed: {
-    ...mapGetters('auth', {
-      user: 'user'
+    ...mapGetters("auth", {
+      user: "user"
     }),
   },
   mounted() {
     // console.log(this.user.id)
-  }
+  },
 }
 </script>

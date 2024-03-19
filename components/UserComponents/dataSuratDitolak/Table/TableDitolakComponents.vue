@@ -1,9 +1,6 @@
 <template>
   <v-row justify="center" align="center">
     <v-col class="py-4">
-      <CardTitleSuratDitolakComponents />
-
-      <!-- ===========Table==========  -->
       <v-card>
         <v-card-title class="grey--text text-h6 font-weight-bold">
           <v-icon color="grey lighten-1" large>mdi-account-multiple-outline</v-icon>Surat Yang Ditolak
@@ -11,21 +8,44 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
         </v-card-title>
         <div class="pb-2"></div>
-        <v-data-table :headers="headers" :items="dataSurat" :search="search" />
+        <v-data-table :headers="headers" :items="dataSurat" :search="search">
+
+          <!-- ===========Action========= -->
+          <template v-slot:item.actions="{ item }">
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="blue-grey darken-2" small icon dark v-bind="attrs" v-on="on">
+                  <v-icon>mdi-gesture-tap-button</v-icon>
+                </v-btn>
+              </template>
+              <v-list nav dense>
+                <v-list-item @click="tolakItem(item)">
+                  <v-icon color="red" icon>
+                    mdi-delete
+                  </v-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Delete</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item @click="lihatDokumenItem(item)">
+                  <v-icon color="yellow" icon>
+                    mdi-pencil
+                  </v-icon>
+                  <v-list-item-content>
+                    <v-list-item-title> Ajukan Ulang</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </template>
+        </v-data-table>
       </v-card>
     </v-col>
   </v-row>
 </template>
 <script>
-import CardTitleSuratDitolakComponents from '~/components/GlobalComponents/Card/CardTitleSuratDitolakComponents.vue'
+import { mapGetters, mapState } from 'vuex'
 export default {
-  head() {
-    return {
-      title: 'Data Surat Diajukan'
-    }
-  },
-
-  layout: 'defaultAdmin',
   data() {
     return {
       search: '',
@@ -42,9 +62,22 @@ export default {
         { text: 'Tanggal Pengajuan', value: 'updated_at' },
         { text: 'Status', value: 'status' },
         { text: 'Keterangan', value: 'keterangan' },
+        {text: 'Actions', value: 'actions', sortable:false }
       ],
       dataSurat: [],
+      dataEditSurat: [],
       editedIndex: -1,
+      editedItem: {
+        id_surat: '',
+        idm: '',
+        nik: '',
+        nama: '',
+        syarat: '',
+        jns_surat: '',
+        status: '',
+        updated_at: '',
+        keterangan: '',
+      },
       defaultItem: {
         id_surat: '',
         nik: '',
@@ -64,7 +97,7 @@ export default {
 
   methods: {
     initialize() {
-      this.$axios.get('/surat/')
+      this.$axios.get(`/surat/${this.user.id}`)
         .then((response => {
           console.log(response.data)
           const filteredData = response.data.filter(item => item.status === "ditolak");
@@ -78,8 +111,10 @@ export default {
         })
     },
   },
-  components: { CardTitleSuratDitolakComponents },
-
-  middleware: ['authAdmin'],
+  computed: {
+    ...mapGetters('auth', {
+      user: 'user'
+    })
+  },
 }
 </script>
