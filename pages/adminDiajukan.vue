@@ -245,7 +245,7 @@ export default {
     lihatDokumenItem(item) {
       this.editedIndex = this.dataSurat.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      // this.dialogTolak = true
+      this.$router.push({ path: '/lihatdokumen', query: { id_surat: this.$data.editedItem.id_surat } });
     },
 
     tolakItem(item) {
