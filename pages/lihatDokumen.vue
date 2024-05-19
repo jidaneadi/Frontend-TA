@@ -10,7 +10,7 @@
     <v-card>
       <v-data-table dense :headers="headers" :items="data_dokumen_syarat" item-key="id" class="elevation-1">
         <template v-slot:item.actions="{ item }">
-          <v-icon small class="mr-2" @click="editItem(item)">
+          <v-icon small class="mr-2" @click="showFile(item)">
             fa-solid fa-download
           </v-icon>
         </template>
@@ -35,8 +35,8 @@ export default {
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       data_dokumen_syarat: [],
-      editedIndex: -1,
-      editedItem: {
+      showIndex: -1,
+      dataItem: {
         id: '',
         filename: '',
         jns_surat: '',
@@ -59,23 +59,10 @@ export default {
     download() {
 
     },
-    editItem(item) {
-      this.editedIndex = this.data_dokumen_syarat.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.$axios.$get(`http://localhost:4001/surat/doc/${this.$data.editedItem.id}`, {
-        responseType: 'blob' // Menggunakan responseType 'blob' untuk file binary
-      })
-        .then((response => {
-          console.log(response)
-          const url = window.URL.createObjectURL(new Blob([response]));
-          const link = document.createElement('a');
-          link.href = url;
-          link.setAttribute('download', this.$data.editedItem.filename); // Nama file yang diunduh
-          document.body.appendChild(link);
-          link.click();
-        })).catch((error) => {
-          console.error('Error downloading PDF:', error);
-        })
+    showFile(item) {
+      this.showIndex = this.data_dokumen_syarat.indexOf(item);
+      this.dataItem = Object.assign({}, item);
+      this.$router.push({ path: '/dataDokumenSyarat', query: { id: this.$data.dataItem.id } });
     },
   }
 }

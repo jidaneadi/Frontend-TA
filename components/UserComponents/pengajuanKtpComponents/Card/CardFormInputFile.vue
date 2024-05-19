@@ -99,12 +99,11 @@ export default {
       },
     };
   },
-  // created() {
-  //   this.initialize()
-  // },
   methods: {
     reload() {
-      window.location.href = '/pengajuanktp'
+      this.$data.dialogBerhasil = false;
+      this.$data.form.dokumen_pribadi =[];
+      this.$data.form.keterangan_rt =[];
     },
     clear() {
       this.$refs.form.reset();

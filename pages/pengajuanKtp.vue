@@ -4,45 +4,6 @@
       <v-alert border="left" color="#C08261" class="text-subtitle-3 font-weight-bold  white--text">
         Pengajuan Surat Pengantar KTP
       </v-alert>
-      <!-- Form Input -->
-      <!-- <v-card>
-    <v-card-text class="pt-8 text-subtitle-1 font-weight-bold text-center black--text">Form Pengajuan Surat
-      Pengantar Penerbitan KTP</v-card-text>
-    <v-form ref="form" lazy-validation class="px-10 pb-5 mx-10">
-      <v-container>
-        <v-row align="center">
-          <v-col cols="12" class="text-subtitle text-justify"> Untuk memulai pengajuan Anda, pastikan untuk
-            mempersiapkan dokumen persyaratan yang
-            diperlukan, yaitu Kartu Keluarga (KK), Akte Kelahiran, dan Surat Pengantar RT. Jika Anda tidak memiliki
-            Surat Pengantar RT, Anda dapat menggantinya dengan menyertakan Surat Pernyataan yang relevan. Mohon
-            unggah salinan-salinan tersebut dengan jelas dan akurat untuk memastikan bahwa pengajuan Anda dapat
-            segera diproses. </v-col>
-          <v-col cols="12" xl="8" lg="8" md="8">Inputkan dokumen Kartu Keluarga/Akte Kelahiran dalam format
-            PDF</v-col>
-          <v-col cols="12" xl="4" lg="4" md="4">
-            <v-file-input v-model="form.dokumen_pribadi" show-size counter multiple label="Input KK"
-              prepend-icon="mdi-cloud-upload" solo></v-file-input>
-          </v-col>
-          <v-col cols="12" xl="8" lg="8" md="8">Inputkan dokumen Surat Pengantar RT atau dokumen Surat
-            Pernyataan</v-col>
-          <v-col cols="12" xl="4" lg="4" md="4">
-            <v-file-input v-model="form.keterangan_rt" show-size counter multiple label="Input Surat Pengantar"
-              prepend-icon="mdi-cloud-upload" solo></v-file-input>
-          </v-col>
-          <v-col class="pt-2 pb-2" cols="12" xl="6" lg="6" md="6">
-            <v-btn :disabled="!valid" color="success" @click="dialog2 = true" block>
-              Ajukan
-            </v-btn>
-          </v-col>
-          <v-col class="pt-2 pb-2" cols="12" xl="6" lg="6" md="6">
-            <v-btn :disabled="!valid" color="#E40017" class="white--text" @click="clear" block>
-              Clear
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-form>
-  </v-card> -->
       <CardFormInputFile />
       <div class="pt-4">
         <v-card>
@@ -68,25 +29,6 @@
 
       <!-- =========Dialog============ -->
       <DialogPeringatanPengajuan />
-      <!-- =========Dialog============ -->
-      <!-- =========Dialog2============ -->
-      <!-- <v-dialog v-model="dialog2" persistent max-width="290">
-        <v-card>
-          <v-card-title class="text-h5">
-            Apakah data sudah sesuai?
-          </v-card-title>
-          <v-card-text class="text-justify">Apabila data yang anda isikan tidak sesuai dengan persyaratan yang dibutuhkan
-            atau tidak sesuai
-            dengan data diri anda maka anda setuju apabila pengajuan surat anda dibatalkan atau digagalkan </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="green darken-1" text @click="createSurat">
-              Setuju
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog> -->
-      <!-- =========Dialog2============ -->
 
     </v-col>
   </v-row>
