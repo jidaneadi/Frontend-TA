@@ -30,22 +30,6 @@
                     <v-list-item-title>Pengambilan</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <!-- <v-list-item @click="editItem(item)">
-                  <v-icon color="yellow" icon>
-                    mdi-pencil
-                  </v-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Edit Data</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item @click="deleteItem(item)">
-                  <v-icon color="red" icon>
-                    mdi-delete
-                  </v-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Hapus Data</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item> -->
               </v-list>
             </v-menu>
           </template>

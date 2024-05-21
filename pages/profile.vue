@@ -23,6 +23,14 @@
                   </v-text-field>
                 </v-col>
 
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3">Nomor Kartu
+                  Keluarga<strong class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="9" lg="9" md="9">
+                  <v-text-field v-model="form.no_kk" :counter="20" :rules="noKkRules" label="Input nomor kartu keluarga"
+                    required solo readonly>
+                  </v-text-field>
+                </v-col>
+
                 <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3">Email <strong
                     class="red--text">*</strong> </v-col>
                 <v-col cols="12" xl="9" lg="9" md="9">
@@ -47,12 +55,11 @@
                   </v-select>
                 </v-col>
 
-                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="2" lg="2" md="2">No HP <strong
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="2" lg="2" md="2">Agama <strong
                     class="red--text">*</strong> </v-col>
                 <v-col cols="12" xl="4" lg="4" md="4">
-                  <v-text-field v-model="form.no_hp" :counter="20" :rules="noRules" label="Input nomor handphone" solo
-                    required clear-icon="mdi-close-circle" clearable>
-                  </v-text-field>
+                  <v-select v-model="form.agama" :items="dataAgama" :rules="agamaRules" label="Input agama" solo required>
+                  </v-select>
                 </v-col>
 
                 <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3">Tempat Lahir <strong
@@ -75,6 +82,38 @@
                     </template>
                     <v-date-picker v-model="date" @input="menu = false"></v-date-picker>
                   </v-menu>
+                </v-col>
+
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3">Status Perkawinan
+                  <strong class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="3" lg="3" md="3">
+                  <v-select v-model="form.status" :items="dataStatus" :rules="statusRules" label="Input status perkawinan"
+                    solo required>
+                  </v-select>
+                </v-col>
+
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="2" lg="2" md="2">No HP <strong
+                    class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="4" lg="4" md="4">
+                  <v-text-field v-model="form.no_hp" :counter="20" :rules="noRules" label="Input nomor handphone" solo
+                    required clear-icon="mdi-close-circle" clearable>
+                  </v-text-field>
+                </v-col>
+
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3">Pekerjaan <strong
+                    class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="3" lg="3" md="3">
+                  <v-text-field v-model="form.pekerjaan" :rules="pekerjaanRules" label="Input pekerjaan saat ini" solo
+                    required>
+                  </v-text-field>
+                </v-col>
+
+                <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="2" lg="2" md="2">Kewarganegaraan
+                  <strong class="red--text">*</strong> </v-col>
+                <v-col cols="12" xl="4" lg="4" md="4">
+                  <v-text-field v-model="form.warga_negara" :counter="20" :rules="wargaNegaraRules"
+                    label="Input asal negara" solo required clear-icon="mdi-close-circle" clearable>
+                  </v-text-field>
                 </v-col>
 
                 <v-col class="d-flex flex-wrap text-subtitle-2 px-2" cols="12" xl="3" lg="3" md="3">Alamat Rumah <strong
@@ -108,7 +147,7 @@
           <v-card-text class="text-center">{{ message }}</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text color="green darken-1" @click="dialog=false">
+            <v-btn text color="green darken-1" @click="dialog = false">
               Mengerti
             </v-btn>
           </v-card-actions>
@@ -163,27 +202,38 @@ export default {
       isEditing7: false,
       isEditing8: false,
       error: false,
-      icon:'',
-      judul:'',
-      color:'',
-      action:'',
+      icon: '',
+      judul: '',
+      color: '',
+      action: '',
       message: '',
 
       form: {
         nik: '',
         email: '',
+        password: '',
+        konf_pass: '',
+        no_kk: '',
         nama: '',
         no_hp: '',
         gender: '',
         tempat_lahir: '',
         birthday: '',
-        alamat: ''
+        agama: '',
+        pekerjaan: '',
+        status: '',
+        alamat: '',
+        warga_negara: ''
       },
       nameRules: [
         v => !!v || 'Name masih k osong',
         v => (v && v.length <= 50) || 'Nama harus kurang dari 50 karakter',
       ],
       nikRules: [
+        v => !!v || 'NIK masih kosong',
+        v => (v && v.length >= 15) || 'NIK minimal berjumlah 15 karakter berupa angka',
+      ],
+      noKkRules: [
         v => !!v || 'NIK masih kosong',
         v => (v && v.length >= 15) || 'NIK minimal berjumlah 15 karakter berupa angka',
       ],
@@ -195,6 +245,20 @@ export default {
         v => (v && v.length <= 100) || 'Alamat harus kurang dari 100 karakter',
       ],
       jenisKelamin: ['laki-laki', 'perempuan'],
+      dataAgama: [
+        'islam',
+        'kristen',
+        'katholik',
+        'budha',
+        'hindu',
+        'khonghucu',
+      ],
+      dataStatus: [
+        'kawin',
+        'belum kawin',
+        'cerai hidup',
+        'cerai mati'
+      ],
       noRules: [
         v => !!v || 'No HP masih kosong',
         v => (v && v.length <= 20) || 'No HP melebihi 20 karakter',
@@ -204,6 +268,18 @@ export default {
       ],
       tglRules: [
         v => !!v || 'Tanggal lahir masih kosong',
+      ],
+      agamaRules: [
+        v => !!v || 'Agama tidak boleh kosong'
+      ],
+      pekerjaanRules: [
+        v => !!v || 'Pekerjaan tidak boleh kosong'
+      ],
+      statusRules: [
+        v => !!v || 'Status pernikahan tidak boleh kosong'
+      ],
+      wargaNegaraRules: [
+        v => !!v || 'Kewarganegaraan tidak boleh kosong'
       ],
       emailRules: [
         v => !!v || 'E-mail is required',
@@ -237,28 +313,26 @@ export default {
     updateProfile() {
       this.$axios.$put(`/profile/${this.form.nik}`, this.form)
         .then((response => {
-          // this.$data.form = response
-          console.log(response)
           if (response.msg === 'Profile berhasil di update') {
             this.$data.dialog2 = false
             this.$data.dialog = true
             this.$data.color = 'green darken-1'
             this.$data.message = response.msg
             this.$data.icon = 'mdi-checkbox-marked-circle'
-            this.$data.judul = 'Update profile Berhasil'
+            this.$data.judul = 'Update Profile Berhasil'
           }
         })).catch((error) => {
           this.$data.dialog2 = false
           this.$data.dialog = true
-            this.$data.color = 'red darken-1'
-            this.$data.icon = 'mdi-cancel'
-          this.$data.judul = 'Gagal update profile!!!'
-          // this.$data.type === 'error'
+          this.$data.color = 'red darken-1'
+          this.$data.icon = 'mdi-cancel'
+          this.$data.judul = 'Gagal Update Profile!!!'
           if (error.response.data.msg == "Nik sudah digunakan" || error.response.data.msg == "Email sudah digunakan") { this.message = "NIK atau E-mail sudah digunakan!" }
           if (error.response.data.msg == "Key: 'Masyarakat.No_hp' Error:Field validation for 'No_hp' failed on the 'numeric' tag") { this.message = "Nomor hp harus berupa angka" }
           if (error.response.data.msg == "Nik kosong" || error.response.data.msg == "E-mail kosong" || error.response.data.msg == "Password kosong" || error.response.data.msg == "Konfirmasi password kosong"
             || error.response.data.msg == "Nama kosong" || error.response.data.msg == "Nomor hp kosong" || error.response.data.msg == "Tempat lahir kosong" || error.response.data.msg == "Tanggal lahir kosong"
-            || error.response.data.msg == "Alamat kosong" || error.response.data.msg == "Password dan konfirmasi password tidak sama" || error.response.data.msg == "NIK atau E-mail sudah digunakan"
+            || error.response.data.msg == "Nomor kk kosong" || error.response.data.msg == "Agama kosong" || error.response.data.msg == "Pekerjaan kosong" || error.response.data.msg == "Status kawin kosong"
+            || error.response.data.msg == "Alamat kosong" || error.response.data.msg == "Warga negara kosong" || error.response.data.msg == "Password dan konfirmasi password tidak sama" || error.response.data.msg == "NIK atau E-mail sudah digunakan"
           ) { this.message = error.response.data.msg }
           if (error.response.data.msg_required == "Error 1406 (22001): Data too long for column 'nama' at row 1") { this.message = "nama data terlalu panjang" }
           if (error.response.data.msg_required == "Error 1406 (22001): Data too long for column 'tempat_lahir' at row 1") { this.message = "tempat lahir data terlalu panjang" }

@@ -63,9 +63,12 @@
                   <v-text-field v-model="tambahItem.id" :rules="rules.id" label="NIK"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
+                  <v-text-field v-model="tambahItem.no_kk" :rules="rules.no_kk" label="Nomor KK"></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="tambahItem.email" :rules="rules.email" label="E-mail"></v-text-field>
                 </v-col>
-                <v-col cols="12">
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="tambahItem.nama" :rules="rules.nama" label="Nama Lengkap"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
@@ -76,7 +79,7 @@
                     label="Confirm Password"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
-                  <v-combobox v-model="tambahItem.gender" label="Jenis Kelamin" :items="items"></v-combobox>
+                  <v-combobox v-model="tambahItem.gender" label="Jenis Kelamin" :items="items.gender"></v-combobox>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="tambahItem.no_hp" :rules="rules.no_hp" label="No HP"></v-text-field>
@@ -93,6 +96,17 @@
                   </template>
                   <v-date-picker v-model="tambahItem.birthday" @input="menu = false"></v-date-picker>
                 </v-menu>
+                </v-col>
+                <v-col cols="12" sm="6" md="6">
+                  <v-combobox v-model="tambahItem.agama" label="Agama" :items="items.agama"></v-combobox>
+                </v-col><v-col cols="12" sm="6" md="6">
+                  <v-combobox v-model="tambahItem.status" label="Status" :items="items.status"></v-combobox>
+                </v-col>
+                <v-col cols="12" sm="6" md="6">
+                  <v-text-field v-model="tambahItem.pekerjaan" :rules="rules.pekerjaan" label="Pekerjaan"></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" md="6">
+                  <v-text-field v-model="tambahItem.warga_negara" :rules="rules.warga_negara" label="Kewarganegaraan"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="12" md="12">
                   <v-text-field v-model="tambahItem.alamat" :rules="rules.alamat" label="Alamat"></v-text-field>
@@ -126,9 +140,12 @@
                   <v-text-field v-model="editedItem.nik" label="NIK"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
+                  <v-text-field v-model="editedItem.no_kk" :rules="rules.no_kk" label="Nomor KK"></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="editedItem.email" :rules="rules.email" label="E-mail"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="12" md="12">
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field v-model="editedItem.nama" label="Nama Lengkap"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
@@ -149,6 +166,17 @@
                   </template>
                   <v-date-picker v-model="editedItem.birthday" @input="menu = false"></v-date-picker>
                 </v-menu>
+                </v-col>
+                <v-col cols="12" sm="6" md="6">
+                  <v-combobox v-model="editedItem.agama" label="Agama" :items="items.agama"></v-combobox>
+                </v-col><v-col cols="12" sm="6" md="6">
+                  <v-combobox v-model="editedItem.status" label="Status" :items="items.status"></v-combobox>
+                </v-col>
+                <v-col cols="12" sm="6" md="6">
+                  <v-text-field v-model="editedItem.pekerjaan" :rules="rules.pekerjaan" label="Pekerjaan"></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" md="6">
+                  <v-text-field v-model="editedItem.warga_negara" :rules="rules.warga_negara" label="Kewarganegaraan"></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field v-model="editedItem.alamat" label="Alamat"></v-text-field>
@@ -249,7 +277,26 @@ export default {
       dialogErr: false,
       dialogBerhasil: false,
       message:'',
-      items: ['laki-laki', 'perempuan'],
+      items: {
+        gender: [
+        'laki-laki',
+        'perempuan',
+      ],
+      agama: [
+        'islam',
+        'kristen',
+        'katholik',
+        'budha',
+        'hindu',
+        'khonghucu',
+      ],
+      status: [
+        'kawin',
+        'belum kawin',
+        'cerai hidup',
+        'cerai mati'
+      ],
+      },
       search: '',
       headers: [
         {
@@ -270,7 +317,7 @@ export default {
       rules: {
         id: [
           v => !!v || 'NIK tidak boleh kosong',
-          v => (v && v.length >= 15) || 'NIK harus berjumlah 16 karakter berupa angka',
+          v => (v && v.length >= 15) || 'NIK minimal berjumlah 15 karakter berupa angka',
         ],
         email: [
           v => !!v || 'E-mail tidak boleh kosong',
@@ -280,10 +327,14 @@ export default {
           v => !!v || 'Password tidak boleh kosong',
           v => (v && v.length >= 8) || 'Password berisi minimal 8 karakter',
         ],
-        konfPass: [
+        konf_pass: [
           v => !!v || 'Konfirmasi password tidak boleh kosong',
-          v => (v && v.length >= 8) || 'Password berisi minimal 8 karakter',
-        v => v === this.tambahItem.password || 'Konfirmasi password tidak sama dengan password'
+          v => (v && v.length >= 8) || 'Konfirmasi password berisi minimal 8 karakter',
+          v => v === this.form.password || 'Konfirmasi password tidak sama dengan password'
+        ],
+        no_kk: [
+          v => !!v || 'Nomor KK tidak boleh kosong',
+          v => (v && v.length >= 15) || 'Nomor KK minimal berjumlah 15 karakter berupa angka',
         ],
         nama: [
           v => !!v || 'nama tidak boleh kosong'
@@ -294,11 +345,28 @@ export default {
         gender: [
           v => !!v || 'Jenis kelamin tidak boleh kosong'
         ],
-        ttl: [
-          v => !!v || 'Tempat tanggal lahir tidak boleh kosong'
+        tempat_lahir: [
+          v => !!v || 'Tempat lahir tidak boleh kosong'
+        ],
+        birthday: [
+          v => !!v || 'Tanggal lahir tidak boleh kosong'
+        ], no_hp: [
+          v => !!v || 'Nomor HP tidak boleh kosong'
+        ],
+        agama: [
+          v => !!v || 'Agama tidak boleh kosong'
+        ],
+        pekerjaan: [
+          v => !!v || 'Pekerjaan tidak boleh kosong'
+        ],
+        status: [
+          v => !!v || 'Status pernikahan tidak boleh kosong'
         ],
         alamat: [
           v => !!v || 'Alamat tidak boleh kosong'
+        ],
+        warga_negara: [
+          v => !!v || 'Kewarganegaraan tidak boleh kosong'
         ],
       },
       dataUser: [],
@@ -306,24 +374,34 @@ export default {
       editedItem: {
         nik: '',
         email: '',
+        no_kk:'',
         nama: '',
         no_hp: '',
         gender: '',
         tempat_lahir: '',
         birthday:'',
+        agama: '',
+        pekerjaan: '',
+        status: '',
         alamat: '',
+        warga_negara: ''
       },
       tambahItem: {
         id: '',
         email: '',
         password: '',
         konf_pass: '',
+        no_kk: '',
         nama: '',
         no_hp: '',
         gender: '',
         tempat_lahir: '',
-        birthday:'',
+        birthday: '',
+        agama: '',
+        pekerjaan: '',
+        status: '',
         alamat: '',
+        warga_negara: ''
       },
     }
   },

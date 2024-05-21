@@ -18,36 +18,46 @@
         <v-window v-model="step">
           <v-window-item :value="1">
             <v-card-text>
-              <v-text-field v-model="form.id" :rules="id" label="Input NIK" hint="Contoh: 3207012345678912" required solo counter/>
-              <v-text-field v-model="form.email" :rules="email" label="Input Email" hint="Contoh: example@gmail.com" required solo />
+              <v-text-field v-model="form.id" :rules="rules.id" label="Input NIK" hint="Contoh: 3207012345678912" required
+                solo counter />
+              <v-text-field v-model="form.email" :rules="rules.email" label="Input Email" hint="Contoh: example@gmail.com"
+                required solo />
             </v-card-text>
           </v-window-item>
           <v-window-item :value="2">
             <v-card-text>
-              <v-text-field v-model="form.password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="password"
-                :type="show1 ? 'text' : 'password'" name="input-10-1" counter @click:append="show1 = !show1"
-                hint="Minimal 8 karakter" label="Input Password" solo required />
-              <v-text-field v-model="form.konf_pass" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :rules="konf_pass"
-                :type="show2 ? 'text' : 'password'" name="input-10-1" counter @click:append="show2 = !show2"
-                hint="Minimal 8 karakter" label="Input Confirm Password" solo required />
+              <v-text-field v-model="form.password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="rules.password" :type="show1 ? 'text' : 'password'" name="input-10-1" counter
+                @click:append="show1 = !show1" hint="Minimal 8 karakter" label="Input Password" solo required />
+              <v-text-field v-model="form.konf_pass" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="rules.konf_pass" :type="show2 ? 'text' : 'password'" name="input-10-1" counter
+                @click:append="show2 = !show2" hint="Minimal 8 karakter" label="Input Confirm Password" solo required />
             </v-card-text>
           </v-window-item>
           <v-window-item :value="3">
             <v-card-text>
-              <v-text-field v-model="form.nama" :rules="nama" label="Input Nama" required solo />
-              <v-text-field v-model="form.no_hp" :rules="no_hp" label="Input No HP" required solo />
-              <v-combobox v-model="form.gender" rules:="gender" label="Input Jenis Kelamin" solo required
-                :items="items" />
-              <v-text-field v-model="form.tempat_lahir" :rules="tempat_lahir" label="Input Tempat Lahir" required solo />
-                <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
-                  offset-y min-width="auto">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field v-model="form.birthday" :rules="birthday" label="Input Tanggal Lahir" append-icon="mdi-calendar" readonly
-                      v-bind="attrs" v-on="on" solo></v-text-field>
-                  </template>
-                  <v-date-picker v-model="form.birthday" @input="menu = false"></v-date-picker>
-                </v-menu>
-              <v-text-field v-model="form.alamat" :rules="alamat" label="Input Alamat" required solo />
+              <v-text-field v-model="form.no_kk" :rules="rules.no_kk" label="Input Nomor KK" required solo />
+              <v-text-field v-model="form.nama" :rules="rules.nama" label="Input Nama" required solo />
+              <v-text-field v-model="form.no_hp" :rules="rules.no_hp" label="Input No HP" required solo />
+              <v-combobox v-model="form.gender" :rules:="rules.gender" label="Input Jenis Kelamin" solo required
+                :items="gender" />
+              <v-text-field v-model="form.tempat_lahir" :rules="rules.tempat_lahir" label="Input Tempat Lahir" required
+                solo />
+              <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
+                offset-y min-width="auto">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field v-model="form.birthday" :rules="rules.birthday" label="Input Tanggal Lahir"
+                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" solo></v-text-field>
+                </template>
+                <v-date-picker v-model="form.birthday" @input="menu = false"></v-date-picker>
+              </v-menu>
+              <v-combobox v-model="form.agama" :rules:="rules.agama" label="Input Agama" solo required :items="agama" />
+              <v-text-field v-model="form.pekerjaan" :rules="rules.pekerjaan" label="Input Pekerjaan" required solo />
+              <v-combobox v-model="form.status" :rules:="rules.status" label="Input Status Pernikahan" solo required
+                :items="status" />
+              <v-text-field v-model="form.alamat" :rules="rules.alamat" label="Input Alamat" required solo />
+              <v-text-field v-model="form.warga_negara" :rules="rules.warga_negara" label="Input Kewarganegaraan" required
+                solo />
               <span class="text-caption grey--text text--darken-1">
                 Please enter a real personal profile for yout account
               </span>
@@ -163,52 +173,91 @@ export default {
         email: '',
         password: '',
         konf_pass: '',
+        no_kk: '',
         nama: '',
         no_hp: '',
         gender: '',
         tempat_lahir: '',
         birthday: '',
-        alamat: ''
+        agama: '',
+        pekerjaan: '',
+        status: '',
+        alamat: '',
+        warga_negara: ''
       },
-      items: [
+      gender: [
         'laki-laki',
         'perempuan',
       ],
-      id: [
-        v => !!v || 'NIK tidak boleh kosong',
-        v => (v && v.length >= 15) || 'NIK minimal berjumlah 15 karakter berupa angka',
+      agama: [
+        'islam',
+        'kristen',
+        'katholik',
+        'budha',
+        'hindu',
+        'khonghucu',
       ],
-      email: [
-        v => !!v || 'E-mail tidak boleh kosong',
-        v => /.+@.+\..+/.test(v) || 'E-mail tidak valid',
+      status: [
+        'kawin',
+        'belum kawin',
+        'cerai hidup',
+        'cerai mati'
       ],
-      password: [
-        v => !!v || 'Password tidak boleh kosong',
-        v => (v && v.length >= 8) || 'Password berisi minimal 8 karakter',
-      ],
-      konf_pass: [
-        v => !!v || 'Konfirmasi password tidak boleh kosong',
-        v => (v && v.length >= 8) || 'Konfirmasi password berisi minimal 8 karakter',
-        v => v === this.form.password || 'Konfirmasi password tidak sama dengan password'
-      ],
-      nama: [
-        v => !!v || 'nama tidak boleh kosong'
-      ],
-      no_hp: [
-        v => !!v || 'Nomor HP tidak boleh kosong'
-      ],
-      gender: [
-        v => !!v || 'Jenis kelamin tidak boleh kosong'
-      ],
-      tempat_lahir: [
-        v => !!v || 'Tempat lahir tidak boleh kosong'
-      ],
-      birthday: [
-        v => !!v || 'Tanggal lahir tidak boleh kosong'
-      ],
-      alamat: [
-        v => !!v || 'Alamat tidak boleh kosong'
-      ],
+      rules: {
+        id: [
+          v => !!v || 'NIK tidak boleh kosong',
+          v => (v && v.length >= 15) || 'NIK minimal berjumlah 15 karakter berupa angka',
+        ],
+        email: [
+          v => !!v || 'E-mail tidak boleh kosong',
+          v => /.+@.+\..+/.test(v) || 'E-mail tidak valid',
+        ],
+        password: [
+          v => !!v || 'Password tidak boleh kosong',
+          v => (v && v.length >= 8) || 'Password berisi minimal 8 karakter',
+        ],
+        konf_pass: [
+          v => !!v || 'Konfirmasi password tidak boleh kosong',
+          v => (v && v.length >= 8) || 'Konfirmasi password berisi minimal 8 karakter',
+          v => v === this.form.password || 'Konfirmasi password tidak sama dengan password'
+        ],
+        no_kk: [
+          v => !!v || 'Nomor KK tidak boleh kosong',
+          v => (v && v.length >= 15) || 'Nomor KK minimal berjumlah 15 karakter berupa angka',
+        ],
+        nama: [
+          v => !!v || 'nama tidak boleh kosong'
+        ],
+        no_hp: [
+          v => !!v || 'Nomor HP tidak boleh kosong'
+        ],
+        gender: [
+          v => !!v || 'Jenis kelamin tidak boleh kosong'
+        ],
+        tempat_lahir: [
+          v => !!v || 'Tempat lahir tidak boleh kosong'
+        ],
+        birthday: [
+          v => !!v || 'Tanggal lahir tidak boleh kosong'
+        ], no_hp: [
+          v => !!v || 'Nomor HP tidak boleh kosong'
+        ],
+        agama: [
+          v => !!v || 'Agama tidak boleh kosong'
+        ],
+        pekerjaan: [
+          v => !!v || 'Pekerjaan tidak boleh kosong'
+        ],
+        status: [
+          v => !!v || 'Status pernikahan tidak boleh kosong'
+        ],
+        alamat: [
+          v => !!v || 'Alamat tidak boleh kosong'
+        ],
+        warga_negara: [
+          v => !!v || 'Kewarganegaraan tidak boleh kosong'
+        ],
+      }
     }
   },
 
@@ -224,8 +273,9 @@ export default {
           this.$data.dialog = true
           if (err.response.data.msg == "Key: 'Masyarakat.No_hp' Error:Field validation for 'No_hp' failed on the 'numeric' tag") { this.message = "Nomor hp harus berupa angka" }
           if (err.response.data.msg == "Nik kosong" || err.response.data.msg == "E-mail kosong" || err.response.data.msg == "Password kosong" || err.response.data.msg == "Konfirmasi password kosong"
-          || err.response.data.msg == "Nama kosong" || err.response.data.msg == "Nomor hp kosong" || err.response.data.msg == "Tempat lahir kosong" || err.response.data.msg == "Tanggal lahir kosong"
-          || err.response.data.msg == "Alamat kosong" || err.response.data.msg == "Password dan konfirmasi password tidak sama" || err.response.data.msg == "NIK atau E-mail sudah digunakan"
+            || err.response.data.msg == "Nama kosong" || err.response.data.msg == "Nomor hp kosong" || err.response.data.msg == "Tempat lahir kosong" || err.response.data.msg == "Tanggal lahir kosong"
+            || err.response.data.msg == "Nomor kk kosong" || err.response.data.msg == "Agama kosong" || err.response.data.msg == "Pekerjaan kosong" || err.response.data.msg == "Status kawin kosong"
+            || err.response.data.msg == "Alamat kosong" || err.response.data.msg == "Warga negara kosong" || err.response.data.msg == "Password dan konfirmasi password tidak sama" || err.response.data.msg == "NIK atau E-mail sudah digunakan"
           ) { this.message = err.response.data.msg }
 
           if (err.response.data.msg_required == "Error 1406 (22001): Data too long for column 'nama' at row 1") { this.message = "nama data terlalu panjang" }

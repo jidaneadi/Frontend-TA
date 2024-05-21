@@ -30,7 +30,7 @@
                     <v-list-item-title>Terbitkan</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item @click="editItem(item)">
+                <v-list-item @click="cetakSurat(item)">
                   <v-icon color="yellow" icon class="justify-center">
                     fa-solid fa-print
                   </v-icon>
@@ -231,6 +231,10 @@ export default {
           this.$data.dialogTerbit = false
           this.dialogErr = true
         })
+    },
+
+    cetakSurat(){
+      this.$router.push({ path: '/cetakSurat'});
     },
 
     closeVerif() {
