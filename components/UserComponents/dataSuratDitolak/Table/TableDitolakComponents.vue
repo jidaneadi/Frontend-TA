@@ -32,7 +32,7 @@
                     mdi-pencil
                   </v-icon>
                   <v-list-item-content>
-                    <v-list-item-title> Ajukan Ulang</v-list-item-title>
+                    <v-list-item-title> Edit</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>

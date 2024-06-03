@@ -276,7 +276,7 @@ export default {
             || err.response.data.msg == "Nama kosong" || err.response.data.msg == "Nomor hp kosong" || err.response.data.msg == "Tempat lahir kosong" || err.response.data.msg == "Tanggal lahir kosong"
             || err.response.data.msg == "Nomor kk kosong" || err.response.data.msg == "Agama kosong" || err.response.data.msg == "Pekerjaan kosong" || err.response.data.msg == "Status kawin kosong"
             || err.response.data.msg == "Alamat kosong" || err.response.data.msg == "Warga negara kosong" || err.response.data.msg == "Password dan konfirmasi password tidak sama" || err.response.data.msg == "NIK atau E-mail sudah digunakan"
-          ) { this.message = err.response.data.msg }
+            || err.response.data.msg == "Password harus berjumlah minimal 8 karakter" || err.response.data.msg == "Konfirmasi password harus berjumlah minimal 8 karakter") { this.message = err.response.data.msg }
 
           if (err.response.data.msg_required == "Error 1406 (22001): Data too long for column 'nama' at row 1") { this.message = "nama data terlalu panjang" }
           if (err.response.data.msg_required == "Error 1406 (22001): Data too long for column 'tempat_lahir' at row 1") { this.message = "tempat lahir data terlalu panjang" }

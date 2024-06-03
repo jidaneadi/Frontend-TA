@@ -233,8 +233,13 @@ export default {
         })
     },
 
-    cetakSurat(){
-      this.$router.push({ path: '/cetakSurat'});
+    cetakSurat(item){
+      this.editedIndex = this.dataSurat.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.$router.push({ path: '/cetakSurat', query: {
+        id: this.$data.editedItem.nik,
+        id_surat: this.$data.editedItem.id_surat,
+       }});
     },
 
     closeVerif() {

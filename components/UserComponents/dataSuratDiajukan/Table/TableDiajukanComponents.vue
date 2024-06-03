@@ -8,7 +8,28 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
         </v-card-title>
         <div class="pb-2"></div>
-        <v-data-table :headers="headers" :items="dataSurat" :search="search" />
+        <v-data-table :headers="headers" :items="dataSurat" :search="search">
+
+          <template v-slot:item.actions="{ item }">
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="blue-grey darken-2" small icon dark v-bind="attrs" v-on="on">
+                  <v-icon>mdi-gesture-tap-button</v-icon>
+                </v-btn>
+              </template>
+              <v-list nav dense>
+                <v-list-item @click="tolakItem(item)">
+                  <v-icon color="red" icon>
+                    mdi-cancel
+                  </v-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Batalkan</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </template>
+        </v-data-table>
       </v-card>
     </v-col>
   </v-row>
@@ -32,6 +53,7 @@ export default {
         { text: 'Tanggal Pengajuan', value: 'updated_at' },
         { text: 'Status', value: 'status' },
         { text: 'Keterangan', value: 'keterangan' },
+        { text: 'Actions', value: 'actions', sortable: false }
       ],
       dataSurat: [],
       dataEditSurat: [],
