@@ -19,7 +19,7 @@
                 </v-btn>
               </template>
               <v-list nav dense>
-                <v-list-item @click="tolakItem(item)">
+                <v-list-item @click="delSurat(item)">
                   <v-icon color="red" icon>
                     mdi-delete
                   </v-icon>
@@ -40,15 +40,61 @@
           </template>
         </v-data-table>
       </v-card>
+
+      <!-- ============Dialog Berhasil================= -->
+      <v-dialog v-model="dialogBerhasil" persistent max-width="290">
+        <v-card>
+          <v-card-text align="center">
+            <h2 class="pt-4 pb-2 black--text font-weight-bold">SUKSES!!!</h2>
+          </v-card-text>
+          <v-card-text align="center"><v-btn class="mx-2" fab dark large color="green">
+              <v-icon x-large dark>
+                mdi-checkbox-marked-circle
+              </v-icon>
+            </v-btn>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn block color="green darken-1" class="white--text" @click="deleteSuratKonf">
+              OK
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <!-- ============Dialog ERROR================= -->
+      <v-dialog v-model="dialogErr" persistent max-width="315">
+        <v-card>
+          <v-card-text align="center">
+            <h2 class="pt-4 pb-2 black--text font-weight-bold">GAGAL!!!</h2>
+          </v-card-text>
+          <v-card-text align="center"><v-btn class="mx-2" fab dark large color="red">
+              <v-icon x-large dark>
+                mdi-close
+              </v-icon>
+            </v-btn>
+          </v-card-text>
+          <v-card-text>Cek kembali data anda!. Pastikan NIK dan E-mail yang anda inputkan
+            benar</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn text color="green darken-1" @click="dialogErr = false">
+              Mengerti
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
     </v-col>
   </v-row>
 </template>
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
       search: '',
+      dialogBerhasil:false,
+      dialogErr: false,
       headers: [
         {
           text: 'ID Surat',
@@ -110,6 +156,20 @@ export default {
           console.log(error.response)
         })
     },
+    delSurat(item){
+      this.editedIndex = this.dataSurat.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.$axios.delete(`/surat/${this.editedItem.id_surat}`, this.editedItem)
+      .then((response =>{
+        this.$data.dialogBerhasil=true
+      })).catch((error) => {
+        this.$data.dialogErr=true
+      })
+    },
+    deleteSuratKonf(){
+      this.dataSurat.splice(this.editedIndex, 1)
+      this.$data.dialogBerhasil=false
+    }
   },
   computed: {
     ...mapGetters('auth', {
