@@ -52,7 +52,7 @@ export default {
   axios: {
     prefix: 'http://apisurat.neraproject.icu',
     // prefix: 'http://localhost:4001',
-    // proxy : true
+    proxy : true
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
