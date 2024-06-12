@@ -292,21 +292,21 @@ export default {
           to: '/pengajuanKtp',
         },
         {
-          title: 'Pengantar KK',
-          to: '/pengajuanKk',
+          title: 'Pengantar KTP Lama',
+          to: '/pengajuanktplama',
         },
-        {
-          title: 'Pengantar Kematian',
-          to: '/pengajuanKematian',
-        },
-        {
-          title: 'Pengantar Kelahiran',
-          to: '/pengajuanKelahiran',
-        },
-        {
-          title: 'Pengantar Tidak Mampu',
-          to: '/pengajuanTidakmampu',
-        },
+        // {
+        //   title: 'Pengantar Kematian',
+        //   to: '/pengajuanKematian',
+        // },
+        // {
+        //   title: 'Pengantar Kelahiran',
+        //   to: '/pengajuanKelahiran',
+        // },
+        // {
+        //   title: 'Pengantar Tidak Mampu',
+        //   to: '/pengajuanTidakmampu',
+        // },
       ],
       dokumen: [
         {

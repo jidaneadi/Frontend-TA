@@ -49,7 +49,8 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    prefix: 'http://127.0.0.1:4001',
+    prefix: 'http://apisurat.neraproject.icu',
+    // prefix: 'http://localhost:4001',
     proxy : true
   },
 

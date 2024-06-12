@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     initialize() {
-      this.$axios.$get(`http://localhost:4001/surat/data_doc/${this.$route.query.id_surat}`)
+      this.$axios.$get(`/surat/data_doc/${this.$route.query.id_surat}`)
         .then((response => {
           console.log(response)
           this.$data.data_dokumen_syarat = response

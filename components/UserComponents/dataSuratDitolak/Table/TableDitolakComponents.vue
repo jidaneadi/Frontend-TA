@@ -10,33 +10,12 @@
         <div class="pb-2"></div>
         <v-data-table :headers="headers" :items="dataSurat" :search="search">
 
-          <!-- ===========Action========= -->
           <template v-slot:item.actions="{ item }">
-            <v-menu offset-y>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn color="blue-grey darken-2" small icon dark v-bind="attrs" v-on="on">
-                  <v-icon>mdi-gesture-tap-button</v-icon>
-                </v-btn>
-              </template>
-              <v-list nav dense>
-                <v-list-item @click="delSurat(item)">
-                  <v-icon color="red" icon>
-                    mdi-delete
-                  </v-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Delete</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item @click="lihatDokumenItem(item)">
-                  <v-icon color="yellow" icon>
-                    mdi-pencil
-                  </v-icon>
-                  <v-list-item-content>
-                    <v-list-item-title> Edit</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </v-menu>
+            <v-btn @click="delSurat(item)" small icon dark v-bind="attrs" v-on="on">
+              <v-icon color="red" icon>
+                mdi-delete
+              </v-icon>
+            </v-btn>
           </template>
         </v-data-table>
       </v-card>
@@ -93,7 +72,7 @@ export default {
   data() {
     return {
       search: '',
-      dialogBerhasil:false,
+      dialogBerhasil: false,
       dialogErr: false,
       headers: [
         {
@@ -108,7 +87,7 @@ export default {
         { text: 'Tanggal Pengajuan', value: 'updated_at' },
         { text: 'Status', value: 'status' },
         { text: 'Keterangan', value: 'keterangan' },
-        {text: 'Actions', value: 'actions', sortable:false }
+        { text: 'Actions', value: 'actions', sortable: false }
       ],
       dataSurat: [],
       dataEditSurat: [],
@@ -156,19 +135,19 @@ export default {
           console.log(error.response)
         })
     },
-    delSurat(item){
+    delSurat(item) {
       this.editedIndex = this.dataSurat.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.$axios.delete(`/surat/${this.editedItem.id_surat}`, this.editedItem)
-      .then((response =>{
-        this.$data.dialogBerhasil=true
-      })).catch((error) => {
-        this.$data.dialogErr=true
-      })
+        .then((response => {
+          this.$data.dialogBerhasil = true
+        })).catch((error) => {
+          this.$data.dialogErr = true
+        })
     },
-    deleteSuratKonf(){
+    deleteSuratKonf() {
       this.dataSurat.splice(this.editedIndex, 1)
-      this.$data.dialogBerhasil=false
+      this.$data.dialogBerhasil = false
     }
   },
   computed: {
