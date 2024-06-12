@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     initialize() {
-      this.$axios.$get(`http://localhost:4001/surat/doc/${this.$route.query.id}`, {
+      this.$axios.$get(`/surat/doc/${this.$route.query.id}`, {
         responseType: 'blob' // Menggunakan responseType 'blob' untuk file binary
       })
         .then((response => {
